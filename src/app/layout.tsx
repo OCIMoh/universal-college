@@ -26,6 +26,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="bg-[#f9f9f7] text-[#1a1a1a]">
+      <head>
+        <link
+          rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+        />
+      </head>
       <body
         className={`${inter.variable} ${playfair.variable} font-sans antialiased bg-[#f9f9f7] min-h-screen`}
       >

@@ -13,6 +13,8 @@ import HorizontalPrograms from "@/components/home/HorizontalPrograms";
 import Footer from "@/components/home/Footer";
 import CampusTourOverlay from "@/components/home/CampusTourOverlay";
 import Header from "@/components/navigation/Header";
+import WelcomeFocusSection from "@/components/home/WelcomeFocusSection";
+import PhilosophySymbolismSection from "@/components/home/PhilosophySymbolismSection";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -163,6 +165,9 @@ export default function Home() {
         </div>
       </section>
 
+      {/* WELCOME TO UNIVERSAL CAMPUS & 13 FOCUS PILLARS */}
+      <WelcomeFocusSection />
+
       {/* Global Fixed Visit Campus Button across entire website (bottom right) */}
       <div
         className={`fixed bottom-6 right-6 z-50 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
@@ -236,6 +241,9 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* OUR EDUCATIONAL PHILOSOPHY, 6-STEP PROGRESSION & EMBLEM SYMBOLISM */}
+      <PhilosophySymbolismSection />
 
       {/* SCENE 05: The Destination (Footer) */}
       <div ref={footerRef}>
