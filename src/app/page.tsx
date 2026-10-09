@@ -12,6 +12,7 @@ import GovernanceModal from "@/components/GovernanceModal";
 import HorizontalPrograms from "@/components/home/HorizontalPrograms";
 import Footer from "@/components/home/Footer";
 import CampusTourOverlay from "@/components/home/CampusTourOverlay";
+import Header from "@/components/navigation/Header";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -137,6 +138,9 @@ export default function Home() {
 
   return (
     <main ref={containerRef} className="relative w-full">
+      {/* Floating Adaptive Chameleon Header Dock */}
+      <Header onOpenTour={openTour} isTourOpen={isTourOpen} />
+
       {/* SCENE 01: The Arrival */}
       <section className="hero-section relative h-screen w-full flex items-center justify-center overflow-hidden bg-black">
         <video

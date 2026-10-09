@@ -1,0 +1,137 @@
+"use client";
+
+import { useEffect, useState, useRef } from "react";
+import Image from "next/image";
+import Link from "next/link";
+import { useRouter, usePathname } from "next/navigation";
+
+interface HeaderProps {
+  onOpenTour?: () => void;
+  onOpenMenu?: () => void;
+  isTourOpen?: boolean;
+}
+
+export default function Header({ onOpenTour, onOpenMenu, isTourOpen = false }: HeaderProps) {
+  const router = useRouter();
+  const pathname = usePathname();
+  const [isVisible, setIsVisible] = useState(true);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const lastScrollYRef = useRef(0);
+
+  // Smart Auto-hide and Reveal on Scroll
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      setIsScrolled(currentScrollY > 40);
+
+      if (currentScrollY > 120 && currentScrollY > lastScrollYRef.current + 8) {
+        setIsVisible(false);
+      } else if (currentScrollY < lastScrollYRef.current - 6 || currentScrollY <= 80) {
+        setIsVisible(true);
+      }
+
+      lastScrollYRef.current = currentScrollY;
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const handleMenuClick = () => {
+    if (onOpenMenu) {
+      onOpenMenu();
+    } else {
+      window.dispatchEvent(new CustomEvent("toggle-navigation-menu"));
+    }
+  };
+
+  const navLinks = [
+    { label: "Academics", href: "/academics" },
+    { label: "Admissions", href: "/admissions" },
+    { label: "Campus", href: "/campus" },
+    { label: "Faculty", href: "/faculty" },
+    { label: "About", href: "/about" },
+  ];
+
+  return (
+    <header
+      className={`fixed top-3 md:top-4 left-1/2 -translate-x-1/2 z-50 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+        isVisible && !isTourOpen
+          ? "translate-y-0 opacity-100 pointer-events-auto"
+          : "-translate-y-20 opacity-0 pointer-events-none"
+      }`}
+    >
+      <div
+        className={`relative flex items-center justify-between gap-3 md:gap-7 px-3 py-1 md:px-4 md:py-1 rounded-full transition-all duration-300 ${
+          isScrolled
+            ? "bg-black/95 shadow-[0_16px_45px_rgba(0,0,0,0.9)] border-white/15"
+            : "bg-[#050507]/92 shadow-[0_10px_35px_rgba(0,0,0,0.85)] border-white/10"
+        } backdrop-blur-3xl border text-white select-none`}
+      >
+        {/* Hairline Specular Top Highlight */}
+        <div className="absolute inset-x-8 top-0 h-[1px] bg-gradient-to-r from-transparent via-white/20 to-transparent pointer-events-none" />
+
+        {/* ================= LEFT: OFFICIAL COLLEGE CREST & NAME ================= */}
+        <Link
+          href="/"
+          className="group flex items-center gap-2 transition-transform duration-300 hover:scale-[1.01] cursor-pointer"
+        >
+          <div className="relative w-5 h-5 flex-shrink-0 transition-transform duration-300 group-hover:scale-105">
+            <Image
+              src="/assets/college-logo-transparent.png"
+              alt="Universal College Patran Logo"
+              width={20}
+              height={20}
+              className="w-full h-full object-contain drop-shadow-[0_1px_3px_rgba(0,0,0,0.8)]"
+              priority
+            />
+          </div>
+          <span className="text-[10px] md:text-[11px] font-semibold tracking-[0.18em] uppercase text-white/90 group-hover:text-emerald-300 transition-colors">
+            <span className="hidden sm:inline">UNIVERSAL COLLEGE </span>PATRAN
+          </span>
+        </Link>
+
+        {/* ================= CENTER: EDITORIAL NAV LINKS ================= */}
+        <nav className="hidden lg:flex items-center gap-0.5">
+          {navLinks.map((item) => {
+            const isActive = pathname === item.href;
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                className={`relative px-2.5 py-0.5 rounded-full text-[11px] font-medium tracking-wide transition-all duration-200 ${
+                  isActive
+                    ? "text-emerald-300 bg-white/10 shadow-sm"
+                    : "text-white/65 hover:text-white hover:bg-white/5"
+                }`}
+              >
+                {item.label}
+                {isActive && (
+                  <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-emerald-400" />
+                )}
+              </Link>
+            );
+          })}
+        </nav>
+
+        {/* ================= RIGHT: MINIMALIST MENU TRIGGER ================= */}
+        <div className="flex items-center">
+          <button
+            type="button"
+            onClick={handleMenuClick}
+            aria-label="Open site index directory"
+            className="group flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-white/8 hover:bg-white/18 border border-white/10 hover:border-white/20 text-white transition-all duration-200 cursor-pointer active:scale-95"
+          >
+            <div className="flex flex-col justify-center gap-0.5 w-2.5 h-2">
+              <span className="h-[1px] w-full bg-white/85 group-hover:bg-white transition-all duration-300 rounded-full" />
+              <span className="h-[1px] w-2/3 bg-white/85 group-hover:w-full group-hover:bg-white transition-all duration-300 rounded-full" />
+            </div>
+            <span className="text-[9.5px] md:text-[10px] font-medium tracking-wider uppercase font-mono text-white/75 group-hover:text-white">
+              Menu
+            </span>
+          </button>
+        </div>
+      </div>
+    </header>
+  );
+}
