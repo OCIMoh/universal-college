@@ -11,7 +11,7 @@ import CourseModal from "@/components/CourseModal";
 import GovernanceModal from "@/components/GovernanceModal";
 import HorizontalPrograms from "@/components/home/HorizontalPrograms";
 import Footer from "@/components/home/Footer";
-import CampusTransitionOverlay from "@/components/home/CampusTransitionOverlay";
+import CampusTourOverlay from "@/components/home/CampusTourOverlay";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -19,81 +19,44 @@ export default function Home() {
   const router = useRouter();
   const [selectedCourse, setSelectedCourse] = useState<CourseDetail | null>(null);
   const [selectedGovernance, setSelectedGovernance] = useState<GovernanceSection | null>(null);
-  const [isNavigatingToTour, setIsNavigatingToTour] = useState(false);
+  const [isTourOpen, setIsTourOpen] = useState(false);
+  const [isFooterVisible, setIsFooterVisible] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const heroVideoRef = useRef<HTMLVideoElement>(null);
+  const footerRef = useRef<HTMLDivElement>(null);
 
-  // Clean navigation helper that preserves scroll position
-  const navigateToTour = () => {
-    if (typeof window !== "undefined") {
-      sessionStorage.setItem("ucp_home_scroll", String(window.scrollY || 0));
-    }
-    setIsNavigatingToTour(true);
-    setTimeout(() => {
-      router.push("/visit-campus");
-      setTimeout(() => {
-        setIsNavigatingToTour(false);
-      }, 400);
-    }, 800);
+  const openTour = () => {
+    setIsTourOpen(true);
   };
 
-  // Guarantee that transition overlay is dismissed and restore scroll position cleanly
+  // Check URL query parameter for deep link to tour (?tour=true)
   useEffect(() => {
-    setIsNavigatingToTour(false);
-    if (window.lenisInstance) {
-      window.lenisInstance.start();
+    if (typeof window !== "undefined") {
+      const params = new URLSearchParams(window.location.search);
+      if (params.get("tour") === "true") {
+        setIsTourOpen(true);
+      }
     }
-    document.body.style.overflow = "";
+  }, []);
 
-    const resetOverlay = () => {
-      setIsNavigatingToTour(false);
-    };
+  // Hide floating "Visit Campus" button with animation as soon as user reaches the footer
+  useEffect(() => {
+    const footerEl = footerRef.current;
+    if (!footerEl) return;
 
-    window.addEventListener("pageshow", resetOverlay);
-    window.addEventListener("popstate", resetOverlay);
-    window.addEventListener("focus", resetOverlay);
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsFooterVisible(entry.isIntersecting);
+      },
+      {
+        root: null,
+        rootMargin: "0px 0px -40px 0px",
+        threshold: 0.02,
+      }
+    );
 
-    // Check if returning from campus tour with a saved scroll position
-    const savedScrollStr =
-      typeof window !== "undefined"
-        ? sessionStorage.getItem("ucp_home_scroll")
-        : null;
-
-    if (savedScrollStr !== null) {
-      const targetScroll = parseFloat(savedScrollStr);
-      sessionStorage.removeItem("ucp_home_scroll");
-
-      // Give layout and GSAP time to calibrate, then restore position smoothly
-      const timer = setTimeout(() => {
-        if (window.lenisInstance) {
-          window.lenisInstance.start();
-        }
-        ScrollTrigger.sort();
-        ScrollTrigger.refresh();
-        if (window.lenisInstance) {
-          window.lenisInstance.scrollTo(targetScroll, { immediate: true });
-        } else {
-          window.scrollTo(0, targetScroll);
-        }
-
-        setTimeout(() => {
-          ScrollTrigger.refresh();
-        }, 120);
-      }, 60);
-
-      return () => {
-        clearTimeout(timer);
-        window.removeEventListener("pageshow", resetOverlay);
-        window.removeEventListener("popstate", resetOverlay);
-        window.removeEventListener("focus", resetOverlay);
-      };
-    }
-
-    return () => {
-      window.removeEventListener("pageshow", resetOverlay);
-      window.removeEventListener("popstate", resetOverlay);
-      window.removeEventListener("focus", resetOverlay);
-    };
+    observer.observe(footerEl);
+    return () => observer.disconnect();
   }, []);
 
   useEffect(() => {
@@ -197,15 +160,24 @@ export default function Home() {
       </section>
 
       {/* Global Fixed Visit Campus Button across entire website (bottom right) */}
-      <div className="fixed bottom-6 right-6 z-50">
+      <div
+        className={`fixed bottom-6 right-6 z-50 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+          isTourOpen || isFooterVisible
+            ? "opacity-0 pointer-events-none translate-y-8 scale-90 blur-sm"
+            : "opacity-100 pointer-events-auto translate-y-0 scale-100 blur-0"
+        }`}
+      >
         <button
-          onClick={navigateToTour}
+          onClick={openTour}
           aria-label="Start virtual campus tour"
           className="group flex items-center gap-3 px-6 py-3.5 rounded-full bg-black/90 hover:bg-black text-white backdrop-blur-2xl border border-white/25 shadow-[0_10px_35px_rgba(0,0,0,0.6)] transition-all duration-300 transform hover:scale-105 active:scale-95 cursor-pointer focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:ring-offset-2 focus:ring-offset-black"
         >
-          <span className="relative flex h-3 w-3">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-            <span className="relative inline-flex rounded-full h-3 w-3 bg-emerald-500"></span>
+          <span className="relative flex items-center justify-center w-4 h-4 text-emerald-400 group-hover:rotate-90 transition-transform duration-500 ease-out">
+            <svg viewBox="0 0 16 16" fill="none" className="w-full h-full stroke-current">
+              <circle cx="8" cy="8" r="6" strokeWidth="1.2" strokeOpacity="0.45" />
+              <circle cx="8" cy="8" r="2" fill="currentColor" stroke="none" />
+              <path d="M8 2V0.5" strokeWidth="1.4" strokeLinecap="round" />
+            </svg>
           </span>
           <span className="text-xs md:text-sm font-semibold tracking-wider uppercase">
             Visit Campus
@@ -262,10 +234,12 @@ export default function Home() {
       </section>
 
       {/* SCENE 05: The Destination (Footer) */}
-      <Footer
-        onSelectGovernance={setSelectedGovernance}
-        onNavigateToTour={navigateToTour}
-      />
+      <div ref={footerRef}>
+        <Footer
+          onSelectGovernance={setSelectedGovernance}
+          onNavigateToTour={openTour}
+        />
+      </div>
 
       {/* Course Detail Modal Drawer */}
       <CourseModal
@@ -279,8 +253,11 @@ export default function Home() {
         onClose={() => setSelectedGovernance(null)}
       />
 
-      {/* Departing to Campus Tour Transition Overlay */}
-      <CampusTransitionOverlay isNavigating={isNavigatingToTour} />
+      {/* In-Situ Spatial Takeover (Fullscreen Portal) */}
+      <CampusTourOverlay
+        isOpen={isTourOpen}
+        onClose={() => setIsTourOpen(false)}
+      />
     </main>
   );
 }
