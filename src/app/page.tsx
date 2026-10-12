@@ -13,8 +13,14 @@ import HorizontalPrograms from "@/components/home/HorizontalPrograms";
 import Footer from "@/components/home/Footer";
 import CampusTourOverlay from "@/components/home/CampusTourOverlay";
 import Header from "@/components/navigation/Header";
+import NoticeTicker from "@/components/home/NoticeTicker";
+import AffiliationsTrustStrip from "@/components/home/AffiliationsTrustStrip";
 import WelcomeFocusSection from "@/components/home/WelcomeFocusSection";
+import HomeStatsStrip from "@/components/home/HomeStatsStrip";
+import HomeLeadershipPreview from "@/components/home/HomeLeadershipPreview";
+import LifeAtCampusShowcase from "@/components/home/LifeAtCampusShowcase";
 import PhilosophySymbolismSection from "@/components/home/PhilosophySymbolismSection";
+import AdmissionCtaBanner from "@/components/home/AdmissionCtaBanner";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -165,8 +171,17 @@ export default function Home() {
         </div>
       </section>
 
+      {/* REAL-TIME NOTICE & ADMISSIONS TICKER */}
+      <NoticeTicker />
+
+      {/* REGULATORY AFFILIATIONS & ACCREDITATIONS TRUST STRIP */}
+      <AffiliationsTrustStrip />
+
       {/* WELCOME TO UNIVERSAL CAMPUS & 13 FOCUS PILLARS */}
       <WelcomeFocusSection />
+
+      {/* INSTITUTIONAL IMPACT NUMBERS & STATS */}
+      <HomeStatsStrip />
 
       {/* Global Fixed Visit Campus Button across entire website (bottom right) */}
       <div
@@ -223,6 +238,9 @@ export default function Home() {
       {/* SCENE 03: The Academic World (Horizontal Scroll) */}
       <HorizontalPrograms onSelectCourse={setSelectedCourse} />
 
+      {/* LEADERSHIP VOICES & INSPIRATION PREVIEW */}
+      <HomeLeadershipPreview />
+
       {/* SCENE 04: The Foundation */}
       <section className="relative min-h-screen py-32 px-4 flex flex-col items-center justify-center bg-white text-center">
         <h2 className="text-editorial text-5xl md:text-7xl font-bold mb-12 max-w-4xl">
@@ -242,8 +260,14 @@ export default function Home() {
         </div>
       </section>
 
+      {/* CAMPUS & STUDENT LIFE HIGHLIGHTS SHOWCASE */}
+      <LifeAtCampusShowcase />
+
       {/* OUR EDUCATIONAL PHILOSOPHY, 6-STEP PROGRESSION & EMBLEM SYMBOLISM */}
       <PhilosophySymbolismSection />
+
+      {/* ADMISSION & APEX SCHOLARSHIP CTA BANNER */}
+      <AdmissionCtaBanner />
 
       {/* SCENE 05: The Destination (Footer) */}
       <div ref={footerRef}>

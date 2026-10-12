@@ -29,16 +29,17 @@ export default function WelcomeFocusSection() {
     const ctx = gsap.context(() => {
       gsap.fromTo(
         ".focus-pill",
-        { opacity: 0, y: 18 },
+        { opacity: 0, y: 10 },
         {
           opacity: 1,
           y: 0,
-          stagger: 0.03,
-          duration: 0.5,
+          stagger: 0.018,
+          duration: 0.32,
           ease: "power2.out",
           scrollTrigger: {
             trigger: ".focus-grid",
-            start: "top 85%",
+            start: "top 92%",
+            once: true,
           },
         }
       );
@@ -101,29 +102,26 @@ export default function WelcomeFocusSection() {
               </h3>
             </div>
             <span className="text-xs font-mono text-neutral-500">
-              13 Pillars of Student Development
+              13 Core Dimensions
             </span>
           </div>
 
-          <div className="focus-grid grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3.5">
-            {FOCUS_AREAS.map((item, index) => (
+          <div className="focus-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5">
+            {FOCUS_AREAS.map((item) => (
               <div
                 key={item.id}
-                className="focus-pill group flex items-center gap-3 p-3 rounded-xl bg-white border border-black/10 hover:border-emerald-600/50 hover:shadow-md transition-all duration-300 cursor-default"
+                className="focus-pill group flex items-center gap-4 p-4 md:p-5 rounded-2xl bg-white border border-black/10 hover:border-emerald-600/50 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300 cursor-default"
               >
-                {/* Google Material Symbol Icon in Sleek Container */}
-                <div className="w-9 h-9 rounded-lg bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center flex-shrink-0 group-hover:bg-emerald-600 group-hover:border-emerald-600 transition-all duration-300">
-                  <span className="material-symbols-outlined text-[20px] text-emerald-800 group-hover:text-white transition-colors duration-300 select-none">
+                {/* Google Material Symbol Icon in Larger Container */}
+                <div className="w-12 h-12 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center flex-shrink-0 group-hover:bg-emerald-700 group-hover:border-emerald-700 transition-all duration-300 shadow-sm">
+                  <span className="material-symbols-outlined text-[24px] text-emerald-800 group-hover:text-white transition-colors duration-300 select-none">
                     {item.icon}
                   </span>
                 </div>
 
-                <div className="flex flex-col">
-                  <span className="text-xs font-semibold text-neutral-800 group-hover:text-emerald-900 transition-colors">
+                <div className="flex-1 min-w-0">
+                  <span className="text-sm md:text-[15px] font-semibold text-neutral-900 group-hover:text-emerald-950 transition-colors leading-snug block">
                     {item.label}
-                  </span>
-                  <span className="text-[10px] font-mono text-neutral-400">
-                    Pillar {String(index + 1).padStart(2, "0")}
                   </span>
                 </div>
               </div>
