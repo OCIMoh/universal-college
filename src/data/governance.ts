@@ -92,3 +92,5 @@ export const GOVERNANCE_DATA: Record<string, GovernanceSection> = {
     ],
   },
 };
+
+export * from "./governanceData";

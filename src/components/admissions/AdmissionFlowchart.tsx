@@ -6,19 +6,19 @@ import { ADMISSION_STEPS } from "@/data/admissions";
 const STAGE_IMAGES: Record<string, { src: string; caption: string }> = {
   "01": {
     src: "/assets/campus/visit-glass-porch.jpg",
-    caption: "Central Reception & Glass Porch • Universal Campus",
+    caption: "Central Reception & Glass Porch • Universal Campus Arrival",
   },
   "02": {
     src: "/assets/campus/corridor.jpg",
-    caption: "Administrative Block Corridors & Scrutiny Hall",
+    caption: "Administrative Block Corridors & Scrutiny Chambers",
   },
   "03": {
-    src: "/assets/campus/college-lab-students.jpg",
-    caption: "Departmental Wings & Academic Counseling Desks",
+    src: "/assets/campus/staffroom.jpg",
+    caption: "Faculty Departmental Suites & Academic Counseling Desks",
   },
   "04": {
-    src: "/assets/campus/people-courtyard.jpg",
-    caption: "Central Campus Courtyard & Enrolled Scholars",
+    src: "/assets/campus/admission-cell.jpg",
+    caption: "Central Accounts Office & Scholarship Enrolment Counter",
   },
 };
 

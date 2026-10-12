@@ -79,8 +79,8 @@ export default function AdmissionEnquiryForm() {
           <div className="lg:col-span-5 space-y-8">
             <div className="relative aspect-[4/3] rounded-3xl overflow-hidden shadow-xl border border-black/10">
               <Image
-                src="/assets/campus/corridor.jpg"
-                alt="Universal College Patran Admission Wing"
+                src="/assets/campus/admission-cell.jpg"
+                alt="Universal College Patran Central Admission Cell"
                 fill
                 sizes="(max-width: 1024px) 100vw, 40vw"
                 className="object-cover filter brightness-[0.95]"
@@ -88,7 +88,7 @@ export default function AdmissionEnquiryForm() {
               <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-transparent pointer-events-none" />
               <div className="absolute bottom-6 left-6 right-6 text-white space-y-1">
                 <span className="text-[10px] font-mono uppercase tracking-widest text-emerald-300 font-semibold">
-                  Administrative Wing • Ground Floor
+                  Central Admission Cell • Administrative Block
                 </span>
                 <p className="text-sm font-light leading-relaxed text-white/90">
                   Universal College, Patran, District Patiala, Punjab – 147005. Walk-in merit counseling active daily.

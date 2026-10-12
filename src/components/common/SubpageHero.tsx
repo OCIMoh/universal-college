@@ -1,7 +1,15 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
+
+export interface SubpageHeroImage {
+  src: string;
+  caption?: string;
+  locationTag?: string;
+  title?: string;
+}
 
 interface SubpageHeroProps {
   kicker: string;
@@ -9,6 +17,8 @@ interface SubpageHeroProps {
   subtitle: string;
   breadcrumbs?: { label: string; href?: string }[];
   backgroundImage?: string;
+  backgroundImages?: SubpageHeroImage[];
+  intervalMs?: number;
   imageLocationTag?: string;
 }
 
@@ -18,25 +28,65 @@ export default function SubpageHero({
   subtitle,
   breadcrumbs = [{ label: "Home", href: "/" }, { label: title }],
   backgroundImage,
+  backgroundImages,
+  intervalMs = 5000,
   imageLocationTag,
 }: SubpageHeroProps) {
+  // Normalize images list
+  const imagesList: SubpageHeroImage[] =
+    backgroundImages && backgroundImages.length > 0
+      ? backgroundImages
+      : backgroundImage
+      ? [{ src: backgroundImage, locationTag: imageLocationTag }]
+      : [];
+
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  // Interval timer for seamless background crossfade
+  useEffect(() => {
+    if (imagesList.length <= 1) return;
+
+    const timer = setInterval(() => {
+      setActiveIndex((prev) => (prev + 1) % imagesList.length);
+    }, intervalMs);
+
+    return () => clearInterval(timer);
+  }, [imagesList.length, intervalMs]);
+
+  const activeImage = imagesList[activeIndex];
+  const activeLocationTag =
+    activeImage?.locationTag || activeImage?.caption || imageLocationTag;
+
   return (
     <section className="relative w-full pt-36 pb-20 md:pt-44 md:pb-28 px-6 md:px-12 bg-[#08080a] text-white border-b border-white/10 overflow-hidden">
-      {/* Background Image Layer if provided */}
-      {backgroundImage ? (
+      {/* Background Image Layer */}
+      {imagesList.length > 0 ? (
         <div className="absolute inset-0 z-0 overflow-hidden select-none pointer-events-none">
-          <Image
-            src={backgroundImage}
-            alt={title}
-            fill
-            priority
-            sizes="100vw"
-            className="object-cover object-center filter brightness-[0.42] contrast-[1.08] saturate-[0.85] transition-transform duration-1000 scale-100"
-          />
-          {/* Multi-layered cinematic gradient veils for optimal typography contrast */}
-          <div className="absolute inset-0 bg-gradient-to-t from-[#08080a] via-[#08080a]/65 to-[#08080a]/80" />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#08080a]/90 via-[#08080a]/60 to-transparent" />
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_30%,rgba(8,8,10,0.75)_100%)]" />
+          {imagesList.map((img, idx) => {
+            const isActive = idx === activeIndex;
+            return (
+              <div
+                key={img.src + idx}
+                className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
+                  isActive ? "opacity-100 z-[1]" : "opacity-0 z-0 pointer-events-none"
+                }`}
+              >
+                <Image
+                  src={img.src}
+                  alt={img.title || title}
+                  fill
+                  priority={idx === 0}
+                  sizes="100vw"
+                  className={`object-cover object-center filter brightness-[0.70] contrast-[1.05] saturate-[0.95] transition-transform duration-[7000ms] ease-out ${
+                    isActive ? "scale-105" : "scale-100"
+                  }`}
+                />
+              </div>
+            );
+          })}
+          {/* Cinematic gradient veils for clarity and typography contrast */}
+          <div className="absolute inset-0 z-[2] bg-gradient-to-t from-[#08080a] via-[#08080a]/40 to-transparent" />
+          <div className="absolute inset-0 z-[2] bg-gradient-to-r from-[#08080a]/80 via-[#08080a]/45 to-transparent" />
         </div>
       ) : (
         <>
@@ -47,7 +97,7 @@ export default function SubpageHero({
       )}
 
       {/* Hairline Grid Overlay */}
-      <div className="absolute inset-x-8 top-0 bottom-0 border-x border-white/[0.04] pointer-events-none hidden lg:block z-[1]" />
+      <div className="absolute inset-x-8 top-0 bottom-0 border-x border-white/[0.04] pointer-events-none hidden lg:block z-[2]" />
 
       <div className="relative max-w-6xl mx-auto z-10">
         {/* Breadcrumbs */}
@@ -87,13 +137,15 @@ export default function SubpageHero({
           {subtitle}
         </p>
 
-        {/* Optional Architectural Tag */}
-        {imageLocationTag && (
-          <div className="mt-8 pt-6 border-t border-white/10 flex items-center gap-2 text-[10px] font-mono uppercase tracking-[0.25em] text-white/40">
-            <span className="material-symbols-outlined text-[14px] text-emerald-400">
-              apartment
-            </span>
-            <span>{imageLocationTag}</span>
+        {/* Bottom Metadata Row */}
+        {activeLocationTag && (
+          <div className="mt-8 pt-6 border-t border-white/10 flex items-center justify-between gap-4">
+            <div className="flex items-center gap-2 text-[10px] font-mono uppercase tracking-[0.25em] text-white/60">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 shrink-0" />
+              <span className="truncate max-w-xl">
+                {activeLocationTag}
+              </span>
+            </div>
           </div>
         )}
       </div>

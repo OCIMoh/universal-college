@@ -95,14 +95,11 @@ export default function NavigationDock({ isOpen, onClose }: NavigationDockProps)
                 }`}
               >
                 <div className="flex items-center gap-2.5 min-w-0">
-                  {isActive && (
-                    <span className="w-1 h-1 rounded-full bg-emerald-400 flex-shrink-0" />
-                  )}
                   <div className="truncate">
                     <h4
                       className={`font-serif text-sm md:text-[15px] tracking-tight leading-snug transition-colors ${
                         isActive
-                          ? "text-emerald-300 font-medium"
+                          ? "text-emerald-300 font-medium underline underline-offset-4 decoration-emerald-400 decoration-[1.5px]"
                           : "text-white/90 group-hover:text-emerald-300"
                       }`}
                     >
@@ -147,14 +144,11 @@ export default function NavigationDock({ isOpen, onClose }: NavigationDockProps)
                   }`}
                 >
                   <div className="flex items-center gap-2.5 min-w-0">
-                    {isActive && (
-                      <span className="w-1 h-1 rounded-full bg-emerald-400 flex-shrink-0" />
-                    )}
                     <div className="truncate">
                       <h4
                         className={`font-serif text-sm md:text-[15px] tracking-tight leading-snug transition-colors ${
                           isActive
-                            ? "text-emerald-300 font-medium"
+                            ? "text-emerald-300 font-medium underline underline-offset-4 decoration-emerald-400 decoration-[1.5px]"
                             : "text-white/90 group-hover:text-emerald-300"
                         }`}
                       >

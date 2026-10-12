@@ -125,21 +125,28 @@ export default function Header({ onOpenTour, onOpenMenu, isTourOpen = false }: H
           {/* ================= CENTER: EDITORIAL NAV LINKS ================= */}
           <nav className="hidden lg:flex items-center gap-1">
             {navLinks.map((item) => {
-              const isActive = pathname === item.href;
+              const isActive =
+                pathname === item.href ||
+                (item.href !== "/" && pathname.startsWith(item.href));
               return (
                 <Link
                   key={item.href}
                   href={item.href}
-                  className={`relative px-3 py-1 rounded-full text-[11.5px] font-medium tracking-wide transition-all duration-200 ${
+                  className={`relative group px-3 py-1.5 text-[11.5px] font-medium tracking-wide transition-all duration-200 ${
                     isActive
-                      ? "text-emerald-300 bg-white/12 shadow-sm"
-                      : "text-white/70 hover:text-white hover:bg-white/8"
+                      ? "text-emerald-300 font-semibold"
+                      : "text-white/70 hover:text-white"
                   }`}
                 >
-                  {item.label}
-                  {isActive && (
-                    <span className="absolute bottom-0.5 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-emerald-400" />
-                  )}
+                  <span>{item.label}</span>
+                  {/* Underline indicator */}
+                  <span
+                    className={`absolute bottom-0.5 left-3 right-3 h-[2px] rounded-full transition-all duration-200 ${
+                      isActive
+                        ? "bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.5)] opacity-100"
+                        : "bg-white/20 opacity-0 group-hover:opacity-100"
+                    }`}
+                  />
                 </Link>
               );
             })}

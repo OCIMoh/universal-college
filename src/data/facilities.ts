@@ -297,7 +297,7 @@ export const FACILITIES_DATA: Facility[] = [
     tagline: "A peaceful academic environment for reading, research, revision and independent learning",
     description:
       "The college library provides a peaceful academic environment where students can read, research, revise and learn independently. It complements classroom teaching by encouraging students to explore subjects beyond their prescribed curriculum.",
-    image: "/assets/campus/library.jpg",
+    image: "/assets/campus/college-lab-students.webp",
     keyFocus: ["Reading", "Reference", "Self-Study", "Academic Resources", "Lifelong Learning"],
     capacity: "120 Reading Desks",
     areaSqFt: "Central Library & Digital Hub",

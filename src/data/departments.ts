@@ -216,6 +216,6 @@ export const DEPARTMENTS_DATA: DepartmentInfo[] = [
       "High Court & Ministry Stenographer",
       "Independent Contractor & Trade Entrepreneur"
     ],
-    bannerImage: "/assets/campus/classroom.jpg",
+    bannerImage: "/assets/campus/iti-electrical.jpg",
   },
 ];
