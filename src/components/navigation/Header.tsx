@@ -4,8 +4,7 @@ import { useEffect, useState, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter, usePathname } from "next/navigation";
-
-import NavigationDrawer from "@/components/navigation/NavigationDrawer";
+import NavigationDock from "@/components/navigation/NavigationDock";
 
 interface HeaderProps {
   onOpenTour?: () => void;
@@ -21,6 +20,11 @@ export default function Header({ onOpenTour, onOpenMenu, isTourOpen = false }: H
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const lastScrollYRef = useRef(0);
 
+  // Close menu on route change
+  useEffect(() => {
+    setIsMenuOpen(false);
+  }, [pathname]);
+
   // Listen for custom event or local menu trigger
   useEffect(() => {
     const handleToggle = () => setIsMenuOpen((prev) => !prev);
@@ -34,6 +38,12 @@ export default function Header({ onOpenTour, onOpenMenu, isTourOpen = false }: H
       const currentScrollY = window.scrollY;
       setIsScrolled(currentScrollY > 40);
 
+      // Keep header visible if menu dock is open
+      if (isMenuOpen) {
+        setIsVisible(true);
+        return;
+      }
+
       if (currentScrollY > 120 && currentScrollY > lastScrollYRef.current + 8) {
         setIsVisible(false);
       } else if (currentScrollY < lastScrollYRef.current - 6 || currentScrollY <= 80) {
@@ -45,13 +55,13 @@ export default function Header({ onOpenTour, onOpenMenu, isTourOpen = false }: H
 
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [isMenuOpen]);
 
   const handleMenuClick = () => {
     if (onOpenMenu) {
       onOpenMenu();
     } else {
-      setIsMenuOpen(true);
+      setIsMenuOpen((prev) => !prev);
     }
   };
 
@@ -65,22 +75,32 @@ export default function Header({ onOpenTour, onOpenMenu, isTourOpen = false }: H
 
   return (
     <>
+      {/* Dimmed backdrop to dismiss dock on outside click */}
+      {isMenuOpen && (
+        <div
+          className="fixed inset-0 z-40 bg-black/45 backdrop-blur-[2px] transition-opacity duration-300"
+          onClick={() => setIsMenuOpen(false)}
+          aria-hidden="true"
+        />
+      )}
+
       <header
-        className={`fixed top-3 md:top-4 left-1/2 -translate-x-1/2 z-50 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+        className={`fixed top-3 md:top-4 left-1/2 -translate-x-1/2 z-50 flex flex-col items-center transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
           isVisible && !isTourOpen
             ? "translate-y-0 opacity-100 pointer-events-auto"
             : "-translate-y-20 opacity-0 pointer-events-none"
         }`}
       >
-          <div
+        {/* Floating Pill Dock */}
+        <div
           className={`relative flex items-center justify-between gap-3 md:gap-6 px-3.5 py-1.5 md:px-4 md:py-1.5 rounded-full transition-all duration-300 ${
-            isScrolled
-              ? "bg-black/95 shadow-[0_16px_45px_rgba(0,0,0,0.9)] border-white/15"
+            isScrolled || isMenuOpen
+              ? "bg-black/95 shadow-[0_16px_45px_rgba(0,0,0,0.9)] border-white/20"
               : "bg-[#050507]/92 shadow-[0_10px_35px_rgba(0,0,0,0.85)] border-white/10"
           } backdrop-blur-3xl border text-white select-none max-w-[94vw] sm:max-w-none`}
         >
           {/* Hairline Specular Top Highlight */}
-          <div className="absolute inset-x-8 top-0 h-[1px] bg-gradient-to-r from-transparent via-white/20 to-transparent pointer-events-none" />
+          <div className="absolute inset-x-8 top-0 h-[1px] bg-gradient-to-r from-transparent via-white/25 to-transparent pointer-events-none" />
 
           {/* ================= LEFT: OFFICIAL COLLEGE CREST & NAME ================= */}
           <Link
@@ -89,7 +109,7 @@ export default function Header({ onOpenTour, onOpenMenu, isTourOpen = false }: H
           >
             <div className="relative w-6 h-6 flex-shrink-0 transition-transform duration-300 group-hover:scale-105">
               <Image
-                src="/assets/college-logo-transparent.png"
+                src="/assets/brand/college-logo-transparent.png"
                 alt="Universal College Patran Logo"
                 width={24}
                 height={24}
@@ -130,27 +150,40 @@ export default function Header({ onOpenTour, onOpenMenu, isTourOpen = false }: H
             <button
               type="button"
               onClick={handleMenuClick}
-              aria-label="Open site index directory"
-              className="group flex items-center gap-2 px-3 py-1 md:py-1.5 rounded-full bg-white/10 hover:bg-white/20 border border-white/15 hover:border-white/30 text-white transition-all duration-200 cursor-pointer active:scale-95 min-h-[30px]"
+              aria-label={isMenuOpen ? "Close navigation dock" : "Open navigation dock"}
+              aria-expanded={isMenuOpen}
+              className={`group flex items-center gap-2 px-3 py-1 md:py-1.5 rounded-full transition-all duration-200 cursor-pointer active:scale-95 min-h-[30px] border ${
+                isMenuOpen
+                  ? "bg-white/20 border-white/40 text-emerald-300 shadow-sm"
+                  : "bg-white/10 hover:bg-white/20 border-white/15 hover:border-white/30 text-white"
+              }`}
             >
-              <div className="flex flex-col justify-center gap-0.5 w-3 h-2.5">
-                <span className="h-[1.5px] w-full bg-white/90 group-hover:bg-white transition-all duration-300 rounded-full" />
-                <span className="h-[1.5px] w-2/3 bg-white/90 group-hover:w-full group-hover:bg-white transition-all duration-300 rounded-full" />
+              {/* Morphing Hamburger / Close Icon */}
+              <div className="relative w-3.5 h-3 flex items-center justify-center">
+                <span
+                  className={`absolute h-[1.5px] w-3.5 bg-white transition-all duration-300 ${
+                    isMenuOpen ? "rotate-45" : "-translate-y-1"
+                  }`}
+                />
+                <span
+                  className={`absolute h-[1.5px] bg-white transition-all duration-300 ${
+                    isMenuOpen ? "-rotate-45 w-3.5" : "translate-y-1 w-2.5 group-hover:w-3.5"
+                  }`}
+                />
               </div>
-              <span className="text-[10px] md:text-[11px] font-semibold tracking-wider uppercase font-mono text-white/80 group-hover:text-white">
-                Menu
+              <span className="text-[10px] md:text-[11px] font-semibold tracking-wider uppercase font-mono text-white/90 group-hover:text-white">
+                {isMenuOpen ? "Close" : "Menu"}
               </span>
             </button>
           </div>
         </div>
-      </header>
 
-      {/* Global Fullscreen Index Menu Overlay */}
-      <NavigationDrawer
-        isOpen={isMenuOpen}
-        onClose={() => setIsMenuOpen(false)}
-        onOpenTour={onOpenTour}
-      />
+        {/* ================= ANIMATED FLOATING MINI-DOCK ================= */}
+        <NavigationDock
+          isOpen={isMenuOpen}
+          onClose={() => setIsMenuOpen(false)}
+        />
+      </header>
     </>
   );
 }

@@ -42,7 +42,7 @@ export const DEPARTMENTS_DATA: DepartmentInfo[] = [
       "Network Administration & Cybersecurity",
       "Postgraduate academic research and teaching"
     ],
-    bannerImage: "/assets/infrastructure/computer-lab.jpg",
+    bannerImage: "/assets/campus/computer-lab.jpg",
   },
   {
     id: "commerce",
@@ -70,7 +70,7 @@ export const DEPARTMENTS_DATA: DepartmentInfo[] = [
       "Auditor & Compliance Associate",
       "Independent Business Entrepreneur"
     ],
-    bannerImage: "/assets/corridor.jpg",
+    bannerImage: "/assets/campus/corridor.jpg",
   },
   {
     id: "humanities",
@@ -99,7 +99,7 @@ export const DEPARTMENTS_DATA: DepartmentInfo[] = [
       "Public Relations & Administrative Cadres",
       "Non-Profit & Community Development Leadership"
     ],
-    bannerImage: "/assets/webformat/people-courtyard.webp",
+    bannerImage: "/assets/campus/people-courtyard.webp",
   },
   {
     id: "nursing",
@@ -128,7 +128,7 @@ export const DEPARTMENTS_DATA: DepartmentInfo[] = [
       "Private Clinic Coordinator & Phlebotomy Aide",
       "Community Healthcare Field Supervisor"
     ],
-    bannerImage: "/assets/infrastructure/medical-lab.jpg",
+    bannerImage: "/assets/campus/medical-lab.jpg",
   },
   {
     id: "science-medical",
@@ -156,7 +156,7 @@ export const DEPARTMENTS_DATA: DepartmentInfo[] = [
       "Community Health Officer",
       "Blood Bank Technical Assistant"
     ],
-    bannerImage: "/assets/infrastructure/medical-lab.jpg",
+    bannerImage: "/assets/campus/medical-lab.jpg",
   },
   {
     id: "fashion",
@@ -185,7 +185,7 @@ export const DEPARTMENTS_DATA: DepartmentInfo[] = [
       "Textile Pattern Maker & Quality Inspector",
       "Costume Designer for Media & Performing Arts"
     ],
-    bannerImage: "/assets/infrastructure/fashion-lab.jpg",
+    bannerImage: "/assets/campus/fashion-lab.jpg",
   },
   {
     id: "vocational",
@@ -216,6 +216,6 @@ export const DEPARTMENTS_DATA: DepartmentInfo[] = [
       "High Court & Ministry Stenographer",
       "Independent Contractor & Trade Entrepreneur"
     ],
-    bannerImage: "/assets/infrastructure/classroom.jpg",
+    bannerImage: "/assets/campus/classroom.jpg",
   },
 ];

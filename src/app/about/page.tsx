@@ -33,7 +33,7 @@ export default function AboutPage() {
         kicker="// 02 . INSTITUTIONAL HERITAGE"
         title="About Universal College"
         subtitle="Empowering education, inspiring excellence, and building purposeful futures across Patran, Punjab since 2014."
-        backgroundImage="/assets/corridor.jpg"
+        backgroundImage="/assets/campus/corridor.jpg"
         imageLocationTag="Main Academic Wing • Corridor"
         breadcrumbs={[
           { label: "Home", href: "/" },

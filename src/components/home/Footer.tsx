@@ -6,7 +6,7 @@ import { GOVERNANCE_DATA, GovernanceSection } from "@/data/governance";
 
 interface FooterProps {
   onSelectGovernance: (section: GovernanceSection) => void;
-  onNavigateToTour: () => void;
+  onNavigateToTour?: () => void;
 }
 
 export default function Footer({ onSelectGovernance, onNavigateToTour }: FooterProps) {
@@ -20,7 +20,7 @@ export default function Footer({ onSelectGovernance, onNavigateToTour }: FooterP
             <Link href="/" className="flex items-center gap-3 group inline-flex">
               <div className="relative w-9 h-9 flex-shrink-0">
                 <Image
-                  src="/assets/college-logo-transparent.png"
+                  src="/assets/brand/college-logo-transparent.png"
                   alt="Universal College Patran Logo"
                   width={36}
                   height={36}
@@ -198,7 +198,7 @@ export default function Footer({ onSelectGovernance, onNavigateToTour }: FooterP
               className="relative h-28 w-full rounded-2xl overflow-hidden group border border-white/10 hover:border-emerald-400/50 transition-all shadow-xl block text-left cursor-pointer focus:outline-none focus:ring-2 focus:ring-emerald-400"
             >
               <Image
-                src="/assets/webformat/visit-glass-porch.webp"
+                src="/assets/campus/visit-glass-porch.webp"
                 alt="Visit Universal College Patran Campus"
                 fill
                 sizes="(max-width: 1024px) 100vw, 25vw"

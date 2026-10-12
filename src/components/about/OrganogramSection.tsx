@@ -24,7 +24,7 @@ export default function OrganogramSection() {
         <div className="w-full rounded-3xl overflow-hidden border border-black/10 bg-[#f9f9f7] p-4 md:p-8 shadow-sm">
           <div className="relative w-full rounded-2xl overflow-hidden bg-white border border-black/5 flex items-center justify-center">
             <Image
-              src="/assets/organogram.png"
+              src="/assets/brand/organogram-upscaled.png"
               alt="Universal College Patran Institutional Organogram"
               width={1200}
               height={896}

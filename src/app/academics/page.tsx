@@ -120,7 +120,7 @@ export default function AcademicsPage() {
         kicker="Curricular Continuum • Session 2026–2027"
         title="Multidisciplinary Curricular Architecture"
         subtitle="Explore 30 degree programmes, skill diplomas, industrial trades, and open learning certifications across 4 statutory bodies with verified fee transparency."
-        backgroundImage="/assets/infrastructure/computer-lab.jpg"
+        backgroundImage="/assets/campus/computer-lab.jpg"
         imageLocationTag="Computing & Technology Labs • Universal Campus"
         breadcrumbs={[
           { label: "Home", href: "/" },

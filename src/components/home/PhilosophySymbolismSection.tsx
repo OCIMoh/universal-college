@@ -119,7 +119,7 @@ export default function PhilosophySymbolismSection() {
               <div className="flex items-center gap-3 mb-6">
                 <div className="relative w-14 h-14 bg-white/10 p-2 rounded-2xl border border-white/15 flex-shrink-0">
                   <Image
-                    src="/assets/college-logo-transparent.png"
+                    src="/assets/brand/college-logo-transparent.png"
                     alt="Universal College Official Crest"
                     fill
                     sizes="56px"

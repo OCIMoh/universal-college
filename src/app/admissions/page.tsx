@@ -35,7 +35,7 @@ export default function AdmissionsPage() {
           { label: "Home", href: "/" },
           { label: "Admissions & Scholarships" },
         ]}
-        backgroundImage="/assets/infrastructure/admission-cell.jpg"
+        backgroundImage="/assets/campus/admission-cell.jpg"
         imageLocationTag="Central Admission Cell • Administrative Block"
       />
 

@@ -48,7 +48,7 @@ export default function HorizontalPrograms({ onSelectCourse }: HorizontalProgram
           {/* Panel 1: MRSPTU */}
           <div className="horizontal-panel w-screen h-full flex flex-col md:flex-row items-center justify-center p-12 gap-12">
             <div className="w-full md:w-1/2 h-[50vh] relative rounded-2xl overflow-hidden shadow-2xl">
-              <Image src="/assets/webformat/college-lab-students.webp" alt="Computer Lab" fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover" />
+              <Image src="/assets/campus/college-lab-students.webp" alt="Computer Lab" fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover" />
             </div>
             <div className="w-full md:w-1/2">
               <div className="flex items-center gap-3 mb-3">
@@ -124,14 +124,14 @@ export default function HorizontalPrograms({ onSelectCourse }: HorizontalProgram
               </div>
             </div>
             <div className="w-full md:w-1/2 h-[50vh] relative rounded-2xl overflow-hidden shadow-2xl">
-              <Image src="/assets/webformat/iti-diesel.webp" alt="ITI Diesel" fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover opacity-80" />
+              <Image src="/assets/campus/iti-diesel.webp" alt="ITI Diesel" fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover opacity-80" />
             </div>
           </div>
 
           {/* Panel 3: NIOS / POU */}
           <div className="horizontal-panel w-screen h-full flex flex-col md:flex-row items-center justify-center p-12 gap-12">
             <div className="w-full md:w-1/2 h-[50vh] relative rounded-2xl overflow-hidden shadow-2xl">
-              <Image src="/assets/webformat/care-beauty-salon.webp" alt="Salon" fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover" />
+              <Image src="/assets/campus/care-beauty-salon.webp" alt="Salon" fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover" />
             </div>
             <div className="w-full md:w-1/2">
               <div className="flex items-center gap-3 mb-3">

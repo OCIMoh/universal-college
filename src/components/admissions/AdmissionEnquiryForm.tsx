@@ -79,7 +79,7 @@ export default function AdmissionEnquiryForm() {
           <div className="lg:col-span-5 space-y-8">
             <div className="relative aspect-[4/3] rounded-3xl overflow-hidden shadow-xl border border-black/10">
               <Image
-                src="/assets/corridor.jpg"
+                src="/assets/campus/corridor.jpg"
                 alt="Universal College Patran Admission Wing"
                 fill
                 sizes="(max-width: 1024px) 100vw, 40vw"

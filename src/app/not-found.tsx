@@ -39,7 +39,7 @@ export default function NotFound() {
         {/* Official University Crest */}
         <div className="relative w-24 h-24 sm:w-28 sm:h-28 mb-8 transition-transform duration-500 ease-out hover:scale-105 cursor-default">
           <Image
-            src="/assets/college-logo-transparent.png"
+            src="/assets/brand/college-logo-transparent.png"
             alt="Universal College Patran Official Crest"
             fill
             sizes="(max-width: 640px) 96px, 112px"

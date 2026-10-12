@@ -4,19 +4,13 @@ import { useState } from "react";
 import Image from "next/image";
 import { FACILITIES_DATA, CAMPUS_ZONES, Facility } from "@/data/facilities";
 
-interface CampusFacilitiesShowcaseProps {
-  onOpenTour: (tourStopId?: string) => void;
-}
-
-export default function CampusFacilitiesShowcase({
-  onOpenTour,
-}: CampusFacilitiesShowcaseProps) {
+export default function CampusFacilitiesShowcase() {
   const [selectedZone, setSelectedZone] = useState<string>("ALL");
 
   const filteredFacilities =
     selectedZone === "ALL"
       ? FACILITIES_DATA
-      : FACILITIES_DATA.filter((f) => f.zoneCode === selectedZone);
+      : FACILITIES_DATA.filter((f) => f.zone === selectedZone);
 
   return (
     <section
@@ -28,16 +22,16 @@ export default function CampusFacilitiesShowcase({
         <div className="flex flex-col lg:flex-row lg:items-end justify-between mb-12 pb-8 border-b border-black/10 gap-6">
           <div className="max-w-2xl">
             <div className="inline-flex items-center gap-2 px-3 py-1 bg-emerald-950/5 border border-emerald-900/15 text-emerald-900 font-mono text-xs uppercase tracking-widest mb-4">
-              <span>Section 02</span>
+              <span>Architectural Directory</span>
               <span className="text-black/20">•</span>
-              <span>Architectural Folio</span>
+              <span>Physical Infrastructure</span>
             </div>
             <h2 className="text-3xl md:text-5xl font-serif font-normal text-black tracking-tight leading-tight">
-              Spatial Directory & Facilities
+              Campus Infrastructure & Facilities
             </h2>
           </div>
           <p className="text-sm md:text-base text-black/60 font-sans max-w-md leading-relaxed">
-            Every learning space, workshop floor, and athletics field on our Patran campus has been designed to meet strict regulatory and practical standards.
+            Every part of our campus has a purpose—to make learning more comfortable, practical, inclusive and engaging for every scholar.
           </p>
         </div>
 
@@ -56,15 +50,15 @@ export default function CampusFacilitiesShowcase({
 
           {CAMPUS_ZONES.map((zone) => (
             <button
-              key={zone.code}
-              onClick={() => setSelectedZone(zone.code)}
+              key={zone.name}
+              onClick={() => setSelectedZone(zone.name)}
               className={`px-4 py-2.5 font-mono text-xs tracking-wider uppercase transition-all duration-200 border ${
-                selectedZone === zone.code
+                selectedZone === zone.name
                   ? "bg-black text-white border-black shadow-sm"
                   : "bg-white text-black/70 border-black/10 hover:border-black/30 hover:text-black"
               }`}
             >
-              <span>{zone.code} {zone.name}</span>
+              <span>{zone.name}</span>
               <span className="ml-1.5 opacity-60 font-sans">({zone.count})</span>
             </button>
           ))}
@@ -102,14 +96,14 @@ export default function CampusFacilitiesShowcase({
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-60" />
 
-                      {/* Photo Location / Zone Tag */}
+                      {/* Photo Location Tag */}
                       <div className="absolute top-4 left-4">
                         <span className="inline-block px-3 py-1 bg-black/80 backdrop-blur-md text-white font-mono text-[11px] uppercase tracking-wider border border-white/10">
-                          Zone {facility.zoneCode} • {facility.badge}
+                          {facility.badge}
                         </span>
                       </div>
 
-                      {/* Capacity tag */}
+                      {/* Capacity / Area tag */}
                       {facility.capacity && (
                         <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between text-white text-xs font-mono">
                           <span className="bg-black/75 backdrop-blur-sm px-2.5 py-1 border border-white/10">
@@ -132,10 +126,8 @@ export default function CampusFacilitiesShowcase({
                     }`}
                   >
                     <div>
-                      {/* Sub-header index */}
+                      {/* Sub-header */}
                       <div className="flex items-center gap-3 font-mono text-xs text-black/50 uppercase tracking-widest mb-3">
-                        <span>Space [{(idx + 1).toString().padStart(2, "0")}]</span>
-                        <span>/</span>
                         <span className="text-emerald-800 font-semibold">{facility.zone}</span>
                       </div>
 
@@ -152,12 +144,29 @@ export default function CampusFacilitiesShowcase({
                       </p>
                     </div>
 
+                    {/* Official Key Focus Tags (from PDF) */}
+                    {facility.keyFocus && facility.keyFocus.length > 0 && (
+                      <div className="mb-5 flex flex-wrap items-center gap-2">
+                        <span className="text-[11px] font-mono uppercase tracking-wider text-black/50">
+                          Official Focus:
+                        </span>
+                        {facility.keyFocus.map((focus, fIdx) => (
+                          <span
+                            key={fIdx}
+                            className="inline-block px-2.5 py-0.5 bg-emerald-950/5 border border-emerald-900/15 text-emerald-900 text-xs font-sans font-medium"
+                          >
+                            {focus}
+                          </span>
+                        ))}
+                      </div>
+                    )}
+
                     {/* Specifications Ledger */}
-                    <div className="bg-[#f5f5f2] border border-black/10 p-5 mb-6">
+                    <div className="bg-[#f5f5f2] border border-black/10 p-5">
                       <span className="text-[10px] font-mono uppercase tracking-widest text-black/40 block mb-3 font-semibold">
                         Technical & Operational Ledger
                       </span>
-                      <div className="grid grid-cols-2 gap-x-4 gap-y-2 text-xs">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-2 text-xs">
                         {facility.specifications.map((spec, sIdx) => (
                           <div key={sIdx} className="border-b border-black/5 pb-1">
                             <span className="font-mono text-black/50 block text-[11px]">
@@ -174,7 +183,7 @@ export default function CampusFacilitiesShowcase({
                       {facility.equipment && facility.equipment.length > 0 && (
                         <div className="mt-4 pt-3 border-t border-black/10">
                           <span className="text-[10px] font-mono uppercase tracking-widest text-black/40 block mb-2">
-                            Standard Instrumentation:
+                            Equipment & Highlights:
                           </span>
                           <div className="flex flex-wrap gap-1.5">
                             {facility.equipment.map((item, eIdx) => (
@@ -188,25 +197,6 @@ export default function CampusFacilitiesShowcase({
                           </div>
                         </div>
                       )}
-                    </div>
-
-                    {/* Action Bar */}
-                    <div className="flex items-center gap-4">
-                      <button
-                        onClick={() => onOpenTour(facility.tourStopId)}
-                        className="inline-flex items-center gap-2 px-5 py-2.5 bg-emerald-900 text-white font-mono text-xs uppercase tracking-wider hover:bg-emerald-800 transition-colors shadow-sm"
-                      >
-                        <svg
-                          className="w-4 h-4 text-emerald-300"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <circle cx="12" cy="12" r="10" strokeWidth="2" />
-                          <circle cx="12" cy="12" r="3" fill="currentColor" />
-                        </svg>
-                        <span>Launch 360° Walkthrough</span>
-                      </button>
                     </div>
                   </div>
                 </div>

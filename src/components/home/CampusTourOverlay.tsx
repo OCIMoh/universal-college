@@ -308,8 +308,8 @@ export default function CampusTourOverlay({
             curtainsOpen ? "scale-100" : "scale-108"
           }`}
         >
-          <source src="/assets/webformat/campus-walkthrough-scrub.webm" type="video/webm" />
-          <source src="/assets/campus-walkthrough-scrub.mp4" type="video/mp4" />
+          <source src="/assets/videos/campus-walkthrough-scrub.webm" type="video/webm" />
+          <source src="/assets/videos/campus-walkthrough-scrub.mp4" type="video/mp4" />
         </video>
 
         {/* Cinematic Vignette */}

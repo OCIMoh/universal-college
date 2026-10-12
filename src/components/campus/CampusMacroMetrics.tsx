@@ -13,7 +13,7 @@ const METRICS: MacroMetric[] = [
     detail: "Maintained campus grounds across Patran",
   },
   {
-    value: "20",
+    value: "19",
     label: "Dedicated Facilities",
     detail: "Spanning labs, workshops, sports & commons",
   },
@@ -64,9 +64,6 @@ export default function CampusMacroMetrics() {
               className="flex flex-col justify-between pt-2 border-t-2 border-emerald-900/15 group hover:border-emerald-700 transition-colors"
             >
               <div>
-                <span className="font-mono text-[10px] text-black/40 block mb-1">
-                  [0{idx + 1}]
-                </span>
                 <span className="text-2xl md:text-3xl lg:text-4xl font-serif text-black tracking-tight block group-hover:text-emerald-900 transition-colors">
                   {metric.value}
                 </span>

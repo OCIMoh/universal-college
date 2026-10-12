@@ -24,9 +24,9 @@ export default function CampusSpatialLedger() {
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 pb-6 border-b border-black/10 gap-6">
           <div>
             <div className="inline-flex items-center gap-2 px-3 py-1 bg-emerald-950/5 border border-emerald-900/15 text-emerald-900 font-mono text-xs uppercase tracking-widest mb-3">
-              <span>Section 03</span>
-              <span className="text-black/20">•</span>
               <span>Audit Registry</span>
+              <span className="text-black/20">•</span>
+              <span>Technical Specifications</span>
             </div>
             <h2 className="text-2xl md:text-4xl font-serif font-normal text-black tracking-tight">
               Spatial Master Ledger & Equipment Specifications
@@ -62,23 +62,19 @@ export default function CampusSpatialLedger() {
           <table className="w-full text-left border-collapse font-sans text-xs">
             <thead>
               <tr className="bg-[#e9e9e4] border-b border-black/10 font-mono text-[11px] text-black/70 uppercase tracking-wider">
-                <th className="py-3 px-4 w-16">No.</th>
-                <th className="py-3 px-4 w-64">Facility / Space</th>
-                <th className="py-3 px-4 w-44">Architectural Zone</th>
+                <th className="py-3 px-4 w-72">Facility / Space</th>
+                <th className="py-3 px-4 w-52">Architectural Zone</th>
                 <th className="py-3 px-4 w-36">Capacity / Area</th>
                 <th className="py-3 px-4">Standard Equipment & Tech Stack</th>
                 <th className="py-3 px-4 w-40 text-right">Standard / Badge</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-black/5">
-              {filteredFacilities.map((facility: Facility, idx: number) => (
+              {filteredFacilities.map((facility: Facility) => (
                 <tr
                   key={facility.id}
                   className="hover:bg-neutral-50/80 transition-colors group"
                 >
-                  <td className="py-3 px-4 font-mono text-black/40">
-                    [{(idx + 1).toString().padStart(2, "0")}]
-                  </td>
                   <td className="py-3 px-4 font-semibold text-black/90">
                     <a
                       href={`#${facility.id}`}
@@ -91,7 +87,7 @@ export default function CampusSpatialLedger() {
                     </a>
                   </td>
                   <td className="py-3 px-4 font-mono text-black/60">
-                    Zone {facility.zoneCode}
+                    {facility.zone}
                   </td>
                   <td className="py-3 px-4 font-mono text-black/80">
                     {facility.capacity || facility.areaSqFt || "Standard"}
@@ -112,14 +108,14 @@ export default function CampusSpatialLedger() {
 
         {/* Responsive Mobile / Tablet Cards */}
         <div className="lg:hidden space-y-4">
-          {filteredFacilities.map((facility: Facility, idx: number) => (
+          {filteredFacilities.map((facility: Facility) => (
             <div
               key={facility.id}
               className="p-5 bg-white border border-black/10 shadow-sm"
             >
               <div className="flex items-center justify-between mb-2">
-                <span className="font-mono text-[11px] text-black/40">
-                  [{(idx + 1).toString().padStart(2, "0")}] • Zone {facility.zoneCode}
+                <span className="font-mono text-[11px] text-emerald-800 font-semibold uppercase tracking-wider">
+                  {facility.zone}
                 </span>
                 <span className="font-mono text-[10px] px-2 py-0.5 bg-neutral-100 border border-black/10 text-black/70">
                   {facility.badge}

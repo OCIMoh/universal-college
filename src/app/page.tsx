@@ -158,8 +158,8 @@ export default function Home() {
           playsInline
           className="absolute inset-0 w-full h-full object-cover opacity-75"
         >
-          <source src="/assets/webformat/hero-walkthrough-29s.webm" type="video/webm" />
-          <source src="/assets/hero-walkthrough-29s.mp4" type="video/mp4" />
+          <source src="/assets/videos/hero-walkthrough-29s.webm" type="video/webm" />
+          <source src="/assets/videos/hero-walkthrough-29s.mp4" type="video/mp4" />
         </video>
         <div className="hero-text relative z-10 text-center text-white px-4">
           <h1 className="hero-title opacity-0 text-editorial text-5xl md:text-8xl font-bold mb-4 tracking-tighter">
@@ -220,7 +220,7 @@ export default function Home() {
       {/* SCENE 02: The Corridors */}
       <section className="parallax-section relative h-[80vh] w-full flex items-center justify-center overflow-hidden">
         <Image
-          src="/assets/webformat/fork-path.webp"
+          src="/assets/campus/fork-path.webp"
           alt="Campus Paths"
           fill
           sizes="100vw"
@@ -252,10 +252,10 @@ export default function Home() {
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-5xl">
           <div className="relative h-[400px] rounded-xl overflow-hidden group">
-            <Image src="/assets/webformat/people-courtyard.webp" alt="Courtyard" fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover transition-transform duration-700 group-hover:scale-105" />
+            <Image src="/assets/campus/people-courtyard.webp" alt="Courtyard" fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover transition-transform duration-700 group-hover:scale-105" />
           </div>
           <div className="relative h-[400px] rounded-xl overflow-hidden group">
-            <Image src="/assets/webformat/library.webp" alt="Library" fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover transition-transform duration-700 group-hover:scale-105" />
+            <Image src="/assets/campus/library.webp" alt="Library" fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover transition-transform duration-700 group-hover:scale-105" />
           </div>
         </div>
       </section>
