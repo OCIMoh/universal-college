@@ -1,36 +1,84 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Universal College, Patran
 
-## Getting Started
+The official web portal for **Universal College, Patran** (Punjab). Built with an editorial, typography-focused design.
 
-First, run the development server:
+- **Live URL**: [https://universal-college-patran.vercel.app/](https://universal-college-patran.vercel.app/)
 
+---
+
+## Tech Stack
+
+- **Framework**: Next.js 16 (App Router) + React 19
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS v4
+- **Animation & Scroll**: GSAP (ScrollTrigger) + Lenis Smooth Scroll
+
+---
+
+## Affiliations
+
+- **Degree Programs**: Maharaja Ranjit Singh Punjab Technical University (MRSPTU, Bathinda)
+- **Open Learning**: Jagat Guru Nanak Dev Punjab State Open University (PSOU, Patiala)
+- **Schooling & Trades**: NIOS & Technical ITI
+- **Regulatory Approvals**: AICTE & UGC approved
+- **Scholarships**: 100% Tuition Fee Waiver under Post-Matric SC Scholarship (PMSS)
+
+---
+
+## Quick Start
+
+### 1. Install dependencies
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 2. Run the development server
+```bash
+npm run dev
+```
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 3. Build for production
+```bash
+npm run build
+npm run start
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 4. Type check
+```bash
+npx tsc --noEmit
+```
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## Project Structure
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```
+next_app/
+├── public/assets/      # Campus photos, leadership portraits, hero video
+├── src/
+│   ├── app/            # Next.js App Router pages (Home, About, Academics, Admissions, Campus, Faculty, Contact)
+│   ├── components/     # UI components (navigation, home, admissions, campus, faculty)
+│   └── data/           # Structured data (courses, admissions, faculty, facilities)
+└── package.json
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+## Pages Overview
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- **`/`** — Home (Campus video, announcements, affiliations, 13 pillars, stats)
+- **`/about`** — Heritage, leadership, and regulatory governance
+- **`/academics`** — 30+ degree, diploma, and vocational courses with fee matrix
+- **`/admissions`** — 4-stage admission process, scholarship guide, dates & checklists
+- **`/campus`** — 10+ acre campus spatial specs and 19 facility showcases
+- **`/faculty`** — Searchable directory of 64 faculty & staff across 9 wings
+- **`/contact`** — Admission cell coordinates, helpline, and campus directions
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+## Support & Helpline
+
+- **Helpline**: +91-97791-46689 / +91-81465-26002
+- **Email**: admissions@universalcollegepatran.com
+- **Address**: Universal College, Patran, District Patiala, Punjab – 147005
