@@ -83,80 +83,100 @@ export default function FacultyDirectoryClient() {
   return (
     <section className="relative w-full py-20 px-6 md:px-12 bg-[#f9f9f7] text-[#1a1a1a]">
       <div className="max-w-7xl mx-auto space-y-12">
-        {/* ================= CONTROLS & FILTER BAR ================= */}
-        <div className="rounded-2xl border border-black/10 bg-white p-6 sm:p-8 shadow-sm space-y-6">
-          {/* Top Row: Search Input & View Mode Switcher */}
-          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-            {/* Search Input */}
-            <div className="relative flex-1 max-w-xl">
-              <Search className="w-4 h-4 text-neutral-400 absolute left-4 top-1/2 -translate-y-1/2" />
-              <input
-                type="text"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Search by name, designation, department, qualification, or field..."
-                className="w-full pl-11 pr-10 py-3 rounded-xl border border-black/10 bg-[#fbfbfa] text-neutral-900 text-xs sm:text-sm font-mono placeholder:text-neutral-400 focus:outline-none focus:border-neutral-900 focus:bg-white transition-all shadow-inner"
-              />
-              {searchQuery && (
-                <button
-                  onClick={() => setSearchQuery("")}
-                  className="absolute right-3.5 top-1/2 -translate-y-1/2 text-neutral-400 hover:text-neutral-800"
-                >
-                  <X className="w-4 h-4" />
-                </button>
-              )}
+        {/* ================= ACADEMIC ROLLS & CONTROLS REGISTRY ================= */}
+        <div className="space-y-6">
+          {/* Top Bar: Section Title & View Switcher */}
+          <div className="flex flex-col md:flex-row md:items-end justify-between pb-6 border-b border-black/10 gap-6">
+            <div className="space-y-1.5">
+              <div className="flex items-center gap-2">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-700" />
+                <span className="text-[10px] md:text-[11px] font-mono uppercase tracking-[0.25em] text-emerald-800 font-semibold">
+                  Academic Gazette • Official Personnel Rolls
+                </span>
+              </div>
+              <h2 className="text-3xl sm:text-4xl font-serif font-normal text-neutral-900 tracking-tight">
+                The Collegiate Register
+              </h2>
+              <p className="text-xs font-mono text-neutral-500 uppercase tracking-wider">
+                Session 2026–27 • 64 Appointed Scholars & Administrative Officers
+              </p>
             </div>
 
-            {/* View Mode Toggle & Total Counter */}
-            <div className="flex items-center justify-between sm:justify-end gap-4 font-mono text-xs">
-              <span className="text-neutral-500">
-                Displaying:{" "}
-                <strong className="text-neutral-950 font-bold">
-                  {filteredMembers.length}
-                </strong>{" "}
-                of 64 personnel
+            {/* Archive View Mode Toggle */}
+            <div className="flex items-center gap-3">
+              <span className="text-[11px] font-mono uppercase tracking-wider text-neutral-400 hidden sm:inline">
+                Format:
               </span>
-
-              <div className="flex items-center p-1 rounded-xl border border-black/10 bg-[#fbfbfa]">
-                <button
-                  onClick={() => setViewMode("grid")}
-                  aria-label="Grid View"
-                  className={`p-2 rounded-lg transition-all flex items-center gap-1.5 ${
-                    viewMode === "grid"
-                      ? "bg-neutral-900 text-white shadow-sm"
-                      : "text-neutral-500 hover:text-neutral-900"
-                  }`}
-                >
-                  <Grid className="w-4 h-4" />
-                  <span className="hidden sm:inline text-[11px] font-medium">Grid</span>
-                </button>
+              <div className="inline-flex items-center p-1 rounded-xl border border-black/10 bg-white shadow-sm font-mono text-xs">
                 <button
                   onClick={() => setViewMode("table")}
-                  aria-label="Table View"
-                  className={`p-2 rounded-lg transition-all flex items-center gap-1.5 ${
+                  aria-label="Index View"
+                  className={`px-3 py-1.5 rounded-lg transition-all flex items-center gap-2 ${
                     viewMode === "table"
-                      ? "bg-neutral-900 text-white shadow-sm"
-                      : "text-neutral-500 hover:text-neutral-900"
+                      ? "bg-neutral-900 text-white shadow-sm font-semibold"
+                      : "text-neutral-600 hover:text-neutral-900 hover:bg-black/5"
                   }`}
                 >
-                  <List className="w-4 h-4" />
-                  <span className="hidden sm:inline text-[11px] font-medium">Gazette</span>
+                  <List className="w-3.5 h-3.5" />
+                  <span className="text-[11px] uppercase tracking-wider">Index Register</span>
+                </button>
+                <button
+                  onClick={() => setViewMode("grid")}
+                  aria-label="Portrait Gallery"
+                  className={`px-3 py-1.5 rounded-lg transition-all flex items-center gap-2 ${
+                    viewMode === "grid"
+                      ? "bg-neutral-900 text-white shadow-sm font-semibold"
+                      : "text-neutral-600 hover:text-neutral-900 hover:bg-black/5"
+                  }`}
+                >
+                  <Grid className="w-3.5 h-3.5" />
+                  <span className="text-[11px] uppercase tracking-wider">Portrait Gallery</span>
                 </button>
               </div>
             </div>
           </div>
 
-          {/* Department Filter Pills */}
-          <div className="space-y-2">
-            <div className="flex items-center gap-2 text-xs font-mono text-neutral-500">
-              <Filter className="w-3.5 h-3.5 text-emerald-700" />
-              <span className="uppercase tracking-wider text-[11px] font-semibold">
-                Filter by Collegiate Wing:
+          {/* Integrated Academic Query Line */}
+          <div className="relative w-full rounded-2xl border border-black/10 bg-white p-2 shadow-sm focus-within:border-neutral-900 focus-within:ring-1 focus-within:ring-neutral-900 transition-all flex items-center gap-3">
+            <div className="pl-3 text-neutral-400">
+              <Search className="w-4 h-4" />
+            </div>
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder="Query academic rolls by scholar name, doctoral qualification, department, or discipline..."
+              className="w-full py-2.5 pr-4 text-xs sm:text-sm font-sans text-neutral-900 placeholder:text-neutral-400 focus:outline-none bg-transparent"
+            />
+            {searchQuery && (
+              <button
+                onClick={() => setSearchQuery("")}
+                className="px-2 py-1 text-neutral-400 hover:text-neutral-800 text-xs font-mono uppercase tracking-wider"
+              >
+                Clear
+              </button>
+            )}
+            <div className="pr-3 pl-3 border-l border-black/10 hidden sm:flex items-center shrink-0">
+              <span className="text-[11px] font-mono text-neutral-500 whitespace-nowrap">
+                <strong className="text-neutral-950 font-semibold">{filteredMembers.length}</strong> of 64 on roll
+              </span>
+            </div>
+          </div>
+
+          {/* Collegiate Wing Register (Academic Rolls Navigation) */}
+          <div className="space-y-3 pt-2">
+            <div className="flex items-center justify-between text-[11px] font-mono text-neutral-500 uppercase tracking-wider">
+              <div className="flex items-center gap-2">
+                <Filter className="w-3.5 h-3.5 text-emerald-800" />
+                <span className="font-semibold text-neutral-800">Collegiate Wing Register:</span>
+              </div>
+              <span className="text-neutral-400 hidden md:inline">
+                Select discipline to refine active gazette
               </span>
             </div>
 
-            <div className="flex flex-wrap items-center gap-2 pt-1">
-              {DEPARTMENT_FILTER_OPTIONS.map((opt) => {
+            <div className="flex flex-wrap items-center gap-2">
+              {DEPARTMENT_FILTER_OPTIONS.map((opt, idx) => {
                 const isActive = selectedCategory === opt.id;
                 return (
                   <button
@@ -164,13 +184,16 @@ export default function FacultyDirectoryClient() {
                     onClick={() => setSelectedCategory(opt.id)}
                     className={`px-3.5 py-2 rounded-xl text-xs font-mono transition-all flex items-center gap-2 ${
                       isActive
-                        ? "bg-neutral-900 text-white shadow-sm font-semibold"
-                        : "bg-[#fbfbfa] text-neutral-600 border border-black/10 hover:border-black/30 hover:bg-neutral-100"
+                        ? "bg-neutral-900 text-white shadow-sm font-semibold ring-1 ring-neutral-900"
+                        : "bg-white text-neutral-700 border border-black/10 hover:border-black/30 hover:bg-[#f6f6f2]"
                     }`}
                   >
+                    <span className="text-[10px] text-neutral-400 font-normal">
+                      0{idx}.
+                    </span>
                     <span>{opt.label}</span>
                     <span
-                      className={`text-[10px] px-1.5 py-0.2 rounded-full font-bold ${
+                      className={`text-[10px] px-1.5 py-0.5 rounded-full font-bold ${
                         isActive
                           ? "bg-white/20 text-white"
                           : "bg-black/5 text-neutral-600"
@@ -184,13 +207,13 @@ export default function FacultyDirectoryClient() {
             </div>
           </div>
 
-          {/* Department Context Summary Ribbon */}
-          <div className="p-4 rounded-xl border border-black/5 bg-[#f6f6f2] flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs">
-            <div className="flex items-center gap-2 font-mono text-emerald-800 font-semibold">
-              <span className="w-2 h-2 rounded-full bg-emerald-600" />
-              <span>{activeCategoryInfo.label}</span>
+          {/* Active Wing Curatorial Statement */}
+          <div className="p-4 sm:p-5 rounded-2xl border-l-4 border-l-emerald-700 border border-black/5 bg-white flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs shadow-sm">
+            <div className="flex items-center gap-2 font-mono text-emerald-900 font-semibold shrink-0">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-600" />
+              <span className="uppercase tracking-wider text-[11px]">{activeCategoryInfo.label}</span>
             </div>
-            <p className="text-neutral-600 font-light max-w-2xl">
+            <p className="text-neutral-600 font-sans leading-relaxed">
               {activeCategoryInfo.description}
             </p>
           </div>

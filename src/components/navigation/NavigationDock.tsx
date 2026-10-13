@@ -52,10 +52,10 @@ export default function NavigationDock({ isOpen, onClose }: NavigationDockProps)
       role="dialog"
       aria-modal="true"
       aria-label="Navigation Mini-Dock"
-      className={`w-[94vw] sm:w-[580px] md:w-[680px] max-h-[82vh] overflow-y-auto rounded-3xl bg-[#09090c]/96 backdrop-blur-2xl border border-white/15 shadow-[0_25px_70px_rgba(0,0,0,0.9)] p-5 md:p-6 text-white mt-2.5 transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] origin-top ${
+      className={`rounded-3xl bg-[#09090c]/96 backdrop-blur-2xl text-white transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] origin-top ${
         isOpen
-          ? "opacity-100 translate-y-0 scale-100 pointer-events-auto"
-          : "opacity-0 -translate-y-3 scale-[0.97] pointer-events-none"
+          ? "opacity-100 translate-y-0 scale-100 pointer-events-auto visible w-[94vw] sm:w-[580px] md:w-[680px] max-h-[82vh] overflow-y-auto p-5 md:p-6 mt-2.5 border border-white/15 shadow-[0_25px_70px_rgba(0,0,0,0.9)]"
+          : "opacity-0 -translate-y-3 scale-[0.97] pointer-events-none invisible h-0 max-h-0 p-0 m-0 border-0 shadow-none overflow-hidden"
       }`}
     >
       {/* Hairline Specular Top Highlight */}

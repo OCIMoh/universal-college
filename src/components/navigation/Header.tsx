@@ -85,15 +85,15 @@ export default function Header({ onOpenTour, onOpenMenu, isTourOpen = false }: H
       )}
 
       <header
-        className={`fixed top-3 md:top-4 left-1/2 -translate-x-1/2 z-50 flex flex-col items-center transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+        className={`fixed top-3 md:top-4 left-1/2 -translate-x-1/2 z-50 flex flex-col items-center pointer-events-none transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
           isVisible && !isTourOpen
-            ? "translate-y-0 opacity-100 pointer-events-auto"
-            : "-translate-y-20 opacity-0 pointer-events-none"
+            ? "translate-y-0 opacity-100"
+            : "-translate-y-20 opacity-0"
         }`}
       >
         {/* Floating Pill Dock */}
         <div
-          className={`relative flex items-center justify-between gap-3 md:gap-6 px-3.5 py-1.5 md:px-4 md:py-1.5 rounded-full transition-all duration-300 ${
+          className={`relative pointer-events-auto flex items-center justify-between gap-3 md:gap-6 px-3.5 py-1.5 md:px-4 md:py-1.5 rounded-full transition-all duration-300 ${
             isScrolled || isMenuOpen
               ? "bg-black/95 shadow-[0_16px_45px_rgba(0,0,0,0.9)] border-white/20"
               : "bg-[#050507]/92 shadow-[0_10px_35px_rgba(0,0,0,0.85)] border-white/10"

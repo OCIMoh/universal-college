@@ -1,98 +1,115 @@
 "use client";
 
-interface StatItem {
-  number: string;
-  label: string;
-  description: string;
-  highlight?: boolean;
-}
+import { useEffect, useRef } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-const STATS: StatItem[] = [
-  {
-    number: "2014",
-    label: "FOUNDATION YEAR",
-    description: "Established under Dashmesh Charitable Trust to empower rural students.",
-  },
-  {
-    number: "15+",
-    label: "PROGRAMS OFFERED",
-    description: "Degree, Open University, NIOS, and ITI vocational career streams.",
-  },
-  {
-    number: "16",
-    label: "CAMPUS FACILITIES",
-    description: "Modern computer labs, fashion & medical labs, library, sports stadium.",
-  },
-  {
-    number: "100%",
-    label: "SC SCHOLARSHIP",
-    description: "Zero tuition fee under Post-Matric SC Scholarship (PMSS) scheme.",
-    highlight: true,
-  },
-  {
-    number: "64+",
-    label: "FACULTY & STAFF",
-    description: "Experienced educators and dedicated technical laboratory mentors.",
-  },
+gsap.registerPlugin(ScrollTrigger);
+
+const STATS = [
+  { number: "2014", label: "Founded", sub: "Dashmesh Charitable Trust" },
+  { number: "15+", label: "Programmes", sub: "Degree · ITI · Open · Skill" },
+  { number: "100%", label: "SC Scholarship", sub: "PMSS Fee Waiver", accent: true },
+  { number: "64+", label: "Faculty & Staff", sub: "Teaching & Administrative" },
+  { number: "16", label: "Campus Facilities", sub: "Labs · Library · Stadium" },
 ];
 
 export default function HomeStatsStrip() {
+  const sectionRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      // Animate the number counter feeling — line by line
+      gsap.fromTo(
+        ".stat-item",
+        { opacity: 0, y: 24 },
+        {
+          opacity: 1,
+          y: 0,
+          stagger: 0.09,
+          duration: 0.55,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top 82%",
+            once: true,
+          },
+        }
+      );
+      // Animate the dividing line growing
+      gsap.fromTo(
+        ".stat-divider",
+        { scaleX: 0 },
+        {
+          scaleX: 1,
+          duration: 1.2,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top 82%",
+            once: true,
+          },
+        }
+      );
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <section className="relative w-full py-20 px-6 md:px-12 bg-white text-[#1a1a1a] border-b border-black/10">
+    <section
+      ref={sectionRef}
+      className="relative w-full py-20 px-6 md:px-12 bg-white border-b border-black/10 overflow-hidden"
+    >
       <div className="max-w-7xl mx-auto">
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
-          <div>
-            <div className="flex items-center gap-2 mb-2">
-              <span className="h-1.5 w-1.5 rounded-full bg-emerald-600" />
-              <span className="text-[10px] md:text-[11px] font-mono tracking-[0.25em] uppercase text-emerald-800 font-semibold">
-                By The Numbers
-              </span>
-            </div>
-            <h2 className="text-editorial text-3xl md:text-5xl font-bold tracking-tight text-neutral-900">
-              A Decade of Growth, Impact & Empowerment
-            </h2>
-          </div>
-          <p className="text-sm text-neutral-600 max-w-md font-light leading-relaxed">
-            Measuring our institutional impact across Patran, Patiala district, and Punjab over more than ten years of academic service.
-          </p>
+        {/* Editorial label */}
+        <div className="flex items-center gap-2 mb-10">
+          <span className="h-px flex-1 bg-black/10 stat-divider origin-left" />
+          <span className="text-[10px] font-mono tracking-[0.3em] uppercase text-neutral-400 font-semibold shrink-0">
+            Universal College · By The Numbers
+          </span>
+          <span className="h-px flex-1 bg-black/10 stat-divider origin-right" />
         </div>
 
-        {/* Stats Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+        {/* Stats — pure typography, no cards */}
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-0 divide-x divide-black/10">
           {STATS.map((stat) => (
             <div
               key={stat.label}
-              className={`p-6 rounded-3xl border transition-all duration-300 flex flex-col justify-between ${
-                stat.highlight
-                  ? "bg-gradient-to-br from-[#0d0d12] to-emerald-950 text-white border-emerald-500/30 shadow-xl col-span-2 sm:col-span-1"
-                  : "bg-[#f9f9f7] text-[#1a1a1a] border-black/10 hover:border-emerald-600/30 hover:bg-white hover:shadow-md"
-              }`}
+              className="stat-item px-6 py-4 first:pl-0 last:pr-0 group"
             >
-              <div>
-                <span
-                  className={`text-3xl sm:text-4xl lg:text-5xl font-bold font-mono tracking-tight block mb-2 ${
-                    stat.highlight ? "text-emerald-400" : "text-neutral-900"
-                  }`}
-                >
-                  {stat.number}
-                </span>
-                <span
-                  className={`text-[10px] font-mono tracking-wider uppercase font-semibold block mb-2 ${
-                    stat.highlight ? "text-emerald-300/80" : "text-emerald-800"
-                  }`}
-                >
-                  {stat.label}
-                </span>
-              </div>
-              <p
-                className={`text-xs leading-relaxed font-light ${
-                  stat.highlight ? "text-white/70" : "text-neutral-600"
+              {/* Number */}
+              <div
+                className={`text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-none mb-3 font-mono transition-colors duration-300 ${
+                  stat.accent
+                    ? "text-emerald-600 group-hover:text-emerald-500"
+                    : "text-neutral-900 group-hover:text-emerald-700"
                 }`}
               >
-                {stat.description}
-              </p>
+                {stat.number}
+              </div>
+
+              {/* Label */}
+              <div className="text-[11px] font-semibold tracking-widest uppercase text-neutral-900 mb-1">
+                {stat.label}
+              </div>
+
+              {/* Sub */}
+              <div className="text-xs text-neutral-400 font-light leading-relaxed">
+                {stat.sub}
+              </div>
             </div>
           ))}
+        </div>
+
+        {/* Bottom line */}
+        <div className="mt-10 pt-6 border-t border-black/10 flex flex-col md:flex-row md:items-center justify-between gap-3">
+          <p className="text-xs text-neutral-400 font-light leading-relaxed max-w-lg">
+            Measuring a decade of institutional impact across Patran, Patiala district, and Punjab since 2014.
+          </p>
+          <span className="text-[10px] font-mono tracking-widest uppercase text-neutral-300">
+            Session 2026–27
+          </span>
         </div>
       </div>
     </section>

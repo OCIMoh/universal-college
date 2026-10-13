@@ -158,3 +158,43 @@ body::-webkit-scrollbar {
 .animate-monolith-drawer-out {
   animation: monolithDrawerOut 0.28s cubic-bezier(0.4, 0, 1, 1) forwards;
 }
+
+/* ================= AWWWARDS MINIMAL WHISPER MICRO-SETTLE TRANSITION ================= */
+@keyframes pageEnter {
+  0% {
+    opacity: 0.92;
+    transform: translateY(4px);
+  }
+  100% {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes horizonLaser {
+  0% {
+    transform: scaleX(0);
+    transform-origin: left;
+    opacity: 1;
+  }
+  50% {
+    transform: scaleX(0.75);
+    transform-origin: left;
+    opacity: 1;
+  }
+  100% {
+    transform: scaleX(1);
+    transform-origin: right;
+    opacity: 0;
+  }
+}
+
+.animate-page-enter {
+  animation: pageEnter 0.22s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  will-change: transform, opacity;
+}
+
+.animate-horizon-laser {
+  animation: horizonLaser 0.36s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  will-change: transform, opacity;
+}
