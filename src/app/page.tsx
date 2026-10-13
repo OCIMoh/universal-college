@@ -111,21 +111,7 @@ export default function Home() {
 
 
 
-      // Parallax Image (Percentage-based shift with scale buffer to prevent edge-clipping)
-      gsap.fromTo(
-        ".parallax-img",
-        { yPercent: -12 },
-        {
-          yPercent: 12,
-          ease: "none",
-          scrollTrigger: {
-            trigger: ".parallax-section",
-            start: "top bottom",
-            end: "bottom top",
-            scrub: true,
-          },
-        }
-      );
+
 
       // Delay refresh to ensure layout and fonts are stable
       const timer = setTimeout(() => {
@@ -217,23 +203,7 @@ export default function Home() {
         </button>
       </div>
 
-      {/* SCENE 02: The Corridors */}
-      <section className="parallax-section relative h-[80vh] w-full flex items-center justify-center overflow-hidden">
-        <Image
-          src="/assets/campus/fork-path.webp"
-          alt="Campus Paths"
-          fill
-          sizes="100vw"
-          className="parallax-img object-cover scale-125 opacity-90"
-        />
-        <div className="absolute inset-0 bg-black/40"></div>
-        <div className="relative z-10 text-center text-white p-10 bg-black/20 backdrop-blur-sm rounded-xl">
-          <h2 className="text-editorial text-4xl md:text-6xl font-bold mb-4">
-            15+ Courses. 4 Pathways. 1 Campus.
-          </h2>
-          <p className="text-lg">Degree • ITI • Skill • Open University</p>
-        </div>
-      </section>
+
 
       {/* SCENE 03: The Academic World (Horizontal Scroll) */}
       <HorizontalPrograms onSelectCourse={setSelectedCourse} />
