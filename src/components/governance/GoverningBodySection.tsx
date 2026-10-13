@@ -1,13 +1,10 @@
 "use client";
 
-import { useState } from "react";
 import Image from "next/image";
 import { GOVERNING_BODY } from "@/data/governanceData";
-import { Phone, Mail, Maximize2, X, FileText, Download } from "@/components/common/Icons";
+import { Phone, Mail, FileText } from "@/components/common/Icons";
 
 export default function GoverningBodySection() {
-  const [organogramOpen, setOrganogramOpen] = useState(false);
-
   // Executive Top 5
   const executiveLeaders = GOVERNING_BODY.slice(0, 5);
   // Trustees & Statutory Nominees 5
@@ -208,14 +205,6 @@ export default function GoverningBodySection() {
                 Formal structural hierarchy established under the Dashmesh Charitable Trust. Governs the relationship between the Board of Governors, Academic Directorate, Statutory Oversight Cells, and Student Bodies.
               </p>
             </div>
-
-            <button
-              onClick={() => setOrganogramOpen(true)}
-              className="inline-flex items-center gap-2.5 px-6 py-3.5 rounded-xl border border-black/15 bg-neutral-900 text-white font-mono text-xs uppercase tracking-wider hover:bg-emerald-800 transition-all shrink-0 self-start md:self-auto shadow-sm"
-            >
-              <Maximize2 className="w-4 h-4" />
-              <span>Expand Schematic (Full Screen)</span>
-            </button>
           </div>
 
           {/* 4-Tier Structural Breakdown */}
@@ -253,76 +242,18 @@ export default function GoverningBodySection() {
             </div>
           </div>
 
-          {/* Interactive Blueprint Viewer Box */}
-          <div
-            onClick={() => setOrganogramOpen(true)}
-            className="group relative w-full h-[280px] sm:h-[380px] rounded-2xl overflow-hidden border border-black/10 bg-neutral-100 cursor-pointer flex items-center justify-center shadow-inner"
-          >
+          {/* Clean Organogram Image Display */}
+          <div className="w-full rounded-2xl overflow-hidden border border-black/10 bg-neutral-50 p-4 sm:p-8 flex items-center justify-center shadow-inner">
             <Image
               src="/assets/brand/organogram-upscaled.png"
               alt="Universal College Patran Institutional Organogram"
-              fill
-              className="object-contain p-6 filter group-hover:scale-[1.02] transition-transform duration-500"
+              width={1200}
+              height={896}
+              className="w-full h-auto object-contain rounded-xl"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-60 group-hover:opacity-30 transition-opacity" />
-            <div className="absolute bottom-4 left-6 flex items-center gap-2 text-xs font-mono text-white">
-              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-              <span>Click to open high-resolution structural blueprint &amp; zoom</span>
-            </div>
           </div>
         </div>
       </div>
-
-      {/* ================= FULLSCREEN ARCHITECTURAL ORGANOGRAM MODAL ================= */}
-      {organogramOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-8 bg-black/90 backdrop-blur-xl">
-          <div className="relative w-full max-w-6xl h-[90vh] rounded-2xl border border-white/20 bg-[#0c0c10] flex flex-col overflow-hidden shadow-2xl">
-            {/* Modal Header */}
-            <div className="px-6 py-4 border-b border-white/10 flex items-center justify-between text-white">
-              <div>
-                <h3 className="font-serif font-bold text-white text-lg sm:text-xl">
-                  Universal College Patran — Institutional Organogram
-                </h3>
-                <p className="text-xs font-mono text-white/50">
-                  Approved by Dashmesh Charitable Trust • Session 2026–27
-                </p>
-              </div>
-              <button
-                onClick={() => setOrganogramOpen(false)}
-                className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center text-white/70 hover:text-white hover:bg-white/10 transition-colors"
-                aria-label="Close modal"
-              >
-                <X className="w-5 h-5" />
-              </button>
-            </div>
-
-            {/* Modal Image Body */}
-            <div className="relative flex-1 p-6 overflow-auto bg-black/80 flex items-center justify-center">
-              <div className="relative w-full h-full min-h-[500px]">
-                <Image
-                  src="/assets/brand/organogram-upscaled.png"
-                  alt="Universal College Patran Organogram"
-                  fill
-                  className="object-contain"
-                />
-              </div>
-            </div>
-
-            {/* Modal Footer */}
-            <div className="px-6 py-3 border-t border-white/10 bg-white/[0.02] flex items-center justify-between text-xs font-mono text-white/50">
-              <span>Universal College Patran • Governance System</span>
-              <a
-                href="/assets/brand/organogram-upscaled.png"
-                download="universal-college-patran-organogram.png"
-                className="text-emerald-400 hover:underline flex items-center gap-1.5"
-              >
-                <Download className="w-3.5 h-3.5" />
-                <span>Download Schematic (PNG)</span>
-              </a>
-            </div>
-          </div>
-        </div>
-      )}
     </section>
   );
 }

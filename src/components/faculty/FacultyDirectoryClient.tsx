@@ -525,7 +525,11 @@ export default function FacultyDirectoryClient() {
             onClick={() => setActiveMemberModal(null)}
           >
             <div
-              className="relative w-full max-w-xl rounded-2xl border border-black/15 bg-white p-6 sm:p-8 shadow-2xl space-y-6 text-[#1a1a1a] max-h-[90vh] overflow-y-auto"
+              role="dialog"
+              aria-modal="true"
+              aria-label="Faculty Personnel Dossier"
+              data-lenis-prevent
+              className="relative w-full max-w-xl rounded-2xl border border-black/15 bg-white p-6 sm:p-8 shadow-2xl space-y-6 text-[#1a1a1a] max-h-[90vh] overflow-y-auto overscroll-contain"
               onClick={(e) => e.stopPropagation()}
             >
               {/* Close Button */}

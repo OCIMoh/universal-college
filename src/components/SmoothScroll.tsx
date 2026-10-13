@@ -32,11 +32,16 @@ export default function SmoothScroll({
       wheelMultiplier: 1,
       touchMultiplier: 2,
       prevent: (node) => {
-        // Prevent Lenis from intercepting scroll inside drawers and modals
-        return (
-          node.hasAttribute("data-lenis-prevent") ||
-          !!node.closest("[data-lenis-prevent]")
-        );
+        // ONLY allow native scrolling if target is inside an element explicitly marked with data-lenis-prevent
+        // AND that element actually has scrollable overflow content
+        const preventEl = (node as HTMLElement).closest("[data-lenis-prevent]") as HTMLElement | null;
+        if (preventEl) {
+          return (
+            preventEl.scrollHeight > preventEl.clientHeight ||
+            preventEl.scrollWidth > preventEl.clientWidth
+          );
+        }
+        return false;
       },
     });
 
@@ -53,7 +58,69 @@ export default function SmoothScroll({
     gsap.ticker.add(updateTicker);
     gsap.ticker.lagSmoothing(0);
 
+    // Global MutationObserver to automatically stop/start Lenis whenever any overlay appears/disappears
+    const checkOverlayLock = () => {
+      const activeDialog = document.querySelector(
+        '[role="dialog"]:not(.invisible):not([aria-hidden="true"]), [aria-modal="true"]:not(.invisible):not([aria-hidden="true"])'
+      );
+      const isCssLocked =
+        document.body.style.overflow === "hidden" ||
+        document.documentElement.style.overflow === "hidden";
+
+      const shouldLock = Boolean(activeDialog || isCssLocked);
+
+      if (shouldLock) {
+        if (!lenis.isStopped) {
+          lenis.stop();
+        }
+      } else {
+        if (lenis.isStopped) {
+          lenis.start();
+        }
+      }
+    };
+
+    // Non-passive wheel & touch listeners when Lenis is stopped to guarantee zero background scroll bleed
+    const handleWheelLock = (e: WheelEvent) => {
+      if (!lenis.isStopped) return;
+      const target = e.target as HTMLElement | null;
+      const scrollable = target?.closest("[data-lenis-prevent]") as HTMLElement | null;
+      if (scrollable && (scrollable.scrollHeight > scrollable.clientHeight || scrollable.scrollWidth > scrollable.clientWidth)) {
+        return; // Allow internal modal scroll
+      }
+      if (e.cancelable) {
+        e.preventDefault();
+      }
+    };
+
+    const handleTouchLock = (e: TouchEvent) => {
+      if (!lenis.isStopped) return;
+      const target = e.target as HTMLElement | null;
+      const scrollable = target?.closest("[data-lenis-prevent]") as HTMLElement | null;
+      if (scrollable && (scrollable.scrollHeight > scrollable.clientHeight || scrollable.scrollWidth > scrollable.clientWidth)) {
+        return; // Allow internal modal scroll
+      }
+      if (e.cancelable) {
+        e.preventDefault();
+      }
+    };
+
+    window.addEventListener("wheel", handleWheelLock, { passive: false });
+    window.addEventListener("touchmove", handleTouchLock, { passive: false });
+
+    // Observe documentElement (root) so changes to both html and body styles or classes are captured
+    const observer = new MutationObserver(checkOverlayLock);
+    observer.observe(document.documentElement, {
+      childList: true,
+      subtree: true,
+      attributes: true,
+      attributeFilter: ["style", "class", "aria-hidden"],
+    });
+
     return () => {
+      window.removeEventListener("wheel", handleWheelLock);
+      window.removeEventListener("touchmove", handleTouchLock);
+      observer.disconnect();
       gsap.ticker.remove(updateTicker);
       lenis.destroy();
       delete window.lenisInstance;

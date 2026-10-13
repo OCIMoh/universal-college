@@ -25,6 +25,19 @@ export default function Header({ onOpenTour, onOpenMenu, isTourOpen = false }: H
     setIsMenuOpen(false);
   }, [pathname]);
 
+  // Lock body and html scroll when menu is open
+  useEffect(() => {
+    if (!isMenuOpen) return;
+    const prevBodyOverflow = document.body.style.overflow;
+    const prevHtmlOverflow = document.documentElement.style.overflow;
+    document.body.style.overflow = "hidden";
+    document.documentElement.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = prevBodyOverflow || "";
+      document.documentElement.style.overflow = prevHtmlOverflow || "";
+    };
+  }, [isMenuOpen]);
+
   // Listen for custom event or local menu trigger
   useEffect(() => {
     const handleToggle = () => setIsMenuOpen((prev) => !prev);
@@ -78,7 +91,7 @@ export default function Header({ onOpenTour, onOpenMenu, isTourOpen = false }: H
       {/* Dimmed backdrop to dismiss dock on outside click */}
       {isMenuOpen && (
         <div
-          className="fixed inset-0 z-40 bg-black/45 backdrop-blur-[2px] transition-opacity duration-300"
+          className="fixed inset-0 z-40 bg-black/45 backdrop-blur-[2px] transition-opacity duration-300 overscroll-contain touch-none"
           onClick={() => setIsMenuOpen(false)}
           aria-hidden="true"
         />

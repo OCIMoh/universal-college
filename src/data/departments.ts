@@ -19,7 +19,7 @@ export const DEPARTMENTS_DATA: DepartmentInfo[] = [
     name: "Department of Computer Science & Information Technology",
     shortName: "Computer & IT",
     tagline: "Empowering computational logic, modern software architectures & AI competencies.",
-    headOrCoordinator: "Ms. Karmjit Kaur (HOD, MCA)",
+    headOrCoordinator: "Ms. Karmjit Kaur (HOD, Computer Science & IT)",
     facultyCount: 11,
     overview: "The Department of Computer Science & IT is the college's flagship technical wing, operating across 4 fully air-conditioned computer labs with 100+ networked desktop workstations, dedicated server racks, and high-speed fiber internet. We offer regular MRSPTU degree programs, specialized open university diplomas in Artificial Intelligence & Data Science, PGDCA, and vocational hardware/programming qualifications.",
     associatedLabs: [

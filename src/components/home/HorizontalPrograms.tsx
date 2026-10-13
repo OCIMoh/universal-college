@@ -94,7 +94,7 @@ export default function HorizontalPrograms({ onSelectCourse }: HorizontalProgram
                   MRSPTU Affiliated
                 </strong>
                 <span className="text-[11px] text-white/50 block font-light">
-                  BCA, B.Com, BBA, B.Sc & B.A.
+                  BCA, B.Com, B.Sc (Fashion), PGDCA & B.A.
                 </span>
               </div>
 
@@ -106,7 +106,7 @@ export default function HorizontalPrograms({ onSelectCourse }: HorizontalProgram
                   Universal ITI (NCVT)
                 </strong>
                 <span className="text-[11px] text-white/50 block font-light">
-                  Electrician, Diesel, COPA & Trades
+                  Electrician, Diesel, Plumber, Welder & Fashion
                 </span>
               </div>
 
@@ -209,13 +209,11 @@ export default function HorizontalPrograms({ onSelectCourse }: HorizontalProgram
             </h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-sm">
               {[
-                { id: "electrician", name: "Electrician", dur: "2 Yrs" },
-                { id: "civil_draughtsman", name: "Civil Draughtsman", dur: "2 Yrs" },
-                { id: "plumber", name: "Plumber", dur: "1 Yr" },
-                { id: "mech_diesel", name: "Mech Diesel", dur: "1 Yr" },
-                { id: "copa", name: "COPA", dur: "1 Yr" },
-                { id: "welder", name: "Welder", dur: "1 Yr" },
-                { id: "fashion_design", name: "Fashion Design", dur: "1 Yr" },
+                { id: "iti_electrician", name: "Electrician Trade", dur: "2 Yrs" },
+                { id: "iti_diesel", name: "Mechanic Diesel", dur: "1 Yr" },
+                { id: "iti_plumber", name: "Plumber Trade", dur: "1 Yr" },
+                { id: "iti_welder", name: "Welder (Gas & Elec)", dur: "1 Yr" },
+                { id: "iti_fashion", name: "Fashion Design", dur: "1 Yr" },
               ].map((trade) => (
                 <button
                   key={trade.id}
@@ -268,11 +266,12 @@ export default function HorizontalPrograms({ onSelectCourse }: HorizontalProgram
             </h3>
             <ul className="space-y-2.5 text-base md:text-lg">
               {[
-                { id: "beauty_wellness", name: "Beauty & Wellness", dur: "1 Year" },
-                { id: "health_worker", name: "Community Health Worker", dur: "1 Year" },
-                { id: "elderly_care", name: "Care of Elderly", dur: "1 Year" },
-                { id: "office_automation", name: "Office Automation & E-Gov", dur: "Diploma" },
-                { id: "horticulture", name: "Horticulture", dur: "Diploma" },
+                { id: "psou_office_auto", name: "Office Automation & E-Gov", dur: "1 Year" },
+                { id: "psou_nanny", name: "Diploma in Nanny Care", dur: "1 Year" },
+                { id: "nios_community_health", name: "Community Health Worker", dur: "1 Year" },
+                { id: "nios_elderly_care", name: "Care of Elderly", dur: "1 Year" },
+                { id: "psou_beauty", name: "Beauty & Wellness Certificate", dur: "1 Year" },
+                { id: "psou_ai_ds", name: "Diploma in AI & Data Science", dur: "1 Year" },
               ].map((item) => (
                 <li key={item.id} className="border-b border-black/10 pb-2">
                   <button

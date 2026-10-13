@@ -16,19 +16,17 @@ interface NavItem {
 }
 
 const ACADEMIC_PORTALS: NavItem[] = [
-  { title: "Home", subtitle: "Arrival, Vision & Highlights", href: "/" },
-  { title: "About Us", subtitle: "Leadership, Values & Legacy", href: "/about" },
-  { title: "Academics", subtitle: "Curricular Ledger & 7 Wings", href: "/academics" },
-  { title: "Admissions", subtitle: "PMSS 100% Waiver & Checklist", href: "/admissions" },
-  { title: "Campus & Facilities", subtitle: "19 Specialized Labs & Stadium", href: "/campus" },
-  { title: "Campus Life", subtitle: "8 Pillars, Clubs & NSS/NCC", href: "/campus-life" },
+  { title: "Home", subtitle: "Arrival & Highlights", href: "/" },
+  { title: "About Us", subtitle: "Leadership & Legacy", href: "/about" },
+  { title: "Academics", subtitle: "Curriculum & Fee Matrix", href: "/academics" },
+  { title: "Admissions", subtitle: "PMSS 100% Free Scheme", href: "/admissions" },
 ];
 
 const COMMUNITY_PORTALS: NavItem[] = [
-  { title: "Events & Gallery", subtitle: "39+ Events & Photo Archive", href: "/events" },
-  { title: "Governance & IQAC", subtitle: "Governing Body & Statutory Cells", href: "/governance" },
-  { title: "Faculty Directory", subtitle: "64 Academic Staff Members", href: "/faculty" },
-  { title: "Contact Us", subtitle: "Direct Helplines & Map", href: "/contact" },
+  { title: "Campus", subtitle: "19 Specialized Labs", href: "/campus" },
+  { title: "Governance", subtitle: "Governing Body & Cells", href: "/governance" },
+  { title: "Faculty", subtitle: "64 Academic Staff", href: "/faculty" },
+  { title: "Contact Us", subtitle: "Helplines & Coordinates", href: "/contact" },
 ];
 
 export default function NavigationDock({ isOpen, onClose }: NavigationDockProps) {
@@ -51,10 +49,11 @@ export default function NavigationDock({ isOpen, onClose }: NavigationDockProps)
       ref={dockRef}
       role="dialog"
       aria-modal="true"
+      data-lenis-prevent
       aria-label="Navigation Mini-Dock"
-      className={`rounded-3xl bg-[#09090c]/96 backdrop-blur-2xl text-white transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] origin-top ${
+      className={`rounded-2xl sm:rounded-3xl bg-[#09090c]/98 backdrop-blur-2xl text-white transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] origin-top ${
         isOpen
-          ? "opacity-100 translate-y-0 scale-100 pointer-events-auto visible w-[94vw] sm:w-[580px] md:w-[680px] max-h-[82vh] overflow-y-auto p-5 md:p-6 mt-2.5 border border-white/15 shadow-[0_25px_70px_rgba(0,0,0,0.9)]"
+          ? "opacity-100 translate-y-0 scale-100 pointer-events-auto visible w-[92vw] sm:w-[480px] md:w-[540px] max-h-[85vh] overflow-y-auto overscroll-contain p-3 sm:p-4 mt-1.5 border border-white/15 shadow-[0_20px_60px_rgba(0,0,0,0.9)]"
           : "opacity-0 -translate-y-3 scale-[0.97] pointer-events-none invisible h-0 max-h-0 p-0 m-0 border-0 shadow-none overflow-hidden"
       }`}
     >
@@ -62,24 +61,24 @@ export default function NavigationDock({ isOpen, onClose }: NavigationDockProps)
       <div className="absolute inset-x-8 top-0 h-[1px] bg-gradient-to-r from-transparent via-white/25 to-transparent pointer-events-none" />
 
       {/* Dock Header Strip */}
-      <div className="flex items-center justify-between pb-3.5 mb-4 border-b border-white/10">
+      <div className="flex items-center justify-between pb-2 mb-2 border-b border-white/10">
         <div className="flex items-center gap-2">
           <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-          <span className="text-[10.5px] font-mono tracking-[0.2em] uppercase text-emerald-400 font-semibold">
-            Institutional Directory
+          <span className="text-[10px] font-mono tracking-[0.2em] uppercase text-emerald-400 font-semibold">
+            Directory
           </span>
         </div>
-        <span className="text-[10px] font-mono text-white/40 tracking-wider">
-          Patran, Punjab • Est. 2014
+        <span className="text-[9.5px] font-mono text-white/40 tracking-wider">
+          Patran • Est. 2014
         </span>
       </div>
 
-      {/* Two-Column Portals Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6">
-        {/* Column 1: Academic & Campus Portals */}
+      {/* Two-Column Portals Grid (2 columns on all screens to eliminate scrolling) */}
+      <div className="grid grid-cols-2 gap-2 sm:gap-3">
+        {/* Column 1: Academic & Core */}
         <div className="space-y-1">
-          <span className="text-[9.5px] font-mono uppercase tracking-[0.2em] text-white/40 font-semibold block px-2 mb-1.5">
-            Academic & Campus
+          <span className="text-[9px] font-mono uppercase tracking-[0.2em] text-white/40 font-semibold block px-1.5 mb-1">
+            Academics
           </span>
           {ACADEMIC_PORTALS.map((item) => {
             const isActive = pathname === item.href;
@@ -88,31 +87,29 @@ export default function NavigationDock({ isOpen, onClose }: NavigationDockProps)
                 key={item.href}
                 href={item.href}
                 onClick={onClose}
-                className={`group px-3.5 py-2.5 rounded-2xl flex items-center justify-between transition-all duration-200 cursor-pointer ${
+                className={`group px-2 py-1.5 sm:px-2.5 sm:py-2 rounded-xl flex items-center justify-between transition-all duration-150 cursor-pointer ${
                   isActive
-                    ? "bg-white/12 border border-emerald-500/40 text-emerald-300 shadow-sm"
-                    : "hover:bg-white/[0.07] border border-transparent text-white/85 hover:text-white"
+                    ? "bg-white/15 border border-emerald-500/40 text-emerald-300 shadow-sm"
+                    : "hover:bg-white/[0.08] border border-transparent text-white/85 hover:text-white"
                 }`}
               >
-                <div className="flex items-center gap-2.5 min-w-0">
-                  <div className="truncate">
-                    <h4
-                      className={`font-serif text-sm md:text-[15px] tracking-tight leading-snug transition-colors ${
-                        isActive
-                          ? "text-emerald-300 font-medium underline underline-offset-4 decoration-emerald-400 decoration-[1.5px]"
-                          : "text-white/90 group-hover:text-emerald-300"
-                      }`}
-                    >
-                      {item.title}
-                    </h4>
-                    <p className="text-[10.5px] font-mono text-white/40 group-hover:text-white/60 truncate mt-0.5">
-                      {item.subtitle}
-                    </p>
-                  </div>
+                <div className="min-w-0 pr-1">
+                  <h4
+                    className={`font-serif text-[12.5px] sm:text-sm tracking-tight leading-snug transition-colors truncate ${
+                      isActive
+                        ? "text-emerald-300 font-medium"
+                        : "text-white/90 group-hover:text-emerald-300"
+                    }`}
+                  >
+                    {item.title}
+                  </h4>
+                  <p className="text-[9px] sm:text-[9.5px] font-mono text-white/40 group-hover:text-white/60 truncate leading-tight">
+                    {item.subtitle}
+                  </p>
                 </div>
 
                 <svg
-                  className="w-3.5 h-3.5 text-white/30 group-hover:text-emerald-400 group-hover:translate-x-1 transition-all flex-shrink-0 ml-2"
+                  className="w-3 h-3 text-white/30 group-hover:text-emerald-400 group-hover:translate-x-0.5 transition-all flex-shrink-0"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -124,88 +121,62 @@ export default function NavigationDock({ isOpen, onClose }: NavigationDockProps)
           })}
         </div>
 
-        {/* Column 2: Governance & Community */}
-        <div className="space-y-1 flex flex-col justify-between">
-          <div>
-            <span className="text-[9.5px] font-mono uppercase tracking-[0.2em] text-white/40 font-semibold block px-2 mb-1.5">
-              Governance & Directory
-            </span>
-            {COMMUNITY_PORTALS.map((item) => {
-              const isActive = pathname === item.href;
-              return (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  onClick={onClose}
-                  className={`group px-3.5 py-2.5 rounded-2xl flex items-center justify-between transition-all duration-200 cursor-pointer ${
-                    isActive
-                      ? "bg-white/12 border border-emerald-500/40 text-emerald-300 shadow-sm"
-                      : "hover:bg-white/[0.07] border border-transparent text-white/85 hover:text-white"
-                  }`}
-                >
-                  <div className="flex items-center gap-2.5 min-w-0">
-                    <div className="truncate">
-                      <h4
-                        className={`font-serif text-sm md:text-[15px] tracking-tight leading-snug transition-colors ${
-                          isActive
-                            ? "text-emerald-300 font-medium underline underline-offset-4 decoration-emerald-400 decoration-[1.5px]"
-                            : "text-white/90 group-hover:text-emerald-300"
-                        }`}
-                      >
-                        {item.title}
-                      </h4>
-                      <p className="text-[10.5px] font-mono text-white/40 group-hover:text-white/60 truncate mt-0.5">
-                        {item.subtitle}
-                      </p>
-                    </div>
-                  </div>
-
-                  <svg
-                    className="w-3.5 h-3.5 text-white/30 group-hover:text-emerald-400 group-hover:translate-x-1 transition-all flex-shrink-0 ml-2"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
+        {/* Column 2: Campus & Governance */}
+        <div className="space-y-1">
+          <span className="text-[9px] font-mono uppercase tracking-[0.2em] text-white/40 font-semibold block px-1.5 mb-1">
+            Campus
+          </span>
+          {COMMUNITY_PORTALS.map((item) => {
+            const isActive = pathname === item.href;
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                onClick={onClose}
+                className={`group px-2 py-1.5 sm:px-2.5 sm:py-2 rounded-xl flex items-center justify-between transition-all duration-150 cursor-pointer ${
+                  isActive
+                    ? "bg-white/15 border border-emerald-500/40 text-emerald-300 shadow-sm"
+                    : "hover:bg-white/[0.08] border border-transparent text-white/85 hover:text-white"
+                }`}
+              >
+                <div className="min-w-0 pr-1">
+                  <h4
+                    className={`font-serif text-[12.5px] sm:text-sm tracking-tight leading-snug transition-colors truncate ${
+                      isActive
+                        ? "text-emerald-300 font-medium"
+                        : "text-white/90 group-hover:text-emerald-300"
+                    }`}
                   >
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
-                  </svg>
-                </Link>
-              );
-            })}
-          </div>
+                    {item.title}
+                  </h4>
+                  <p className="text-[9px] sm:text-[9.5px] font-mono text-white/40 group-hover:text-white/60 truncate leading-tight">
+                    {item.subtitle}
+                  </p>
+                </div>
 
-          {/* Admissions Spotlight Card in Column 2 */}
-          <div className="p-3.5 rounded-2xl bg-white/[0.04] border border-white/10 mt-3">
-            <div className="flex items-center justify-between mb-1.5">
-              <span className="text-[9.5px] font-mono uppercase tracking-widest text-emerald-400 font-semibold">
-                Session 2026–27
-              </span>
-              <span className="text-[9.5px] font-mono text-white/40">
-                PMSS 100% Free
-              </span>
-            </div>
-            <p className="text-[11px] text-white/70 font-sans leading-normal mb-2.5">
-              Scheduled Caste scholars eligible for full tuition fee waiver.
-            </p>
-            <Link
-              href="/admissions"
-              onClick={onClose}
-              className="inline-flex items-center justify-center w-full py-1.5 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-black font-mono text-[11px] uppercase tracking-wider font-semibold transition-colors"
-            >
-              Verify Eligibility →
-            </Link>
-          </div>
+                <svg
+                  className="w-3 h-3 text-white/30 group-hover:text-emerald-400 group-hover:translate-x-0.5 transition-all flex-shrink-0"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
+                </svg>
+              </Link>
+            );
+          })}
         </div>
       </div>
 
       {/* Dock Bottom Utility Bar */}
-      <div className="pt-3.5 mt-4 border-t border-white/10 flex flex-col sm:flex-row sm:items-center justify-between gap-2 font-mono text-[10.5px] text-white/50">
-        <div>
+      <div className="pt-2 mt-2 border-t border-white/10 flex items-center justify-between font-mono text-[9px] sm:text-[10px] text-white/45">
+        <div className="truncate">
           <span>Helpline: </span>
-          <span className="text-emerald-400">92162-44163 / 97791-46689</span>
+          <span className="text-emerald-400">97791-46689</span>
         </div>
-        <div className="flex items-center gap-2">
-          <span>Affiliations:</span>
-          <span className="text-white/70">MRSPTU • PSOU • NIOS</span>
+        <div className="flex items-center gap-1.5 text-white/40 truncate">
+          <span>Affiliated:</span>
+          <span className="text-white/60">MRSPTU • PSOU • NIOS</span>
         </div>
       </div>
     </div>

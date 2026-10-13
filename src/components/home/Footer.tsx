@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { GOVERNANCE_DATA, GovernanceSection } from "@/data/governance";
+import { Phone, Mail, MapPin } from "@/components/common/Icons";
 
 interface FooterProps {
   onSelectGovernance: (section: GovernanceSection) => void;
@@ -43,9 +44,15 @@ export default function Footer({ onSelectGovernance, onNavigateToTour }: FooterP
                 Chanda Colony, Patran-147105,<br />
                 Distt. Patiala, Punjab (India)
               </p>
-              <div className="font-mono text-xs space-y-1 text-white/80">
-                <p className="text-emerald-400">📞 +91-97791-46689 / +91-81465-26002</p>
-                <p>✉ info@universaliti.in / universalpatran@gmail.com</p>
+              <div className="font-mono text-xs space-y-1.5 text-white/80">
+                <p className="text-emerald-400 flex items-center gap-1.5">
+                  <Phone className="w-3.5 h-3.5 flex-shrink-0" />
+                  <span>+91-97791-46689 / +91-81465-26002</span>
+                </p>
+                <p className="flex items-center gap-1.5">
+                  <Mail className="w-3.5 h-3.5 flex-shrink-0" />
+                  <span>info@universaliti.in / universalpatran@gmail.com</span>
+                </p>
                 <p className="text-white/50">Office: Mon–Sat 9:00 AM – 4:30 PM</p>
               </div>
             </div>
@@ -94,15 +101,9 @@ export default function Footer({ onSelectGovernance, onNavigateToTour }: FooterP
                 </Link>
               </li>
               <li>
-                <Link href="/campus-life" className="hover:text-emerald-300 transition-colors flex items-center gap-1.5">
+                <Link href="/campus" className="hover:text-emerald-300 transition-colors flex items-center gap-1.5">
                   <span className="text-emerald-500 text-xs">›</span>
-                  <span>Campus Life, Clubs & Sports</span>
-                </Link>
-              </li>
-              <li>
-                <Link href="/events" className="hover:text-emerald-300 transition-colors flex items-center gap-1.5">
-                  <span className="text-emerald-500 text-xs">›</span>
-                  <span>Events Chronicle & Media Gallery</span>
+                  <span>Campus Facilities, Labs & Sports</span>
                 </Link>
               </li>
               <li>
@@ -234,7 +235,10 @@ export default function Footer({ onSelectGovernance, onNavigateToTour }: FooterP
                 rel="noopener noreferrer"
                 className="absolute bottom-2 left-2 right-2 bg-black/80 backdrop-blur-md px-3 py-1 rounded-lg border border-white/10 text-[10px] text-white/80 flex items-center justify-between hover:bg-black transition-colors"
               >
-                <span>📍 Patran, Patiala (Punjab)</span>
+                <span className="flex items-center gap-1">
+                  <MapPin className="w-3 h-3 text-emerald-400 flex-shrink-0" />
+                  <span>Patran, Patiala (Punjab)</span>
+                </span>
                 <span className="text-emerald-400 font-mono">Get Directions ↗</span>
               </a>
             </div>

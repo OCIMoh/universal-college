@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { MANDATORY_DISCLOSURES } from "@/data/governanceData";
 import {
   FileText,
@@ -11,6 +12,8 @@ import {
 } from "@/components/common/Icons";
 
 export default function MandatoryDisclosuresVault() {
+  const [activeRecord, setActiveRecord] = useState<(typeof MANDATORY_DISCLOSURES)[0] | null>(null);
+
   return (
     <section id="disclosures" className="relative w-full py-28 px-6 md:px-12 bg-[#f9f9f7] text-[#1a1a1a] border-b border-black/10 overflow-hidden">
       <div className="max-w-7xl mx-auto space-y-20 relative z-10">
@@ -125,21 +128,107 @@ export default function MandatoryDisclosuresVault() {
                 </div>
 
                 <div className="md:col-span-3 flex md:justify-end items-center">
-                  <a
-                    href="/assets/brand/organogram-upscaled.png"
-                    target="_blank"
-                    rel="noreferrer"
-                    className="px-4 py-2.5 rounded-lg border border-black/15 bg-white hover:bg-neutral-900 hover:text-white hover:border-neutral-900 text-neutral-900 font-mono text-xs transition-all flex items-center gap-2 shadow-sm"
+                  <button
+                    type="button"
+                    onClick={() => setActiveRecord(rec)}
+                    className="px-4 py-2.5 rounded-lg border border-black/15 bg-white hover:bg-neutral-900 hover:text-white hover:border-neutral-900 text-neutral-900 font-mono text-xs transition-all flex items-center gap-2 shadow-sm cursor-pointer"
                   >
                     <FileText className="w-3.5 h-3.5" />
                     <span>{rec.downloadLabel || "Inspect Record"}</span>
                     <ExternalLink className="w-3 h-3 opacity-60" />
-                  </a>
+                  </button>
                 </div>
               </div>
             ))}
           </div>
         </div>
+
+        {/* Regulatory Record Inspection Modal */}
+        {activeRecord && (
+          <div
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/60 backdrop-blur-sm animate-fadeIn"
+            onClick={() => setActiveRecord(null)}
+          >
+            <div
+              role="dialog"
+              aria-modal="true"
+              aria-label="Statutory Regulatory Dossier"
+              data-lenis-prevent
+              onClick={(e) => e.stopPropagation()}
+              className="relative w-full max-w-2xl rounded-2xl bg-white p-6 sm:p-8 shadow-2xl border border-black/10 space-y-6 max-h-[90vh] overflow-y-auto overscroll-contain"
+            >
+              {/* Modal Header */}
+              <div className="flex items-start justify-between border-b border-black/10 pb-4">
+                <div className="space-y-1">
+                  <span className="text-[10px] font-mono tracking-widest uppercase text-emerald-800 font-bold block">
+                    STATUTORY REGULATORY DOSSIER • SESSION 2026-27
+                  </span>
+                  <h3 className="font-serif font-bold text-2xl text-neutral-950">
+                    {activeRecord.title}
+                  </h3>
+                  <p className="text-xs text-neutral-500 font-mono">
+                    Category: {activeRecord.category}
+                  </p>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setActiveRecord(null)}
+                  className="p-2 rounded-lg text-neutral-400 hover:text-neutral-950 hover:bg-neutral-100 transition-colors cursor-pointer"
+                  aria-label="Close modal"
+                >
+                  ✕
+                </button>
+              </div>
+
+              {/* Regulatory Gazette Details */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 font-mono text-xs">
+                <div className="p-3.5 rounded-xl bg-[#f8f8f6] border border-black/5 space-y-1">
+                  <span className="text-neutral-500 text-[10px] uppercase block">Reference Order No.</span>
+                  <span className="font-bold text-neutral-900 block">{activeRecord.referenceNo}</span>
+                </div>
+                <div className="p-3.5 rounded-xl bg-[#f8f8f6] border border-black/5 space-y-1">
+                  <span className="text-neutral-500 text-[10px] uppercase block">Issuing Authority</span>
+                  <span className="font-bold text-neutral-900 block">{activeRecord.issuingBody}</span>
+                </div>
+              </div>
+
+              {/* Scope & Highlights */}
+              <div className="space-y-3">
+                <h4 className="text-xs font-mono uppercase tracking-wider text-neutral-600 font-semibold">
+                  Approved Scope &amp; Statutory Undertakings:
+                </h4>
+                <ul className="space-y-2 text-xs sm:text-sm text-neutral-700 font-light leading-relaxed">
+                  {activeRecord.highlights.map((h, i) => (
+                    <li key={i} className="flex items-start gap-2.5">
+                      <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+                      <span>{h}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              {/* Verification & Official Seal */}
+              <div className="p-4 rounded-xl border border-emerald-500/20 bg-emerald-50/50 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs font-mono">
+                <div className="flex items-center gap-2 text-emerald-900">
+                  <ShieldCheck className="w-4 h-4 text-emerald-700 shrink-0" />
+                  <span>Status: <strong>{activeRecord.validity}</strong></span>
+                </div>
+                <span className="text-emerald-800 text-[11px]">Certified by Central Registry, Patran</span>
+              </div>
+
+              {/* Action Buttons */}
+              <div className="flex justify-end gap-3 pt-2 border-t border-black/10">
+                <button
+                  type="button"
+                  onClick={() => setActiveRecord(null)}
+                  className="px-5 py-2.5 rounded-lg bg-neutral-900 hover:bg-neutral-800 text-white font-mono text-xs transition-colors cursor-pointer"
+                >
+                  Close Dossier
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* ================= RIGHT TO INFORMATION (RTI) ACT OVERSIGHT ================= */}
         <div className="rounded-2xl border border-black/10 bg-white p-8 md:p-10 space-y-6 shadow-sm">

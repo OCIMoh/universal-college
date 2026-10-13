@@ -1,18 +1,17 @@
-"use client";
+import type { Metadata } from "next";
+import VisitCampusClient from "./VisitCampusClient";
 
-import { useRouter } from "next/navigation";
-import CampusTourOverlay from "@/components/home/CampusTourOverlay";
+export const metadata: Metadata = {
+  title: "360° Virtual Campus Experience",
+  description:
+    "Immersive spatial walkthrough of Universal College Patran. Explore the academic blocks, labs, library, grounds, and student facilities.",
+  openGraph: {
+    title: "360° Virtual Campus Tour | Universal College Patran",
+    description:
+      "Interactive 360° tour and visual exploration of the Universal College campus in Patran, Punjab.",
+  },
+};
 
 export default function VisitCampusPage() {
-  const router = useRouter();
-
-  return (
-    <main className="min-h-screen bg-[#09090b]">
-      <CampusTourOverlay
-        isOpen={true}
-        isStandalone={true}
-        onClose={() => router.push("/")}
-      />
-    </main>
-  );
+  return <VisitCampusClient />;
 }

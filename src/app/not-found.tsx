@@ -31,7 +31,7 @@ export default function NotFound() {
       <div className="relative z-10 w-full px-8 sm:px-16 pt-20 sm:pt-24 flex items-center justify-between text-[11px] font-mono tracking-[0.25em] text-[#1a1a1a]/40 uppercase">
         <span className="hidden sm:inline-block">Universal College Patran</span>
         <span className="mx-auto sm:mx-0">Folio : 404 / Unindexed</span>
-        <span className="hidden sm:inline-block">Estd. 2009 • Punjab</span>
+        <span className="hidden sm:inline-block">Est. 2014 • Punjab</span>
       </div>
 
       {/* Central Composition */}

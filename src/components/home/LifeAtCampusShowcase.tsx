@@ -26,7 +26,7 @@ const HIGHLIGHTS: LifeFeature[] = [
     category: "ATHLETICS & FITNESS",
     description: "Spacious athletic arena supporting cricket, volleyball, badminton, athletics, and annual collegiate championship meets.",
     image: "/assets/campus/stadium.jpg",
-    link: "/campus-life",
+    link: "/campus",
     linkLabel: "View Sports & Athletics",
   },
   {
@@ -34,7 +34,7 @@ const HIGHLIGHTS: LifeFeature[] = [
     category: "CADET CORPS & NATIONAL SERVICE",
     description: "Rigorous drills, parade training, national integration camps, and personality grooming under dedicated officer mentorship.",
     image: "/assets/campus/ncc.jpg",
-    link: "/campus-life",
+    link: "/campus",
     linkLabel: "Discover NCC Activities",
   },
   {
@@ -42,7 +42,7 @@ const HIGHLIGHTS: LifeFeature[] = [
     category: "SOCIAL RESPONSIBILITY",
     description: "Active community welfare through voluntary blood donation camps, tree plantations, literacy drives, and rural health clinics.",
     image: "/assets/campus/nss.jpg",
-    link: "/campus-life",
+    link: "/campus",
     linkLabel: "See Community Initiatives",
   },
 ];

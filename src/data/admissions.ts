@@ -332,7 +332,7 @@ export const ADMISSION_SCHEDULE: AdmissionScheduleItem[] = [
 export const ADMISSION_HELPDESK_INFO = {
   cellName: "Universal College Central Admission & Counseling Cell",
   location: "Administrative Block, Ground Floor (Adjacent to Principal Office)",
-  address: "Universal College, Patran, District Patiala, Punjab – 147005",
+  address: "Universal College, Patran, District Patiala, Punjab – 147105",
   helplinePhone: "97791-46689",
   alternatePhone: "98884-06100",
   landlinePhone: "01764-242195",

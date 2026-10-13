@@ -106,14 +106,18 @@ export default function BaseModal({
     if (typeof window !== "undefined" && window.lenisInstance) {
       window.lenisInstance.stop();
     }
+    const prevBodyOverflow = document.body.style.overflow;
+    const prevHtmlOverflow = document.documentElement.style.overflow;
     document.body.style.overflow = "hidden";
+    document.documentElement.style.overflow = "hidden";
     window.addEventListener("keydown", handleKeyDown);
 
     return () => {
       if (typeof window !== "undefined" && window.lenisInstance) {
         window.lenisInstance.start();
       }
-      document.body.style.overflow = "unset";
+      document.body.style.overflow = prevBodyOverflow || "";
+      document.documentElement.style.overflow = prevHtmlOverflow || "";
       window.removeEventListener("keydown", handleKeyDown);
     };
   }, [shouldRender, isExiting, handleClose]);
@@ -130,7 +134,6 @@ export default function BaseModal({
 
   return (
     <div
-      data-lenis-prevent
       className={`fixed inset-0 z-[100] flex bg-black/75 transition-all duration-300 ${
         isExiting
           ? "animate-monolith-backdrop-out pointer-events-none"

@@ -91,7 +91,7 @@ export default function AdmissionEnquiryForm() {
                   Central Admission Cell • Administrative Block
                 </span>
                 <p className="text-sm font-light leading-relaxed text-white/90">
-                  Universal College, Patran, District Patiala, Punjab – 147005. Walk-in merit counseling active daily.
+                  Universal College, Patran, District Patiala, Punjab – 147105. Walk-in merit counseling active daily.
                 </p>
               </div>
             </div>

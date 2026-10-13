@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { Phone } from "@/components/common/Icons";
 
 export default function AdmissionCtaBanner() {
   return (
@@ -34,7 +35,8 @@ export default function AdmissionCtaBanner() {
             href="tel:+919779146689"
             className="px-7 py-4 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 text-white font-mono text-xs md:text-sm font-semibold tracking-wider uppercase transition-all duration-300 hover:scale-105 active:scale-95 cursor-pointer flex items-center gap-2"
           >
-            <span>📞 Call Desk: 97791-46689</span>
+            <Phone className="w-4 h-4 text-emerald-400 shrink-0" />
+            <span>Call Desk: 97791-46689</span>
           </a>
 
           <Link
@@ -53,11 +55,11 @@ export default function AdmissionCtaBanner() {
           </div>
           <div className="flex items-center gap-2">
             <span className="text-emerald-400">✦</span>
-            <span>Free Bus Transport Coverage</span>
+            <span>Extensive Sub-Divisional Bus Network</span>
           </div>
           <div className="flex items-center gap-2">
             <span className="text-emerald-400">✦</span>
-            <span>100% Placement Assistance</span>
+            <span>Active Career Guidance &amp; Placement Cell</span>
           </div>
         </div>
       </div>

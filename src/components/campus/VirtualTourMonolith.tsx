@@ -60,7 +60,7 @@ export default function VirtualTourMonolith() {
                   Physical Coordinates:
                 </span>
                 <span className="text-white/80 leading-normal block">
-                  Patran–Jakhal Road, Patran, Dist. Patiala, Punjab 147005
+                  Patran–Jakhal Road, Patran, Dist. Patiala, Punjab 147105
                 </span>
               </div>
               <div>
