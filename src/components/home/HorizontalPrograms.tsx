@@ -15,15 +15,44 @@ interface HorizontalProgramsProps {
 export default function HorizontalPrograms({ onSelectCourse }: HorizontalProgramsProps) {
   const horizontalWrapperRef = useRef<HTMLDivElement>(null);
   const horizontalRef = useRef<HTMLDivElement>(null);
+  const triggerInstanceRef = useRef<ScrollTrigger | null>(null);
+
+  const scrollToPanel = (panelIndex: number) => {
+    const st = triggerInstanceRef.current;
+    if (!st) return;
+
+    const holdDistance = 225;
+    const scrollTravel = st.end - st.start - holdDistance;
+    let targetY = st.start;
+
+    if (panelIndex > 0) {
+      targetY = st.start + holdDistance + scrollTravel * (panelIndex / 3);
+    }
+
+    if (typeof window !== "undefined" && window.lenisInstance) {
+      window.lenisInstance.scrollTo(targetY, {
+        duration: 1.2,
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      });
+    } else if (typeof window !== "undefined") {
+      window.scrollTo({
+        top: targetY,
+        behavior: "smooth",
+      });
+    }
+  };
 
   useEffect(() => {
     const ctx = gsap.context(() => {
       if (horizontalRef.current && horizontalWrapperRef.current) {
         const sections = gsap.utils.toArray<HTMLElement>(".horizontal-panel");
+        const totalPanels = sections.length;
         
-        gsap.to(sections, {
-          xPercent: -100 * (sections.length - 1),
-          ease: "none",
+        // Dedicated scroll buffer (225px - decreased by 75%) so the client has a brief pause before horizontal movement
+        const holdDistance = 225;
+        const scrollDistance = () => window.innerWidth * (totalPanels - 1) + holdDistance;
+
+        const tl = gsap.timeline({
           scrollTrigger: {
             trigger: horizontalWrapperRef.current,
             pin: true,
@@ -31,9 +60,21 @@ export default function HorizontalPrograms({ onSelectCourse }: HorizontalProgram
             start: "top top",
             scrub: 1,
             invalidateOnRefresh: true,
-            end: () => `+=${window.innerWidth * (sections.length - 1)}`,
+            end: () => `+=${scrollDistance()}`,
           },
         });
+
+        // 1. Brief stationary hold on the headline during initial scroll distance (0.375s timeline duration)
+        tl.to({}, { duration: 0.375 });
+
+        // 2. Then smoothly slide the panels horizontally
+        tl.to(sections, {
+          xPercent: -100 * (totalPanels - 1),
+          ease: "none",
+          duration: totalPanels - 1,
+        });
+
+        triggerInstanceRef.current = tl.scrollTrigger ?? null;
       }
     }, horizontalWrapperRef);
 
@@ -62,7 +103,7 @@ export default function HorizontalPrograms({ onSelectCourse }: HorizontalProgram
           <div className="absolute inset-0 bg-gradient-to-r from-[#0c0d12]/95 via-[#0c0d12]/80 to-black/30 pointer-events-none" />
 
           {/* Left-Aligned Architectural Ledger */}
-          <div className="relative z-10 max-w-3xl space-y-8 text-white">
+          <div className="relative z-10 max-w-3xl space-y-6 md:space-y-8 text-white">
             {/* Top Coordinates & Chapter Marker */}
             <div className="flex flex-wrap items-center justify-between gap-4 border-b border-white/10 pb-4 max-w-2xl font-mono text-[10px] sm:text-[11px] uppercase tracking-widest text-white/50">
               <span className="text-emerald-400 font-semibold">
@@ -85,54 +126,82 @@ export default function HorizontalPrograms({ onSelectCourse }: HorizontalProgram
             </div>
 
             {/* 4 Architectural Pathway Specifications */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 max-w-2xl pt-2">
-              <div className="p-3.5 rounded-2xl bg-white/[0.04] border border-white/8 hover:border-emerald-500/30 transition-colors">
-                <span className="text-[10px] font-mono text-emerald-400 font-bold block uppercase tracking-wider">
-                  01 // REGULAR DEGREES
-                </span>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 max-w-2xl pt-1">
+              <button
+                type="button"
+                onClick={() => scrollToPanel(1)}
+                className="text-left p-3.5 rounded-2xl bg-white/[0.04] border border-white/8 hover:border-emerald-500/40 hover:bg-white/[0.08] transition-all cursor-pointer group focus:outline-none focus:ring-1 focus:ring-emerald-400"
+              >
+                <div className="flex items-center justify-between">
+                  <span className="text-[10px] font-mono text-emerald-400 font-bold block uppercase tracking-wider">
+                    01 // REGULAR DEGREES
+                  </span>
+                  <span className="text-xs text-white/30 group-hover:text-emerald-400 group-hover:translate-x-1 transition-all">→</span>
+                </div>
                 <strong className="text-xs sm:text-sm font-semibold text-white/95 block mt-0.5">
                   MRSPTU Affiliated
                 </strong>
                 <span className="text-[11px] text-white/50 block font-light">
                   BCA, B.Com, B.Sc (Fashion), PGDCA & B.A.
                 </span>
-              </div>
+              </button>
 
-              <div className="p-3.5 rounded-2xl bg-white/[0.04] border border-white/8 hover:border-emerald-500/30 transition-colors">
-                <span className="text-[10px] font-mono text-emerald-400 font-bold block uppercase tracking-wider">
-                  02 // VOCATIONAL TRADES
-                </span>
+              <button
+                type="button"
+                onClick={() => scrollToPanel(2)}
+                className="text-left p-3.5 rounded-2xl bg-white/[0.04] border border-white/8 hover:border-emerald-500/40 hover:bg-white/[0.08] transition-all cursor-pointer group focus:outline-none focus:ring-1 focus:ring-emerald-400"
+              >
+                <div className="flex items-center justify-between">
+                  <span className="text-[10px] font-mono text-emerald-400 font-bold block uppercase tracking-wider">
+                    02 // VOCATIONAL TRADES
+                  </span>
+                  <span className="text-xs text-white/30 group-hover:text-emerald-400 group-hover:translate-x-1 transition-all">→</span>
+                </div>
                 <strong className="text-xs sm:text-sm font-semibold text-white/95 block mt-0.5">
                   Universal ITI (NCVT)
                 </strong>
                 <span className="text-[11px] text-white/50 block font-light">
                   Electrician, Diesel, Plumber, Welder & Fashion
                 </span>
-              </div>
+              </button>
 
-              <div className="p-3.5 rounded-2xl bg-white/[0.04] border border-white/8 hover:border-emerald-500/30 transition-colors">
-                <span className="text-[10px] font-mono text-emerald-400 font-bold block uppercase tracking-wider">
-                  03 // OPEN LEARNING
-                </span>
+              <button
+                type="button"
+                onClick={() => scrollToPanel(3)}
+                className="text-left p-3.5 rounded-2xl bg-white/[0.04] border border-white/8 hover:border-emerald-500/40 hover:bg-white/[0.08] transition-all cursor-pointer group focus:outline-none focus:ring-1 focus:ring-emerald-400"
+              >
+                <div className="flex items-center justify-between">
+                  <span className="text-[10px] font-mono text-emerald-400 font-bold block uppercase tracking-wider">
+                    03 // OPEN LEARNING
+                  </span>
+                  <span className="text-xs text-white/30 group-hover:text-emerald-400 group-hover:translate-x-1 transition-all">→</span>
+                </div>
                 <strong className="text-xs sm:text-sm font-semibold text-white/95 block mt-0.5">
                   PSOU & NIOS Wing
                 </strong>
                 <span className="text-[11px] text-white/50 block font-light">
                   Bridge Diplomas & Skill Certificates
                 </span>
-              </div>
+              </button>
 
-              <div className="p-3.5 rounded-2xl bg-white/[0.04] border border-white/8 hover:border-emerald-500/30 transition-colors">
-                <span className="text-[10px] font-mono text-emerald-400 font-bold block uppercase tracking-wider">
-                  04 // SCHOLARSHIPS
-                </span>
+              <button
+                type="button"
+                onClick={() => scrollToPanel(1)}
+                className="text-left p-3.5 rounded-2xl bg-white/[0.04] border border-white/8 hover:border-emerald-500/40 hover:bg-white/[0.08] transition-all cursor-pointer group focus:outline-none focus:ring-1 focus:ring-emerald-400"
+              >
+                <div className="flex items-center justify-between">
+                  <span className="text-[10px] font-mono text-emerald-400 font-bold block uppercase tracking-wider">
+                    04 // SCHOLARSHIPS
+                  </span>
+                  <span className="text-xs text-white/30 group-hover:text-emerald-400 group-hover:translate-x-1 transition-all">→</span>
+                </div>
                 <strong className="text-xs sm:text-sm font-semibold text-white/95 block mt-0.5">
                   Post-Matric SC Scheme
                 </strong>
                 <span className="text-[11px] text-white/50 block font-light">
                   100% Tuition Fee Waiver Portal
                 </span>
-              </div>
+              </button>
             </div>
 
             {/* Interaction Cue */}
