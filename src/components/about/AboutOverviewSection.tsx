@@ -33,7 +33,7 @@ export default function AboutOverviewSection() {
               Recognizing this critical void, Dashmesh Charitable Trust established Universal College with a foundational pledge: <em className="font-serif italic text-neutral-900">to democratize higher education, bridging academic excellence, modern vocational skills, and moral character right here in Patran.</em>
             </p>
             <p>
-              From its modest commencement in 2014, the institution has blossomed into a comprehensive multi-stream campus encompassing university degrees, state open learning pathways, vocational skill certificates, and industrial ITI trades.
+              From its modest commencement in 2014, the institution has blossomed into a comprehensive multi-stream campus encompassing university degrees, state open learning pathways, and vocational skill certifications.
             </p>
 
             {/* Philosophy Highlight Banner */}

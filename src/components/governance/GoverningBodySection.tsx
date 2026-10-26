@@ -2,7 +2,13 @@
 
 import Image from "next/image";
 import { GOVERNING_BODY } from "@/data/governanceData";
-import { Phone, Mail, FileText } from "@/components/common/Icons";
+import {
+  Phone,
+  Mail,
+  FileText,
+  Download,
+  ExternalLink,
+} from "@/components/common/Icons";
 
 export default function GoverningBodySection() {
   // Executive Top 5
@@ -251,6 +257,80 @@ export default function GoverningBodySection() {
               height={896}
               className="w-full h-auto object-contain rounded-xl"
             />
+          </div>
+        </div>
+
+        {/* ================= MANDATORY PUBLIC DISCLOSURES SECTION ================= */}
+        <div id="mandatory-disclosures-dossier" className="border border-black/10 rounded-3xl bg-white p-8 md:p-12 shadow-sm">
+          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-8 sm:gap-12">
+            
+            {/* Left Column: Official Heading, Legal Narrative & Primary Download Action */}
+            <div className="space-y-5 max-w-2xl">
+              <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-emerald-800 font-semibold">
+                <FileText className="w-4 h-4 text-emerald-700" />
+                <span>Statutory Regulatory Compliance</span>
+                <span className="text-neutral-300">•</span>
+                <span className="text-neutral-500 font-normal">Session 2024–25</span>
+              </div>
+
+              <h3 className="text-3xl sm:text-4xl font-bold font-serif text-neutral-950 tracking-tight leading-tight">
+                Mandatory Public Disclosures.
+              </h3>
+
+              <p className="text-sm sm:text-base text-neutral-600 leading-relaxed font-light">
+                Published pursuant to AICTE Approval Process Regulations and Section 4(1)(b) of the Right to Information Act, 2005. Universal College Patran places its certified collegiate governance, infrastructure deeds, faculty cadre, fee structures, and anti-ragging compliance on open public record.
+              </p>
+
+              {/* Direct Primary Action: Download PDF */}
+              <div className="pt-2">
+                <a
+                  href="/docs/mandatory-disclosures-2024.pdf"
+                  download="Universal-College-Patran-Mandatory-Disclosures-2024.pdf"
+                  className="inline-flex items-center gap-2.5 px-6 py-3.5 rounded-xl bg-neutral-950 hover:bg-emerald-700 text-white font-mono text-xs font-semibold tracking-wider uppercase transition-all duration-200 shadow-sm hover:shadow-md focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                >
+                  <Download className="w-4 h-4 text-emerald-400" />
+                  <span>Download Official PDF (440 KB)</span>
+                </a>
+              </div>
+            </div>
+
+            {/* Right Column: Clickable Live Document Preview (Redirects to full PDF on click) */}
+            <div className="shrink-0 flex flex-col items-start lg:items-end gap-2.5">
+              <a
+                href="/docs/mandatory-disclosures-2024.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                title="Click to view Mandatory Disclosures PDF in full"
+                className="group relative w-48 sm:w-56 h-64 sm:h-72 rounded-2xl overflow-hidden border border-black/15 bg-neutral-100 shadow-sm hover:shadow-2xl hover:border-emerald-600/60 transition-all duration-300 block cursor-pointer"
+              >
+                {/* Embedded PDF Thumbnail Preview (pointer-events-none ensures parent anchor receives clicks) */}
+                <iframe
+                  src="/docs/mandatory-disclosures-2024.pdf#toolbar=0&navpanes=0&scrollbar=0&view=FitH"
+                  title="Mandatory Disclosures PDF Preview"
+                  className="w-full h-full border-0 pointer-events-none select-none bg-white scale-[1.02] origin-top-left"
+                  tabIndex={-1}
+                />
+
+                {/* Hover Overlay with Open Prompt */}
+                <div className="absolute inset-0 bg-neutral-950/0 group-hover:bg-neutral-950/30 transition-colors duration-200 flex items-center justify-center pointer-events-none">
+                  <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-200 inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-neutral-950/90 text-white text-[11px] font-mono tracking-wider shadow-md backdrop-blur-sm">
+                    <span>Open Full PDF</span>
+                    <ExternalLink className="w-3.5 h-3.5 text-emerald-400" />
+                  </span>
+                </div>
+
+                {/* Corner Quick-Action Tag */}
+                <div className="absolute bottom-3 right-3 px-2.5 py-1 rounded-md bg-black/80 text-[10px] font-mono text-white/90 backdrop-blur-md pointer-events-none flex items-center gap-1">
+                  <span>Click to open</span>
+                  <span className="text-emerald-400">↗</span>
+                </div>
+              </a>
+
+              <span className="text-[11px] font-mono text-neutral-400">
+                Click preview to view full document ↗
+              </span>
+            </div>
+
           </div>
         </div>
       </div>

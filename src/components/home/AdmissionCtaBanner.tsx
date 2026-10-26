@@ -18,7 +18,7 @@ export default function AdmissionCtaBanner() {
             Take the First Step Toward Your Future.
           </h2>
           <p className="text-base sm:text-lg md:text-xl text-white/75 max-w-2xl mx-auto font-light leading-relaxed">
-            Choose from MRSPTU degrees, open university diplomas, NIOS certifications, or technical ITI trades. 100% Post-Matric SC scholarship available for eligible scholars.
+            Choose from MRSPTU degrees, open university diplomas, or NIOS skill certifications. 100% Post-Matric SC scholarship available for eligible scholars.
           </p>
         </div>
 

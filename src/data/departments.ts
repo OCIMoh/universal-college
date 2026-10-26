@@ -1,3 +1,5 @@
+import { SHOW_ITI } from "./courses";
+
 export interface DepartmentInfo {
   id: "commerce" | "humanities" | "computer-it" | "science-medical" | "fashion" | "nursing" | "vocational";
   name: string;
@@ -171,7 +173,7 @@ export const DEPARTMENTS_DATA: DepartmentInfo[] = [
       "Pattern Drafting & Cutting Studio",
       "Textile Embroidery & Embellishment Bay"
     ],
-    courseIds: ["bsc_fashion", "psou_embroidery", "iti_fashion"],
+    courseIds: ["bsc_fashion", "psou_embroidery", ...(SHOW_ITI ? ["iti_fashion"] : [])],
     keyHighlights: [
       "Industrial high-speed stitching machines and multi-size dress mannequins",
       "Annual collegiate fashion showcase and creative model exhibitions",
@@ -189,33 +191,62 @@ export const DEPARTMENTS_DATA: DepartmentInfo[] = [
   },
   {
     id: "vocational",
-    name: "Department of Vocational Education & Industrial Trades",
-    shortName: "Vocational & ITI",
-    tagline: "Hands-on industrial craftsmanship, NCVT trades & self-reliant careers.",
-    headOrCoordinator: "S. Baljeet Singh (Trust Patron) / Industrial Instructors",
+    name: SHOW_ITI ? "Department of Vocational Education & Industrial Trades" : "Department of Vocational & Skill Education",
+    shortName: SHOW_ITI ? "Vocational & ITI" : "Vocational & Skill",
+    tagline: SHOW_ITI ? "Hands-on industrial craftsmanship, NCVT trades & self-reliant careers." : "Practical vocations, state skill certifications & self-reliant careers.",
+    headOrCoordinator: SHOW_ITI ? "S. Baljeet Singh (Trust Patron) / Industrial Instructors" : "S. Baljeet Singh (Trust Patron) / Skill Instructors",
     facultyCount: 8,
-    overview: "The Vocational & Industrial Trades wing operates accredited NCVT ITI workshops in Electrician, Plumber, Welder, and Mechanic Diesel trades, as well as NIOS stenography and wellness certificates. With heavy-duty machinery, electrical testing panels, hydraulic rigs, and engine bays, we provide direct paths to employment in government utilities, manufacturing plants, and overseas skilled vocations.",
-    associatedLabs: [
-      "Electrician Trade Workshop & Motor Rewinding Bay",
-      "Plumbing Rig & Hydraulic Testing Facility",
-      "Welding Bay (Arc, MIG, TIG & Gas Fabrication)",
-      "Diesel Mechanic Automobile Overhaul Shed",
-      "Beauty & Cosmetology Practical Salon"
+    overview: SHOW_ITI
+      ? "The Vocational & Industrial Trades wing operates accredited NCVT ITI workshops in Electrician, Plumber, Welder, and Mechanic Diesel trades, as well as NIOS stenography and wellness certificates. With heavy-duty machinery, electrical testing panels, hydraulic rigs, and engine bays, we provide direct paths to employment in government utilities, manufacturing plants, and overseas skilled vocations."
+      : "The Department of Vocational & Skill Education delivers government-recognized skill certifications under NIOS and JGND Punjab State Open University, including English Stenography, Beauty & Wellness, and Yoga. Designed for self-employment and immediate career readiness.",
+    associatedLabs: SHOW_ITI
+      ? [
+          "Electrician Trade Workshop & Motor Rewinding Bay",
+          "Plumbing Rig & Hydraulic Testing Facility",
+          "Welding Bay (Arc, MIG, TIG & Gas Fabrication)",
+          "Diesel Mechanic Automobile Overhaul Shed",
+          "Beauty & Cosmetology Practical Salon"
+        ]
+      : [
+          "Beauty & Cosmetology Practical Salon",
+          "High-Speed Shorthand & Stenography Studio",
+          "Yoga & Wellness Practice Hall"
+        ],
+    courseIds: [
+      ...(SHOW_ITI ? ["iti_electrician", "iti_plumber", "iti_welder", "iti_diesel"] : []),
+      "nios_stenography",
+      "nios_beauty",
+      "psou_yoga",
+      "psou_beauty"
     ],
-    courseIds: ["iti_electrician", "iti_plumber", "iti_welder", "iti_diesel", "nios_stenography", "nios_beauty", "psou_yoga", "psou_beauty"],
-    keyHighlights: [
-      "NCVT certified curriculum ensuring worldwide trade recognition",
-      "Heavy industrial machinery, welding stations, and working automobile engines",
-      "100% Post-Matric SC Scholarship (PMSS) tuition waiver eligibility",
-      "Campus placement drives with regional manufacturing and infrastructure firms"
-    ],
-    careerProspects: [
-      "State Electricity Board (PSPCL) / Railway Technical Cadre",
-      "Industrial Electrical / Mechanical Maintenance Specialist",
-      "Certified Pipeline & Heavy Metal Welder (Domestic & Gulf Opportunities)",
-      "High Court & Ministry Stenographer",
-      "Independent Contractor & Trade Entrepreneur"
-    ],
-    bannerImage: "/assets/campus/iti-electrical.jpg",
+    keyHighlights: SHOW_ITI
+      ? [
+          "NCVT certified curriculum ensuring worldwide trade recognition",
+          "Heavy industrial machinery, welding stations, and working automobile engines",
+          "100% Post-Matric SC Scholarship (PMSS) tuition waiver eligibility",
+          "Campus placement drives with regional manufacturing and infrastructure firms"
+        ]
+      : [
+          "Government-certified skill credentials under NIOS & JGND PSOU",
+          "Dedicated practical salon, stenography labs, and wellness training halls",
+          "100% Post-Matric SC Scholarship (PMSS) tuition waiver eligibility",
+          "Fast-track employment and entrepreneurship incubation"
+        ],
+    careerProspects: SHOW_ITI
+      ? [
+          "State Electricity Board (PSPCL) / Railway Technical Cadre",
+          "Industrial Electrical / Mechanical Maintenance Specialist",
+          "Certified Pipeline & Heavy Metal Welder (Domestic & Gulf Opportunities)",
+          "High Court & Ministry Stenographer",
+          "Independent Contractor & Trade Entrepreneur"
+        ]
+      : [
+          "High Court & Government Ministry Stenographer",
+          "Professional Salon Artist & Beauty Clinic Owner",
+          "Certified Yoga Instructor & Wellness Consultant",
+          "Independent Boutique & Handicraft Artisan",
+          "Self-employed Entrepreneur"
+        ],
+    bannerImage: SHOW_ITI ? "/assets/campus/iti-electrical.jpg" : "/assets/campus/care-beauty-salon.webp",
   },
 ];

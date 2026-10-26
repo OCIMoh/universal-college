@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { SHOW_ITI } from "@/data/courses";
 
 export default function ScholarshipNoticeBanner() {
   return (
@@ -17,7 +18,7 @@ export default function ScholarshipNoticeBanner() {
             100% Tuition Fee Waiver under Government Post-Matric Scholarship (PMSS)
           </h3>
           <p className="text-xs sm:text-sm text-white/60 font-light leading-relaxed">
-            Eligible Scheduled Caste (SC) scholars enrolled in MRSPTU degrees, PSOU diplomas, and ITI trades receive complete tuition exemptions. Zero out-of-pocket tuition is charged at admission.
+            Eligible Scheduled Caste (SC) scholars enrolled in MRSPTU degrees and PSOU diplomas{SHOW_ITI ? ", and ITI trades" : ""} receive complete tuition exemptions. Zero out-of-pocket tuition is charged at admission.
           </p>
         </div>
 

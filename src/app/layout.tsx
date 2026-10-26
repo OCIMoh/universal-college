@@ -3,6 +3,7 @@ import { Inter, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import SmoothScroll from "@/components/SmoothScroll";
 import AdmissionsDispatchPopup from "@/components/home/AdmissionsDispatchPopup";
+import { SHOW_ITI } from "@/data/courses";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const playfair = Playfair_Display({ subsets: ["latin"], variable: "--font-playfair" });
@@ -19,23 +20,21 @@ export const metadata: Metadata = {
     default: "Universal College Patran | Degree & Vocational Education in Patiala, Punjab",
     template: "%s | Universal College Patran",
   },
-  description:
-    "Universal College Patran (Est. 2014) is affiliated with MRSPTU Bathinda & Jagat Guru Nanak Dev PSOU. Offering BCA, B.Com, BA, PGDCA, M.Sc & ITI technical trades with 100% PMSS Scholarship in Patran, Punjab.",
+  description: `Universal College Patran (Est. 2014) is affiliated with MRSPTU Bathinda & Jagat Guru Nanak Dev PSOU. Offering BCA, B.Com, BA, PGDCA, M.Sc${SHOW_ITI ? " & ITI technical trades" : " & Open/Skill certifications"} with 100% PMSS Scholarship in Patran, Punjab.`,
   keywords: [
     "Universal College Patran",
     "MRSPTU Bathinda Affiliated College",
     "PSOU Study Centre Patran",
     "BCA College in Patran Patiala",
     "PMSS Scholarship Punjab",
-    "Universal ITI Patran",
+    ...(SHOW_ITI ? ["Universal ITI Patran"] : []),
     "Degree College Patran",
     "Vocational Education Punjab",
   ],
   authors: [{ name: "Universal College Patran (Dashmesh Charitable Trust)" }],
   openGraph: {
     title: "Universal College Patran | Higher Education & Vocational Excellence",
-    description:
-      "Affiliated with MRSPTU Bathinda & JGND PSOU. Comprehensive Degree, Diploma & ITI technical education with 100% Post-Matric SC Scholarship support.",
+    description: `Affiliated with MRSPTU Bathinda & JGND PSOU. Comprehensive Degree, Diploma${SHOW_ITI ? " & ITI technical education" : " & Skill education"} with 100% Post-Matric SC Scholarship support.`,
     url: siteUrl,
     siteName: "Universal College Patran",
     locale: "en_IN",

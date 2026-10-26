@@ -116,7 +116,7 @@ function DispatchTicket() {
               Admissions Open
             </h3>
             <p className="text-xs text-white/70 font-light font-sans leading-relaxed">
-              Merit counseling & spot scrutiny active for MRSPTU Degrees, ITI Trades & Open Learning.
+              Merit counseling & spot scrutiny active for MRSPTU Degrees, Open Learning & Skill Courses.
             </p>
           </div>
 

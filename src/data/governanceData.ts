@@ -1,3 +1,5 @@
+import { SHOW_ITI } from "./courses";
+
 export interface GoverningMember {
   id: string;
   name: string;
@@ -160,7 +162,9 @@ export const GOVERNING_BODY: GoverningMember[] = [
     designation: "Industry & Technical Consultant",
     role: "Corporate Linkages & Employability",
     qualification: "B.Tech, Industry Veteran",
-    portfolio: "Industrial Apprenticeships, ITI Skill Trade Validation & Rozgar Mela Coordination",
+    portfolio: SHOW_ITI
+      ? "Industrial Apprenticeships, ITI Skill Trade Validation & Rozgar Mela Coordination"
+      : "Industrial Apprenticeships, Vocational Skill Validation & Rozgar Mela Coordination",
     badge: "Industry Nominee",
   },
 ];
@@ -886,19 +890,23 @@ export const MANDATORY_DISCLOSURES: MandatoryDisclosureRecord[] = [
     ],
     downloadLabel: "NIOS Accreditation Certificate",
   },
-  {
-    category: "Vocational Industrial Training",
-    title: "NCVT & PSBTE & IT Approval (Universal ITI)",
-    referenceNo: "DGT-12/1/2014-TC / PSBTE-PATRAN-ITI",
-    issuingBody: "Directorate General of Training (DGT), Ministry of Skill Development, Govt. of India",
-    validity: "Affiliated Industrial Training Institute",
-    highlights: [
-      "Craftsmen Training Scheme (CTS) trades: Electrician, Plumber, Welder, Diesel Mechanic.",
-      "Modern technical workshop infrastructure with full machinery and safety suites.",
-      "Recognized National Trade Certificate (NTC) examinations.",
-    ],
-    downloadLabel: "DGT / NCVT Affiliation Notification",
-  },
+  ...(SHOW_ITI
+    ? [
+        {
+          category: "Vocational Industrial Training",
+          title: "NCVT & PSBTE & IT Approval (Universal ITI)",
+          referenceNo: "DGT-12/1/2014-TC / PSBTE-PATRAN-ITI",
+          issuingBody: "Directorate General of Training (DGT), Ministry of Skill Development, Govt. of India",
+          validity: "Affiliated Industrial Training Institute",
+          highlights: [
+            "Craftsmen Training Scheme (CTS) trades: Electrician, Plumber, Welder, Diesel Mechanic.",
+            "Modern technical workshop infrastructure with full machinery and safety suites.",
+            "Recognized National Trade Certificate (NTC) examinations.",
+          ],
+          downloadLabel: "DGT / NCVT Affiliation Notification",
+        },
+      ]
+    : []),
   {
     category: "Public Information Act",
     title: "Right to Information (RTI) Statutory Officer Roster",

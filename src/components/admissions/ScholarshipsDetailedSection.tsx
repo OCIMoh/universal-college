@@ -1,6 +1,7 @@
 "use client";
 
 import { SCHOLARSHIP_SCHEMES } from "@/data/admissions";
+import { SHOW_ITI } from "@/data/courses";
 
 export default function ScholarshipsDetailedSection() {
   return (
@@ -62,7 +63,7 @@ export default function ScholarshipsDetailedSection() {
               Annual Income Ceiling
             </h3>
             <p className="text-xs sm:text-sm text-white/60 font-light leading-relaxed">
-              Family income limit verified via Tehsildar-issued certificate to qualify for 100% PMSS fee concessions across all MRSPTU, PSOU, and ITI disciplines.
+              Family income limit verified via Tehsildar-issued certificate to qualify for 100% PMSS fee concessions across all MRSPTU, PSOU{SHOW_ITI ? ", and ITI" : ""} disciplines.
             </p>
           </div>
         </div>

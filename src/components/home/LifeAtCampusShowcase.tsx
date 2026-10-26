@@ -16,7 +16,7 @@ const HIGHLIGHTS: LifeFeature[] = [
   {
     title: "Air-Conditioned Computer & Technology Labs",
     category: "LABS & IT INFRASTRUCTURE",
-    description: "4 specialized labs equipped with 100+ systems, high-speed fiber internet, and programming software suites for BCA, PGDCA & ITI trades.",
+    description: "4 specialized labs equipped with 100+ systems, high-speed fiber internet, and programming software suites for BCA, PGDCA & computational courses.",
     image: "/assets/campus/computer-lab.jpg",
     link: "/campus",
     linkLabel: "Explore Labs & Facilities",

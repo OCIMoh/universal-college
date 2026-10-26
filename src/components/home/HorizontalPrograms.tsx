@@ -4,7 +4,7 @@ import { useEffect, useRef } from "react";
 import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { COURSE_DETAILS, CourseDetail } from "@/data/courses";
+import { COURSE_DETAILS, CourseDetail, SHOW_ITI } from "@/data/courses";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -25,8 +25,11 @@ export default function HorizontalPrograms({ onSelectCourse }: HorizontalProgram
     const scrollTravel = st.end - st.start - holdDistance;
     let targetY = st.start;
 
-    if (panelIndex > 0) {
-      targetY = st.start + holdDistance + scrollTravel * (panelIndex / 3);
+    const maxIndex = SHOW_ITI ? 3 : 2;
+    const clampedIndex = Math.min(panelIndex, maxIndex);
+
+    if (clampedIndex > 0) {
+      targetY = st.start + holdDistance + scrollTravel * (clampedIndex / maxIndex);
     }
 
     if (typeof window !== "undefined" && window.lenisInstance) {
@@ -87,7 +90,7 @@ export default function HorizontalPrograms({ onSelectCourse }: HorizontalProgram
       ref={horizontalWrapperRef}
       className="relative h-screen w-full flex items-center overflow-hidden bg-[#0c0d12]"
     >
-      <div ref={horizontalRef} className="horizontal-scroll-container h-full w-[400vw] flex flex-row">
+      <div ref={horizontalRef} className={`horizontal-scroll-container h-full ${SHOW_ITI ? "w-[400vw]" : "w-[300vw]"} flex flex-row`}>
         
         {/* ================= PANEL 0: ARCHITECTURAL INTRO COVER ================= */}
         <div className="horizontal-panel w-screen h-full shrink-0 relative flex items-center p-8 sm:p-12 md:p-20 overflow-hidden">
@@ -117,15 +120,17 @@ export default function HorizontalPrograms({ onSelectCourse }: HorizontalProgram
             {/* Display Headline */}
             <div className="space-y-4">
               <h2 className="text-editorial text-4xl sm:text-6xl md:text-7xl font-bold tracking-tight text-white leading-[1.08]">
-                15+ Courses.<br />
-                <span className="text-white/80">4 Pathways. 1 Campus.</span>
+                {SHOW_ITI ? "15+ Courses." : "25+ Programmes."}<br />
+                <span className="text-white/80">{SHOW_ITI ? "4 Pathways. 1 Campus." : "3 Pathways. 1 Campus."}</span>
               </h2>
               <p className="text-sm sm:text-base md:text-lg text-white/70 font-light max-w-xl font-sans leading-relaxed">
-                From state university degrees to certified industrial trades and flexible open learning—four structured pedagogical streams unified under one institutional roof.
+                {SHOW_ITI
+                  ? "From state university degrees to certified industrial trades and flexible open learning—four structured pedagogical streams unified under one institutional roof."
+                  : "From state university degrees to flexible open university diplomas and certified vocational skills—three structured pedagogical streams unified under one institutional roof."}
               </p>
             </div>
 
-            {/* 4 Architectural Pathway Specifications */}
+            {/* Architectural Pathway Specifications */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 max-w-2xl pt-1">
               <button
                 type="button"
@@ -146,33 +151,35 @@ export default function HorizontalPrograms({ onSelectCourse }: HorizontalProgram
                 </span>
               </button>
 
-              <button
-                type="button"
-                onClick={() => scrollToPanel(2)}
-                className="text-left p-3.5 rounded-2xl bg-white/[0.04] border border-white/8 hover:border-emerald-500/40 hover:bg-white/[0.08] transition-all cursor-pointer group focus:outline-none focus:ring-1 focus:ring-emerald-400"
-              >
-                <div className="flex items-center justify-between">
-                  <span className="text-[10px] font-mono text-emerald-400 font-bold block uppercase tracking-wider">
-                    02 // VOCATIONAL TRADES
+              {SHOW_ITI && (
+                <button
+                  type="button"
+                  onClick={() => scrollToPanel(2)}
+                  className="text-left p-3.5 rounded-2xl bg-white/[0.04] border border-white/8 hover:border-emerald-500/40 hover:bg-white/[0.08] transition-all cursor-pointer group focus:outline-none focus:ring-1 focus:ring-emerald-400"
+                >
+                  <div className="flex items-center justify-between">
+                    <span className="text-[10px] font-mono text-emerald-400 font-bold block uppercase tracking-wider">
+                      02 // VOCATIONAL TRADES
+                    </span>
+                    <span className="text-xs text-white/30 group-hover:text-emerald-400 group-hover:translate-x-1 transition-all">→</span>
+                  </div>
+                  <strong className="text-xs sm:text-sm font-semibold text-white/95 block mt-0.5">
+                    Universal ITI (NCVT)
+                  </strong>
+                  <span className="text-[11px] text-white/50 block font-light">
+                    Electrician, Diesel, Plumber, Welder & Fashion
                   </span>
-                  <span className="text-xs text-white/30 group-hover:text-emerald-400 group-hover:translate-x-1 transition-all">→</span>
-                </div>
-                <strong className="text-xs sm:text-sm font-semibold text-white/95 block mt-0.5">
-                  Universal ITI (NCVT)
-                </strong>
-                <span className="text-[11px] text-white/50 block font-light">
-                  Electrician, Diesel, Plumber, Welder & Fashion
-                </span>
-              </button>
+                </button>
+              )}
 
               <button
                 type="button"
-                onClick={() => scrollToPanel(3)}
+                onClick={() => scrollToPanel(SHOW_ITI ? 3 : 2)}
                 className="text-left p-3.5 rounded-2xl bg-white/[0.04] border border-white/8 hover:border-emerald-500/40 hover:bg-white/[0.08] transition-all cursor-pointer group focus:outline-none focus:ring-1 focus:ring-emerald-400"
               >
                 <div className="flex items-center justify-between">
                   <span className="text-[10px] font-mono text-emerald-400 font-bold block uppercase tracking-wider">
-                    03 // OPEN LEARNING
+                    {SHOW_ITI ? "03 // OPEN LEARNING" : "02 // OPEN & SKILL PATHWAYS"}
                   </span>
                   <span className="text-xs text-white/30 group-hover:text-emerald-400 group-hover:translate-x-1 transition-all">→</span>
                 </div>
@@ -191,7 +198,7 @@ export default function HorizontalPrograms({ onSelectCourse }: HorizontalProgram
               >
                 <div className="flex items-center justify-between">
                   <span className="text-[10px] font-mono text-emerald-400 font-bold block uppercase tracking-wider">
-                    04 // SCHOLARSHIPS
+                    {SHOW_ITI ? "04 // SCHOLARSHIPS" : "03 // SCHOLARSHIPS"}
                   </span>
                   <span className="text-xs text-white/30 group-hover:text-emerald-400 group-hover:translate-x-1 transition-all">→</span>
                 </div>
@@ -206,7 +213,7 @@ export default function HorizontalPrograms({ onSelectCourse }: HorizontalProgram
 
             {/* Interaction Cue */}
             <div className="flex items-center gap-3 pt-2 font-mono text-xs text-white/50">
-              <span className="text-emerald-400 font-semibold">[01 / 04]</span>
+              <span className="text-emerald-400 font-semibold">{SHOW_ITI ? "[01 / 04]" : "[01 / 03]"}</span>
               <span className="uppercase tracking-widest text-[11px]">
                 Scroll horizontally to explore faculties
               </span>
@@ -265,52 +272,54 @@ export default function HorizontalPrograms({ onSelectCourse }: HorizontalProgram
         </div>
 
         {/* ================= PANEL 2: UNIVERSAL ITI ================= */}
-        <div className="horizontal-panel w-screen h-full shrink-0 flex flex-col md:flex-row items-center justify-center p-8 md:p-16 gap-10 md:gap-14 bg-[#111217] text-[#f9f9f7]">
-          <div className="w-full md:w-1/2 max-w-xl">
-            <div className="flex items-center gap-3 mb-3">
-              <span className="text-[11px] uppercase tracking-widest font-semibold px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 font-mono">
-                Pathway 02 • NCVT / PSBTE Certified
-              </span>
-              <span className="text-xs text-white/50 font-medium">Click for trade syllabus</span>
-            </div>
-            <h3 className="text-editorial text-3xl sm:text-4xl md:text-5xl font-bold mb-5 text-white">
-              Universal ITI Trades
-            </h3>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-sm">
-              {[
-                { id: "iti_electrician", name: "Electrician Trade", dur: "2 Yrs" },
-                { id: "iti_diesel", name: "Mechanic Diesel", dur: "1 Yr" },
-                { id: "iti_plumber", name: "Plumber Trade", dur: "1 Yr" },
-                { id: "iti_welder", name: "Welder (Gas & Elec)", dur: "1 Yr" },
-                { id: "iti_fashion", name: "Fashion Design", dur: "1 Yr" },
-              ].map((trade) => (
-                <button
-                  key={trade.id}
-                  onClick={() => onSelectCourse(COURSE_DETAILS[trade.id as keyof typeof COURSE_DETAILS])}
-                  aria-label={`View details for ${trade.name}`}
-                  className="w-full text-left p-2.5 rounded-xl bg-white/[0.04] hover:bg-white/[0.12] border border-white/10 cursor-pointer flex items-center justify-between transition-all group focus:outline-none focus:ring-2 focus:ring-emerald-400"
-                >
-                  <div>
-                    <div className="font-semibold text-white group-hover:text-emerald-300 transition-colors text-xs sm:text-sm">
-                      {trade.name}
+        {SHOW_ITI && (
+          <div className="horizontal-panel w-screen h-full shrink-0 flex flex-col md:flex-row items-center justify-center p-8 md:p-16 gap-10 md:gap-14 bg-[#111217] text-[#f9f9f7]">
+            <div className="w-full md:w-1/2 max-w-xl">
+              <div className="flex items-center gap-3 mb-3">
+                <span className="text-[11px] uppercase tracking-widest font-semibold px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 font-mono">
+                  Pathway 02 • NCVT / PSBTE Certified
+                </span>
+                <span className="text-xs text-white/50 font-medium">Click for trade syllabus</span>
+              </div>
+              <h3 className="text-editorial text-3xl sm:text-4xl md:text-5xl font-bold mb-5 text-white">
+                Universal ITI Trades
+              </h3>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-sm">
+                {[
+                  { id: "iti_electrician", name: "Electrician Trade", dur: "2 Yrs" },
+                  { id: "iti_diesel", name: "Mechanic Diesel", dur: "1 Yr" },
+                  { id: "iti_plumber", name: "Plumber Trade", dur: "1 Yr" },
+                  { id: "iti_welder", name: "Welder (Gas & Elec)", dur: "1 Yr" },
+                  { id: "iti_fashion", name: "Fashion Design", dur: "1 Yr" },
+                ].map((trade) => (
+                  <button
+                    key={trade.id}
+                    onClick={() => onSelectCourse(COURSE_DETAILS[trade.id as keyof typeof COURSE_DETAILS])}
+                    aria-label={`View details for ${trade.name}`}
+                    className="w-full text-left p-2.5 rounded-xl bg-white/[0.04] hover:bg-white/[0.12] border border-white/10 cursor-pointer flex items-center justify-between transition-all group focus:outline-none focus:ring-2 focus:ring-emerald-400"
+                  >
+                    <div>
+                      <div className="font-semibold text-white group-hover:text-emerald-300 transition-colors text-xs sm:text-sm">
+                        {trade.name}
+                      </div>
+                      <span className="text-[11px] font-mono text-white/50">{trade.dur}</span>
                     </div>
-                    <span className="text-[11px] font-mono text-white/50">{trade.dur}</span>
-                  </div>
-                  <span className="text-xs text-white/40 group-hover:text-white transition-colors">→</span>
-                </button>
-              ))}
+                    <span className="text-xs text-white/40 group-hover:text-white transition-colors">→</span>
+                  </button>
+                ))}
+              </div>
+            </div>
+            <div className="w-full md:w-1/2 h-[45vh] md:h-[55vh] relative rounded-3xl overflow-hidden shadow-2xl border border-white/10">
+              <Image
+                src="/assets/campus/iti-diesel.webp"
+                alt="ITI Diesel Workshop"
+                fill
+                sizes="(max-width: 768px) 100vw, 50vw"
+                className="object-cover opacity-85"
+              />
             </div>
           </div>
-          <div className="w-full md:w-1/2 h-[45vh] md:h-[55vh] relative rounded-3xl overflow-hidden shadow-2xl border border-white/10">
-            <Image
-              src="/assets/campus/iti-diesel.webp"
-              alt="ITI Diesel Workshop"
-              fill
-              sizes="(max-width: 768px) 100vw, 50vw"
-              className="object-cover opacity-85"
-            />
-          </div>
-        </div>
+        )}
 
         {/* ================= PANEL 3: NIOS & OPEN UNIVERSITY ================= */}
         <div className="horizontal-panel w-screen h-full shrink-0 flex flex-col md:flex-row items-center justify-center p-8 md:p-16 gap-10 md:gap-14 bg-[#f9f9f7] text-[#1a1a1a]">
@@ -326,7 +335,7 @@ export default function HorizontalPrograms({ onSelectCourse }: HorizontalProgram
           <div className="w-full md:w-1/2 max-w-xl">
             <div className="flex items-center gap-3 mb-3">
               <span className="text-[11px] uppercase tracking-widest font-semibold px-3 py-1 rounded-full bg-amber-100 text-amber-800 font-mono">
-                Pathways 03 & 04 • Skill & Flexible Learning
+                {SHOW_ITI ? "Pathways 03 & 04 • Skill & Flexible Learning" : "Pathway 02 • Open University & Skill Certifications"}
               </span>
               <span className="text-xs text-gray-500 font-medium">Tap for eligibility</span>
             </div>
