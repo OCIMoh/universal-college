@@ -80,5 +80,5 @@ next_app/
 ## Support & Helpline
 
 - **Helpline**: +91-97791-46689 / +91-81465-26002
-- **Email**: admissions@universalcollegepatran.com
+- **Email**: universalpatran@gmail.com
 - **Address**: Universal College, Patran, District Patiala, Punjab – 147005

@@ -206,7 +206,7 @@ export const STATUTORY_COMMITTEES: StatutoryCommittee[] = [
         designation: "Assistant Professor (Computer Science)",
         qualification: "M.C.A.",
         phone: "+91-98645-05000",
-        email: "grievance@universalpatran.com",
+        email: "universalpatran@gmail.com",
         roleInCommittee: "Faculty Representative",
       },
       {
@@ -215,7 +215,7 @@ export const STATUTORY_COMMITTEES: StatutoryCommittee[] = [
         designation: "Assistant Professor (IT)",
         qualification: "M.Sc. IT",
         phone: "+91-98762-70188",
-        email: "grievance@universalpatran.com",
+        email: "universalpatran@gmail.com",
         roleInCommittee: "Faculty Representative",
       },
       {
@@ -224,7 +224,7 @@ export const STATUTORY_COMMITTEES: StatutoryCommittee[] = [
         designation: "Assistant Professor (Computer Science)",
         qualification: "M.C.A.",
         phone: "+91-81469-62043",
-        email: "grievance@universalpatran.com",
+        email: "universalpatran@gmail.com",
         roleInCommittee: "Member Secretary",
       },
     ],
@@ -264,7 +264,7 @@ export const STATUTORY_COMMITTEES: StatutoryCommittee[] = [
         designation: "Assistant Professor (HOD)",
         qualification: "M.C.A.",
         phone: "+91-98140-04165",
-        email: "antiragging@universalpatran.com",
+        email: "universalpatran@gmail.com",
         roleInCommittee: "Senior Faculty Member",
       },
       {
@@ -273,7 +273,7 @@ export const STATUTORY_COMMITTEES: StatutoryCommittee[] = [
         designation: "Assistant Professor / Principal",
         qualification: "M.C.A.",
         phone: "+91-98886-78516",
-        email: "antiragging@universalpatran.com",
+        email: "universalpatran@gmail.com",
         roleInCommittee: "Squad Coordinator",
       },
       {
@@ -282,7 +282,7 @@ export const STATUTORY_COMMITTEES: StatutoryCommittee[] = [
         designation: "Parents Representative",
         qualification: "Guardian Representative",
         phone: "+91-97809-17050",
-        email: "antiragging@universalpatran.com",
+        email: "universalpatran@gmail.com",
         roleInCommittee: "Parent / Community Member",
       },
       {
@@ -309,7 +309,7 @@ export const STATUTORY_COMMITTEES: StatutoryCommittee[] = [
         designation: "Clerk / Administration",
         qualification: "B.Com.",
         phone: "+91-62843-12781",
-        email: "ritikanegi765@gmail.com",
+        email: "universalpatran@gmail.com",
         roleInCommittee: "Non-Teaching Staff Representative",
       },
     ],
@@ -349,7 +349,7 @@ export const STATUTORY_COMMITTEES: StatutoryCommittee[] = [
         designation: "Assistant Professor / Principal",
         qualification: "Post-Graduate",
         phone: "+91-98886-78516",
-        email: "scstcell@universalpatran.com",
+        email: "universalpatran@gmail.com",
         roleInCommittee: "Member Secretary",
       },
       {
@@ -358,7 +358,7 @@ export const STATUTORY_COMMITTEES: StatutoryCommittee[] = [
         designation: "HOD Computer Science",
         qualification: "Post-Graduate (MCA)",
         phone: "+91-98140-04165",
-        email: "scstcell@universalpatran.com",
+        email: "universalpatran@gmail.com",
         roleInCommittee: "Senior Faculty Member",
       },
       {
@@ -367,7 +367,7 @@ export const STATUTORY_COMMITTEES: StatutoryCommittee[] = [
         designation: "Assistant Professor",
         qualification: "Post-Graduate",
         phone: "+91-78885-83007",
-        email: "scstcell@universalpatran.com",
+        email: "universalpatran@gmail.com",
         roleInCommittee: "Faculty Representative",
       },
       {
@@ -376,7 +376,7 @@ export const STATUTORY_COMMITTEES: StatutoryCommittee[] = [
         designation: "Assistant Professor",
         qualification: "M.C.A.",
         phone: "+91-81469-62043",
-        email: "scstcell@universalpatran.com",
+        email: "universalpatran@gmail.com",
         roleInCommittee: "Faculty Representative",
       },
       {
@@ -385,7 +385,7 @@ export const STATUTORY_COMMITTEES: StatutoryCommittee[] = [
         designation: "Faculty Member",
         qualification: "Post-Graduation",
         phone: "+91-99146-39551",
-        email: "scstcell@universalpatran.com",
+        email: "universalpatran@gmail.com",
         roleInCommittee: "Special Liaison Officer",
       },
     ],
@@ -702,7 +702,7 @@ export const STATUTORY_COMMITTEES: StatutoryCommittee[] = [
         designation: "HOD Computer Science",
         qualification: "M.C.A.",
         phone: "+91-98140-04165",
-        email: "gurkarmvirk65@gmail.com",
+        email: "universalpatran@gmail.com",
         roleInCommittee: "Faculty Representative",
       },
       {

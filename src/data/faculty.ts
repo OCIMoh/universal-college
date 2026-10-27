@@ -72,7 +72,7 @@ export const FACULTY_MEMBERS: FacultyMember[] = [
     experience: "20+ Years",
     image: "/assets/leadership/amrish-dhawan.png",
     phone: "+91-97791-46689",
-    email: "director@universalpatran.com",
+    email: "universalpatran@gmail.com",
     isLeadership: true,
   },
   {
@@ -87,7 +87,7 @@ export const FACULTY_MEMBERS: FacultyMember[] = [
     experience: "14+ Years",
     image: "/assets/leadership/yadwinder-singh.png",
     phone: "+91-98886-78516",
-    email: "principal@universalpatran.com",
+    email: "universalpatran@gmail.com",
     isLeadership: true,
   },
   {

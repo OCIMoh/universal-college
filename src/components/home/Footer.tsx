@@ -51,7 +51,7 @@ export default function Footer({ onSelectGovernance, onNavigateToTour }: FooterP
                 </p>
                 <p className="flex items-center gap-1.5">
                   <Mail className="w-3.5 h-3.5 flex-shrink-0" />
-                  <span>info@universaliti.in / universalpatran@gmail.com</span>
+                  <span>universalpatran@gmail.com</span>
                 </p>
                 <p className="text-white/50">Office: Mon–Sat 9:00 AM – 4:30 PM</p>
               </div>

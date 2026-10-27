@@ -28,7 +28,7 @@ const DEPARTMENT_HELPLINES = [
     title: "Central Admission Cell",
     incharge: "Er. Yadwinder Singh / Ms. Harjinder Kaur",
     phone: "+91-98886-78516",
-    email: "admissions@universalpatran.com",
+    email: "universalpatran@gmail.com",
     hours: "9:00 AM – 4:30 PM (Mon–Sat)",
     scope: "MRSPTU degrees, PSOU programs, NIOS skill courses & admission counseling.",
   },
@@ -36,7 +36,7 @@ const DEPARTMENT_HELPLINES = [
     title: "Directorate & Executive Office",
     incharge: "Dr. Amrish Dhawan (Director)",
     phone: "+91-97791-46689",
-    email: "director@universalpatran.com",
+    email: "universalpatran@gmail.com",
     hours: "10:00 AM – 3:30 PM (By Appointment)",
     scope: "Institutional policy, academic collaborations, regulatory affairs & quality benchmarks.",
   },
@@ -44,7 +44,7 @@ const DEPARTMENT_HELPLINES = [
     title: "Scholarship & PMSS Desk",
     incharge: "Mr. Sapinder Singh (Incharge)",
     phone: "+91-81465-26002",
-    email: "scholarships@universalpatran.com",
+    email: "universalpatran@gmail.com",
     hours: "9:30 AM – 4:00 PM (Mon–Sat)",
     scope: "Dr. Ambedkar portal registration, 100% SC fee waivers & minority welfare assistance.",
   },
@@ -370,7 +370,7 @@ export default function ContactClient() {
                     <input
                       type="email"
                       required
-                      placeholder="scholar@example.com"
+                      placeholder="universalpatran@gmail.com"
                       value={formData.email}
                       onChange={(e) =>
                         setFormData({ ...formData, email: e.target.value })

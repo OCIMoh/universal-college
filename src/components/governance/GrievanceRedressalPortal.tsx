@@ -351,7 +351,7 @@ export default function GrievanceRedressalPortal({
                     <input
                       type="email"
                       required
-                      placeholder="scholar@example.com"
+                      placeholder="universalpatran@gmail.com"
                       value={formData.email}
                       onChange={(e) =>
                         setFormData({ ...formData, email: e.target.value })

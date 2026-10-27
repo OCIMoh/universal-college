@@ -29,7 +29,7 @@ export const GOVERNANCE_DATA: Record<string, GovernanceSection> = {
       { label: "Vocational Affiliation", value: "National Council for Vocational Training (NCVT) & PSBTE & IT Chandigarh" },
       { label: "Skill Affiliation", value: "National Institute of Open Schooling (NIOS) & Jagat Guru Nanak Dev PSOU" },
       { label: "AICTE Status", value: "Approved under AICTE Regulations & Punjab Govt. Higher Education Directorate" },
-      { label: "Official Portal", value: "universalcollegepatran.in / info@universaliti.in" },
+      { label: "Official Portal", value: "universalcollegepatran.in / universalpatran@gmail.com" },
     ],
     items: [
       { name: "S. Baljeet Singh", designation: "Founder & Chairman", role: "Trustee & Apex Administration" },
@@ -61,7 +61,7 @@ export const GOVERNANCE_DATA: Record<string, GovernanceSection> = {
     description: "Strict enforcement of UGC and AICTE Anti-Ragging regulations to ensure a 100% safe, welcoming, and dignified campus environment.",
     details: [
       { label: "Anti-Ragging Helpline", value: "+91-97791-46689 / +91-81465-26002" },
-      { label: "National Anti-Ragging Toll Free", value: "1800-180-5522 (helpline@antiragging.in)" },
+      { label: "National Anti-Ragging Toll Free", value: "1800-180-5522 (universalpatran@gmail.com)" },
       { label: "Campus Status", value: "100% Ragging-Free Campus (Zero incidents reported since inception)" },
     ],
     items: [

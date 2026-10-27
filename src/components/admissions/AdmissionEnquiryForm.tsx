@@ -309,7 +309,7 @@ export default function AdmissionEnquiryForm() {
                     <input
                       id={`${formId}-email`}
                       type="email"
-                      placeholder="candidate@domain.com"
+                      placeholder="universalpatran@gmail.com"
                       value={formData.email}
                       onChange={(e) =>
                         setFormData({ ...formData, email: e.target.value })

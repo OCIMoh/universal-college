@@ -338,7 +338,7 @@ export const ADMISSION_HELPDESK_INFO = {
   helplinePhone: "97791-46689",
   alternatePhone: "98884-06100",
   landlinePhone: "01764-242195",
-  email: "admissions@universalcollegepatran.com",
+  email: "universalpatran@gmail.com",
   incharge: "Prof. Gurpreet Singh (Central Admission & Scholarship Coordinator)",
   officeHours: "Monday to Saturday: 9:00 AM to 4:00 PM (Closed on Sundays & Gazetted Holidays)",
   prospectusName: "Universal College Official Prospectus 2026-27",
