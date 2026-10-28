@@ -139,25 +139,53 @@ export default function CampusTourOverlay({
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [shouldRender, isExiting, triggerExit]);
 
-  // Non-passive native wheel & touch listeners that preventDefault and cancel browser scroll
+  const scrollMomentumRef = useRef(0);
+
+  // Initialize video loading when mounted
+  useEffect(() => {
+    if (!shouldRender || !videoRef.current) return;
+    const video = videoRef.current;
+    if (video.readyState === 0) {
+      video.load();
+    }
+    video.currentTime = 0;
+    scrollMomentumRef.current = 0;
+  }, [shouldRender]);
+
+  // Non-passive native wheel & touch listeners attached to WINDOW
   useEffect(() => {
     if (!shouldRender || isExiting) return;
-
-    const container = containerRef.current;
-    if (!container) return;
 
     const onWheelNative = (e: WheelEvent) => {
       e.preventDefault();
       e.stopPropagation();
       setShowScrollPrompt(false);
+
       if (isPlaying) {
         setIsPlaying(false);
-        if (videoRef.current) videoRef.current.pause();
       }
 
-      // Normalizing wheel delta across trackpads & notched wheels (decreased sensitivity by 10%)
-      const delta = Math.sign(e.deltaY) * Math.min(Math.abs(e.deltaY), 120) * 0.000324;
-      targetProgressRef.current = Math.min(Math.max(targetProgressRef.current + delta, 0), 1);
+      const rawDelta = e.deltaY;
+      const normalizedDelta = Math.sign(rawDelta) * Math.min(Math.abs(rawDelta), 100);
+
+      if (rawDelta > 0) {
+        // Scrolling forward: 4x fast speed impulse
+        const impulse = (normalizedDelta / 100) * 6.4;
+        scrollMomentumRef.current = Math.min(scrollMomentumRef.current + impulse, 16.0);
+      } else {
+        // Scrolling backward: 4x fast rewind
+        if (scrollMomentumRef.current > 0.1) {
+          scrollMomentumRef.current = Math.max(scrollMomentumRef.current - 2.5, 0);
+        } else {
+          scrollMomentumRef.current = 0;
+          const video = videoRef.current;
+          if (video) {
+            if (!video.paused) video.pause();
+            const rewind = (Math.abs(normalizedDelta) / 100) * 2.8;
+            video.currentTime = Math.max(video.currentTime - rewind, 0);
+          }
+        }
+      }
     };
 
     const onTouchStartNative = (e: TouchEvent) => {
@@ -168,32 +196,38 @@ export default function CampusTourOverlay({
       e.preventDefault();
       e.stopPropagation();
       setShowScrollPrompt(false);
+
       if (isPlaying) {
         setIsPlaying(false);
-        if (videoRef.current) videoRef.current.pause();
       }
 
       const currentY = e.touches[0].clientY;
       const deltaY = touchStartYRef.current - currentY;
       touchStartYRef.current = currentY;
 
-      // Touch drag delta (decreased sensitivity by 10%)
-      const delta = deltaY * 0.000864;
-      targetProgressRef.current = Math.min(Math.max(targetProgressRef.current + delta, 0), 1);
+      if (deltaY > 0) {
+        const impulse = Math.min(deltaY * 0.14, 10.0);
+        scrollMomentumRef.current = Math.min(scrollMomentumRef.current + impulse, 16.0);
+      } else if (deltaY < 0) {
+        const video = videoRef.current;
+        if (video) {
+          if (!video.paused) video.pause();
+          scrollMomentumRef.current = 0;
+          video.currentTime = Math.max(video.currentTime - Math.abs(deltaY) * 0.12, 0);
+        }
+      }
     };
 
-    container.addEventListener("wheel", onWheelNative, { passive: false });
-    container.addEventListener("touchstart", onTouchStartNative, { passive: true });
-    container.addEventListener("touchmove", onTouchMoveNative, { passive: false });
+    window.addEventListener("wheel", onWheelNative, { passive: false });
+    window.addEventListener("touchstart", onTouchStartNative, { passive: true });
+    window.addEventListener("touchmove", onTouchMoveNative, { passive: false });
 
     return () => {
-      container.removeEventListener("wheel", onWheelNative);
-      container.removeEventListener("touchstart", onTouchStartNative);
-      container.removeEventListener("touchmove", onTouchMoveNative);
+      window.removeEventListener("wheel", onWheelNative);
+      window.removeEventListener("touchstart", onTouchStartNative);
+      window.removeEventListener("touchmove", onTouchMoveNative);
     };
   }, [shouldRender, isExiting, isPlaying]);
-
-
 
   // Auto-tour toggle
   const togglePlay = (e?: React.MouseEvent) => {
@@ -202,6 +236,7 @@ export default function CampusTourOverlay({
       e.stopPropagation();
     }
     setShowScrollPrompt(false);
+    scrollMomentumRef.current = 0;
     if (!videoRef.current) return;
 
     if (isPlaying) {
@@ -211,8 +246,6 @@ export default function CampusTourOverlay({
       // If at or near the end, rewind to beginning and play
       if (videoRef.current.currentTime >= (videoRef.current.duration || 1) - 0.5) {
         videoRef.current.currentTime = 0;
-        targetProgressRef.current = 0;
-        currentProgressRef.current = 0;
       }
       const playPromise = videoRef.current.play();
       if (playPromise !== undefined) {
@@ -222,54 +255,57 @@ export default function CampusTourOverlay({
     }
   };
 
-  // Smooth Render & Scrub Lerp Loop
+  // Smooth Render & Native Playback Loop
   useEffect(() => {
     if (!shouldRender) return;
 
     let rafId: number;
     const video = videoRef.current;
 
-    const onSeeked = () => {
-      isSeekingRef.current = false;
-    };
-
     if (video) {
-      video.addEventListener("seeked", onSeeked);
+      if (video.readyState === 0) {
+        video.load();
+      }
     }
 
     const renderLoop = () => {
-      if (video && Number.isFinite(video.duration)) {
+      if (video && Number.isFinite(video.duration) && video.duration > 0) {
         if (isPlaying) {
-          // Video auto-playing mode
-          const currentP = video.currentTime / video.duration;
-          targetProgressRef.current = currentP;
-          currentProgressRef.current = currentP;
+          // Native constant auto-walk playback
+          if (video.playbackRate !== 1.0) video.playbackRate = 1.0;
+          if (video.paused) {
+            video.play().catch(() => {});
+          }
 
-          if (video.ended || currentP >= 0.99) {
+          if (video.ended || video.currentTime >= video.duration - 0.25) {
             triggerExit();
           }
         } else {
-          // Manual scrub with inertia lerp
-          const diff = targetProgressRef.current - currentProgressRef.current;
-          if (Math.abs(diff) > 0.0005) {
-            currentProgressRef.current += diff * 0.13;
-          }
+          // Scroll-driven native 60fps video playback (4x speed boost)
+          if (scrollMomentumRef.current > 0.02) {
+            if (video.paused) {
+              video.play().catch(() => {});
+            }
 
-          const targetTime = currentProgressRef.current * video.duration;
-          const timeDiff = targetTime - video.currentTime;
+            // 4x speed scaling (smooth up to 12.0x playback rate)
+            const targetRate = Math.min(Math.max(scrollMomentumRef.current * 1.5, 1.2), 12.0);
+            video.playbackRate += (targetRate - video.playbackRate) * 0.3;
 
-          if (Math.abs(timeDiff) > 0.018 && !isSeekingRef.current) {
-            const nextTime = video.currentTime + timeDiff * 0.22;
-            video.currentTime = Math.min(Math.max(nextTime, 0), video.duration);
-            isSeekingRef.current = true;
-          }
+            // Deceleration glide
+            scrollMomentumRef.current *= 0.94;
 
-          // Auto exit upon reaching tour completion
-          if (
-            currentProgressRef.current >= 0.99 &&
-            !isExitingRef.current
-          ) {
-            triggerExit();
+            if (video.ended || video.currentTime >= video.duration - 0.25) {
+              triggerExit();
+            }
+          } else {
+            // Deceleration complete: gently pause video
+            if (scrollMomentumRef.current > 0) {
+              scrollMomentumRef.current = 0;
+            }
+            if (!video.paused && !isPlaying) {
+              video.pause();
+              video.playbackRate = 1.0;
+            }
           }
         }
       }
@@ -281,9 +317,6 @@ export default function CampusTourOverlay({
 
     return () => {
       cancelAnimationFrame(rafId);
-      if (video) {
-        video.removeEventListener("seeked", onSeeked);
-      }
     };
   }, [shouldRender, isPlaying, triggerExit]);
 
@@ -293,7 +326,7 @@ export default function CampusTourOverlay({
     <div
       ref={containerRef}
       data-lenis-prevent
-      className="fixed inset-0 z-[120] bg-[#09090b] text-white select-none overflow-hidden"
+      className="fixed inset-0 z-[200] bg-[#09090b] text-white select-none overflow-hidden"
     >
       {/* ========================================================================= */}
       {/* FULLSCREEN VIDEO VIEWPORT & HARDWARE-ACCELERATED SCRUB ENGINE             */}
