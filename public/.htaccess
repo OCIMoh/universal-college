@@ -1,0 +1,14 @@
+RewriteEngine On
+RewriteBase /
+
+# 1. Force HTTPS
+RewriteCond %{HTTPS} off
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# 2. Support Clean URLs (loads /about without needing /about.html)
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}\.html -f
+RewriteRule ^(.*)$ $1.html [L]
+
+# 3. Custom 404 Error Handler
+ErrorDocument 404 /_not-found.html
