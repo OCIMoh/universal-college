@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { Phone } from "@/components/common/Icons";
+import { SHOW_NIOS } from "@/data/courses";
 
 export default function AdmissionCtaBanner() {
   return (
@@ -18,7 +19,7 @@ export default function AdmissionCtaBanner() {
             Take the First Step Toward Your Future.
           </h2>
           <p className="text-base sm:text-lg md:text-xl text-white/75 max-w-2xl mx-auto font-light leading-relaxed">
-            Choose from MRSPTU degrees, open university diplomas, or NIOS skill certifications. 100% Post-Matric SC scholarship available for eligible scholars.
+            Choose from MRSPTU degrees, open university diplomas{SHOW_NIOS ? ", or NIOS skill certifications" : ", and vocational skill diplomas"}. 100% Post-Matric SC scholarship available for eligible scholars.
           </p>
         </div>
 

@@ -4,7 +4,7 @@ import { useEffect, useRef } from "react";
 import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { COURSE_DETAILS, CourseDetail, SHOW_ITI } from "@/data/courses";
+import { COURSE_DETAILS, CourseDetail, SHOW_ITI,SHOW_NIOS } from "@/data/courses";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -184,10 +184,10 @@ export default function HorizontalPrograms({ onSelectCourse }: HorizontalProgram
                   <span className="text-xs text-white/30 group-hover:text-emerald-400 group-hover:translate-x-1 transition-all">→</span>
                 </div>
                 <strong className="text-xs sm:text-sm font-semibold text-white/95 block mt-0.5">
-                  PSOU & NIOS Wing
+                  {SHOW_NIOS ? "PSOU & NIOS Wing" : "PSOU Open University"}
                 </strong>
                 <span className="text-[11px] text-white/50 block font-light">
-                  Bridge Diplomas & Skill Certificates
+                  {SHOW_NIOS ? "Bridge Diplomas & Skill Certificates" : "Flexible State Degrees & Diplomas"}
                 </span>
               </button>
 
@@ -321,7 +321,7 @@ export default function HorizontalPrograms({ onSelectCourse }: HorizontalProgram
           </div>
         )}
 
-        {/* ================= PANEL 3: NIOS & OPEN UNIVERSITY ================= */}
+        {/* ================= PANEL 3: OPEN UNIVERSITY & VOCATIONAL ================= */}
         <div className="horizontal-panel w-screen h-full shrink-0 flex flex-col md:flex-row items-center justify-center p-8 md:p-16 gap-10 md:gap-14 bg-[#f9f9f7] text-[#1a1a1a]">
           <div className="w-full md:w-1/2 h-[45vh] md:h-[55vh] relative rounded-3xl overflow-hidden shadow-2xl border border-black/10">
             <Image
@@ -335,19 +335,28 @@ export default function HorizontalPrograms({ onSelectCourse }: HorizontalProgram
           <div className="w-full md:w-1/2 max-w-xl">
             <div className="flex items-center gap-3 mb-3">
               <span className="text-[11px] uppercase tracking-widest font-semibold px-3 py-1 rounded-full bg-amber-100 text-amber-800 font-mono">
-                {SHOW_ITI ? "Pathways 03 & 04 • Skill & Flexible Learning" : "Pathway 02 • Open University & Skill Certifications"}
+                {SHOW_NIOS
+                  ? (SHOW_ITI ? "Pathways 03 & 04 • Skill & Flexible Learning" : "Pathway 02 • Open University & Skill Certifications")
+                  : "Pathway 02 • Open University State Charter"}
               </span>
               <span className="text-xs text-gray-500 font-medium">Tap for eligibility</span>
             </div>
             <h3 className="text-editorial text-3xl sm:text-4xl md:text-5xl font-bold mb-5 text-neutral-900">
-              NIOS & Open University
+              {SHOW_NIOS ? "NIOS & Open University" : "PSOU Open University"}
             </h3>
             <ul className="space-y-2.5 text-base md:text-lg">
               {[
                 { id: "psou_office_auto", name: "Office Automation & E-Gov", dur: "1 Year" },
                 { id: "psou_nanny", name: "Diploma in Nanny Care", dur: "1 Year" },
-                { id: "nios_community_health", name: "Community Health Worker", dur: "1 Year" },
-                { id: "nios_elderly_care", name: "Care of Elderly", dur: "1 Year" },
+                ...(SHOW_NIOS
+                  ? [
+                      { id: "nios_community_health", name: "Community Health Worker", dur: "1 Year" },
+                      { id: "nios_elderly_care", name: "Care of Elderly", dur: "1 Year" },
+                    ]
+                  : [
+                      { id: "psou_bca", name: "BCA (PSOU Flexible)", dur: "4 Years" },
+                      { id: "psou_bcom", name: "B.Com Accounting & Taxation", dur: "4 Years" },
+                    ]),
                 { id: "psou_beauty", name: "Beauty & Wellness Certificate", dur: "1 Year" },
                 { id: "psou_ai_ds", name: "Diploma in AI & Data Science", dur: "1 Year" },
               ].map((item) => (

@@ -24,6 +24,13 @@ export interface CourseDetail {
  */
 export const SHOW_ITI = false;
 
+/**
+ * Feature Toggle for NIOS Skill & Vocational Courses.
+ * Set to `false` to hide all NIOS courses across the website.
+ * Set to `true` to immediately re-enable NIOS courses, filters, and panels.
+ */
+export const SHOW_NIOS = false;
+
 export const COURSE_DETAILS: Record<string, CourseDetail> = {
   // ==========================================
   // 1. MRSPTU BATHINDA (10 COURSES WITH OFFICIAL FEES)
@@ -534,5 +541,7 @@ export const COURSE_DETAILS: Record<string, CourseDetail> = {
 };
 
 export const ALL_COURSES = Object.values(COURSE_DETAILS).filter(
-  (course) => SHOW_ITI || course.category !== "ITI"
+  (course) =>
+    (SHOW_ITI || course.category !== "ITI") &&
+    (SHOW_NIOS || course.category !== "NIOS")
 );

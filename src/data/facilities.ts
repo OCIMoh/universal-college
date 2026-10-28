@@ -1,5 +1,4 @@
-// Universal College Patran — Campus & Facilities Dataset
-// 100% Fact-Checked & Verified against 'site map content.docx.pdf' (Pages 18–21)
+import { SHOW_NIOS } from "./courses";
 
 export interface Facility {
   id: string;
@@ -170,7 +169,7 @@ export const FACILITIES_DATA: Facility[] = [
     ],
     specifications: [
       { label: "Key Focus (PDF)", value: "Beauty & Wellness • Practical Training • Professional Skills" },
-      { label: "Affiliations", value: "PSOU & NIOS Certified Skill Courses" },
+      { label: "Affiliations", value: SHOW_NIOS ? "PSOU & NIOS Certified Skill Courses" : "PSOU Certified Skill Courses" },
       { label: "Sanitization", value: "Hospital-Grade UV Cabinet Sterilizers" },
       { label: "Training Focus", value: "Cosmetology, Hair Dressing, Skincare & Bridal Styling" },
     ],

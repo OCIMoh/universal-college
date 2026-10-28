@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { SHOW_NIOS } from "@/data/courses";
 
 interface NavigationDockProps {
   isOpen: boolean;
@@ -176,7 +177,7 @@ export default function NavigationDock({ isOpen, onClose }: NavigationDockProps)
         </div>
         <div className="flex items-center gap-1.5 text-white/40 truncate">
           <span>Affiliated:</span>
-          <span className="text-white/60">MRSPTU • PSOU • NIOS</span>
+          <span className="text-white/60">MRSPTU • PSOU{SHOW_NIOS ? " • NIOS" : ""}</span>
         </div>
       </div>
     </div>

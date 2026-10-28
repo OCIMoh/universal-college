@@ -1,6 +1,6 @@
 "use client";
 
-import { SHOW_ITI } from "@/data/courses";
+import { SHOW_ITI, SHOW_NIOS } from "@/data/courses";
 
 export type CategoryFilter = "ALL" | "MRSPTU" | "PSOU" | "NIOS" | "ITI";
 
@@ -19,11 +19,13 @@ interface AcademicPathwaysFilterProps {
   endIndex?: number;
 }
 
+const allCount = (10 + 10 + (SHOW_NIOS ? 5 : 0) + (SHOW_ITI ? 5 : 0)).toString().padStart(2, "0");
+
 const CATEGORIES: { id: CategoryFilter; label: string; count: string; subtitle: string }[] = [
-  { id: "ALL", label: "All Programmes", count: SHOW_ITI ? "30" : "25", subtitle: "Universal Campus" },
+  { id: "ALL", label: "All Programmes", count: allCount, subtitle: "Universal Campus" },
   { id: "MRSPTU", label: "MRSPTU Degrees", count: "10", subtitle: "State Technical Univ" },
   { id: "PSOU", label: "PSOU Open Learning", count: "10", subtitle: "State Open Univ" },
-  { id: "NIOS", label: "NIOS Skill Courses", count: "05", subtitle: "Govt. of India" },
+  ...(SHOW_NIOS ? [{ id: "NIOS" as CategoryFilter, label: "NIOS Skill Courses", count: "05", subtitle: "Govt. of India" }] : []),
   ...(SHOW_ITI ? [{ id: "ITI" as CategoryFilter, label: "ITI Industrial Trades", count: "05", subtitle: "NCVT Certified" }] : []),
 ];
 

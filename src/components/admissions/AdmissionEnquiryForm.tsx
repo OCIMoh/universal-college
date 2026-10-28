@@ -2,7 +2,7 @@
 
 import { useState, useId } from "react";
 import Image from "next/image";
-import { ALL_COURSES, SHOW_ITI } from "@/data/courses";
+import { ALL_COURSES, SHOW_ITI, SHOW_NIOS } from "@/data/courses";
 import { ADMISSION_HELPDESK_INFO } from "@/data/admissions";
 
 export default function AdmissionEnquiryForm() {
@@ -389,10 +389,10 @@ export default function AdmissionEnquiryForm() {
                       }
                       className="w-full py-2.5 bg-transparent border-b border-black/20 focus:border-neutral-950 text-neutral-950 text-sm focus:outline-none transition-colors cursor-pointer"
                     >
-                      <option value="ALL">All Pathways ({SHOW_ITI ? "30 Total Programmes" : "25 Total Programmes"})</option>
+                      <option value="ALL">All Pathways ({allCourses.length} Total Programmes)</option>
                       <option value="MRSPTU">MRSPTU Technical Degrees &amp; Diplomas</option>
                       <option value="PSOU">PSOU Open Learning Programmes</option>
-                      <option value="NIOS">NIOS Government Skill Courses</option>
+                      {SHOW_NIOS && <option value="NIOS">NIOS Government Skill Courses</option>}
                       {SHOW_ITI && <option value="ITI">ITI Industrial Trades (NCVT)</option>}
                     </select>
                   </div>

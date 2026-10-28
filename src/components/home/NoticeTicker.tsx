@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { SHOW_ITI } from "@/data/courses";
+import { SHOW_ITI, SHOW_NIOS } from "@/data/courses";
 
 export default function NoticeTicker() {
   return (
@@ -18,7 +18,7 @@ export default function NoticeTicker() {
           </span>
           <span className="text-white/20 hidden sm:inline">·</span>
           <span className="text-[11px] text-white/50 font-light hidden md:inline">
-            Session 2026–27 · MRSPTU · PSOU · NIOS{SHOW_ITI ? " · ITI" : ""}
+            Session 2026–27 · MRSPTU · PSOU{SHOW_NIOS ? " · NIOS" : ""}{SHOW_ITI ? " · ITI" : ""}
           </span>
         </div>
 

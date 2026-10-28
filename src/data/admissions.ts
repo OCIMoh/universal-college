@@ -3,7 +3,7 @@
  * Sources: "site map content.docx.pdf" (Page 16), "one.md" (Section 4 & 15), and College Regulations.
  */
 
-import { SHOW_ITI } from "./courses";
+import { SHOW_ITI, SHOW_NIOS } from "./courses";
 
 export interface AdmissionStep {
   stepNumber: string;
@@ -89,7 +89,7 @@ export const ADMISSION_STEPS: AdmissionStep[] = [
     title: "Counseling & Pathway Allotment",
     kicker: "Merit & Stream Counseling",
     summary:
-      `Meet dedicated departmental counselors for seat allotment across MRSPTU degree programmes, PSOU open university modules, and NIOS skill courses${SHOW_ITI ? ", or NCVT ITI trades" : ""} based on your career goals and marks.`,
+      `Meet dedicated departmental counselors for seat allotment across MRSPTU degree programmes, PSOU open university modules${SHOW_NIOS ? ", and NIOS skill courses" : ""}${SHOW_ITI ? ", or NCVT ITI trades" : ""} based on your career goals and marks.`,
     timeline: "Conducted within 24–48 hours of verification",
     location: "Departmental Helpdesks, Academic Wings",
     requirements: [
@@ -123,7 +123,7 @@ export const MANDATORY_DOCUMENTS: MandatoryDocument[] = [
     punjabiName: "ਦਸਵੀਂ ਜਮਾਤ ਦਾ ਡੀ.ਐੱਮ.ਸੀ. / ਮੈਟ੍ਰਿਕ ਸਰਟੀਫਿਕੇਟ",
     category: "academic",
     isMandatoryForAll: true,
-    applicableFor: `All Programmes (MRSPTU, PSOU, NIOS${SHOW_ITI ? ", ITI" : ""})`,
+    applicableFor: `All Programmes (MRSPTU, PSOU${SHOW_NIOS ? ", NIOS" : ""}${SHOW_ITI ? ", ITI" : ""})`,
     description: "Proof of date of birth, candidate's official spelling of names, and basic matriculation qualification.",
     issuingAuthority: "PSEB / CBSE / ICSE / Recognized State Board",
     copiesRequired: "Original + 3 Self-Attested Photocopies",
@@ -308,7 +308,7 @@ export const ADMISSION_SCHEDULE: AdmissionScheduleItem[] = [
   {
     event: "Phase 1 Direct Admissions & Counseling",
     dateOrStatus: "Open Now for Session 2026-27",
-    notes: `Direct on-campus merit counseling across all ${SHOW_ITI ? "30" : "25"} programs (MRSPTU, PSOU, NIOS${SHOW_ITI ? ", ITI" : ""}).`,
+    notes: `Direct on-campus merit counseling across all ${SHOW_ITI ? "30" : (SHOW_NIOS ? "25" : "20")} programs (MRSPTU, PSOU${SHOW_NIOS ? ", NIOS" : ""}${SHOW_ITI ? ", ITI" : ""}).`,
     badge: "Active",
   },
   {

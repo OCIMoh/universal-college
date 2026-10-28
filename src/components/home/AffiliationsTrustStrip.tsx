@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { SHOW_NIOS } from "@/data/courses";
 
 interface RegulatoryBody {
   acronym: string;
@@ -20,14 +21,18 @@ const STATUTORY_COUNCILS: RegulatoryBody[] = [
     authority: "Established by Govt. of Punjab under Punjab Act No. 19 of 2019",
     highlights: ["State Open Charter", "Flexible Admissions", "Skill Diplomas"],
   },
-  {
-    acronym: "NIOS",
-    name: "National Institute of Open Schooling",
-    category: "National Apex Board",
-    scope: "Min. of Education, Govt. of India • Secondary & Sr. Secondary",
-    authority: "Autonomous Organisation under Ministry of Education, New Delhi",
-    highlights: ["Govt. of India", "Bridge Courses", "Recognised Equivalence"],
-  },
+  ...(SHOW_NIOS
+    ? [
+        {
+          acronym: "NIOS",
+          name: "National Institute of Open Schooling",
+          category: "National Apex Board",
+          scope: "Min. of Education, Govt. of India • Secondary & Sr. Secondary",
+          authority: "Autonomous Organisation under Ministry of Education, New Delhi",
+          highlights: ["Govt. of India", "Bridge Courses", "Recognised Equivalence"],
+        },
+      ]
+    : []),
   {
     acronym: "AICTE",
     name: "All India Council for Technical Education",

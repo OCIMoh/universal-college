@@ -1,3 +1,5 @@
+import { SHOW_NIOS } from "./courses";
+
 export interface GovernanceSection {
   id: string;
   title: string;
@@ -27,7 +29,7 @@ export const GOVERNANCE_DATA: Record<string, GovernanceSection> = {
       { label: "Campus Land Area", value: "30,000+ Sq. Ft. Dedicated Instructional & Administrative Built-up Area" },
       { label: "Technical Affiliation", value: "Maharaja Ranjit Singh Punjab Technical University (MRSPTU), Bathinda" },
       { label: "Vocational Affiliation", value: "National Council for Vocational Training (NCVT) & PSBTE & IT Chandigarh" },
-      { label: "Skill Affiliation", value: "National Institute of Open Schooling (NIOS) & Jagat Guru Nanak Dev PSOU" },
+      { label: "Skill Affiliation", value: SHOW_NIOS ? "National Institute of Open Schooling (NIOS) & Jagat Guru Nanak Dev PSOU" : "Jagat Guru Nanak Dev PSOU (Punjab State Open University)" },
       { label: "AICTE Status", value: "Approved under AICTE Regulations & Punjab Govt. Higher Education Directorate" },
       { label: "Official Portal", value: "universalcollegepatran.in / universalpatran@gmail.com" },
     ],

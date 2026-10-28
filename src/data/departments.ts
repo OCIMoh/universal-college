@@ -1,4 +1,4 @@
-import { SHOW_ITI } from "./courses";
+import { SHOW_ITI, SHOW_NIOS } from "./courses";
 
 export interface DepartmentInfo {
   id: "commerce" | "humanities" | "computer-it" | "science-medical" | "fashion" | "nursing" | "vocational";
@@ -197,8 +197,10 @@ export const DEPARTMENTS_DATA: DepartmentInfo[] = [
     headOrCoordinator: SHOW_ITI ? "S. Baljeet Singh (Trust Patron) / Industrial Instructors" : "S. Baljeet Singh (Trust Patron) / Skill Instructors",
     facultyCount: 8,
     overview: SHOW_ITI
-      ? "The Vocational & Industrial Trades wing operates accredited NCVT ITI workshops in Electrician, Plumber, Welder, and Mechanic Diesel trades, as well as NIOS stenography and wellness certificates. With heavy-duty machinery, electrical testing panels, hydraulic rigs, and engine bays, we provide direct paths to employment in government utilities, manufacturing plants, and overseas skilled vocations."
-      : "The Department of Vocational & Skill Education delivers government-recognized skill certifications under NIOS and JGND Punjab State Open University, including English Stenography, Beauty & Wellness, and Yoga. Designed for self-employment and immediate career readiness.",
+      ? `The Vocational & Industrial Trades wing operates accredited NCVT ITI workshops in Electrician, Plumber, Welder, and Mechanic Diesel trades${SHOW_NIOS ? ", as well as NIOS stenography and wellness certificates" : ""}. With heavy-duty machinery, electrical testing panels, hydraulic rigs, and engine bays, we provide direct paths to employment in government utilities, manufacturing plants, and overseas skilled vocations.`
+      : (SHOW_NIOS
+          ? "The Department of Vocational & Skill Education delivers government-recognized skill certifications under NIOS and JGND Punjab State Open University, including English Stenography, Beauty & Wellness, and Yoga. Designed for self-employment and immediate career readiness."
+          : "The Department of Vocational & Skill Education delivers government-recognized skill certifications under JGND Punjab State Open University, including Beauty & Wellness, Yoga, and practical entrepreneurship diplomas. Designed for self-employment and immediate career readiness."),
     associatedLabs: SHOW_ITI
       ? [
           "Electrician Trade Workshop & Motor Rewinding Bay",
@@ -214,8 +216,7 @@ export const DEPARTMENTS_DATA: DepartmentInfo[] = [
         ],
     courseIds: [
       ...(SHOW_ITI ? ["iti_electrician", "iti_plumber", "iti_welder", "iti_diesel"] : []),
-      "nios_stenography",
-      "nios_beauty",
+      ...(SHOW_NIOS ? ["nios_stenography", "nios_beauty"] : []),
       "psou_yoga",
       "psou_beauty"
     ],
@@ -227,7 +228,7 @@ export const DEPARTMENTS_DATA: DepartmentInfo[] = [
           "Campus placement drives with regional manufacturing and infrastructure firms"
         ]
       : [
-          "Government-certified skill credentials under NIOS & JGND PSOU",
+          SHOW_NIOS ? "Government-certified skill credentials under NIOS & JGND PSOU" : "Government-certified skill credentials under JGND Punjab State Open University",
           "Dedicated practical salon, stenography labs, and wellness training halls",
           "100% Post-Matric SC Scholarship (PMSS) tuition waiver eligibility",
           "Fast-track employment and entrepreneurship incubation"

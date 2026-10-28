@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { GOVERNANCE_DATA, GovernanceSection } from "@/data/governance";
 import { Phone, Mail, MapPin } from "@/components/common/Icons";
+import { SHOW_NIOS } from "@/data/courses";
 
 interface FooterProps {
   onSelectGovernance: (section: GovernanceSection) => void;
@@ -251,7 +252,9 @@ export default function Footer({ onSelectGovernance, onNavigateToTour }: FooterP
             <span className="text-white/40 uppercase tracking-widest text-[10px]">Affiliated & Approved:</span>
             <span className="px-2.5 py-1 rounded-md bg-white/5 border border-white/10 text-white/80">MRSPTU Bathinda</span>
             <span className="px-2.5 py-1 rounded-md bg-white/5 border border-white/10 text-white/80">PSOU Patiala</span>
-            <span className="px-2.5 py-1 rounded-md bg-white/5 border border-white/10 text-white/80">NIOS Govt. of India</span>
+            {SHOW_NIOS && (
+              <span className="px-2.5 py-1 rounded-md bg-white/5 border border-white/10 text-white/80">NIOS Govt. of India</span>
+            )}
             <span className="px-2.5 py-1 rounded-md bg-white/5 border border-white/10 text-white/80">AICTE / UGC Norms</span>
           </div>
           <div className="text-[11px] text-white/50">

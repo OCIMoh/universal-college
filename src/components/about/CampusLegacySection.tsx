@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { SHOW_NIOS } from "@/data/courses";
 
 const COMMITMENT_POINTS = [
   { verb: "Educate", target: "the Mind", icon: "psychology" },
@@ -23,12 +24,16 @@ const AFFILIATIONS = [
     type: "Open & Flexible Higher Education",
     badge: "State Open University",
   },
-  {
-    name: "National Institute of Open Schooling (NIOS)",
-    city: "New Delhi",
-    type: "Skill & Alternative Pathways",
-    badge: "Govt. of India",
-  },
+  ...(SHOW_NIOS
+    ? [
+        {
+          name: "National Institute of Open Schooling (NIOS)",
+          city: "New Delhi",
+          type: "Skill & Alternative Pathways",
+          badge: "Govt. of India",
+        },
+      ]
+    : []),
   {
     name: "AICTE & UGC Frameworks",
     city: "New Delhi",
@@ -231,10 +236,12 @@ export default function CampusLegacySection() {
                     <span className="text-[11px] font-mono text-neutral-400">Epoch 03</span>
                   </div>
                   <h5 className="text-editorial text-lg font-bold text-neutral-900 mb-2">
-                    Skill & Open Learning (PSOU & NIOS)
+                    {SHOW_NIOS ? "Skill & Open Learning (PSOU & NIOS)" : "Flexible Open Learning (PSOU)"}
                   </h5>
                   <p className="text-xs text-neutral-600 leading-relaxed font-light">
-                    Expanded educational reach with Jagat Guru Nanak Dev PSOU and NIOS, delivering AI & Data Science diplomas, Nanny Care, and flexible vocational courses.
+                    {SHOW_NIOS
+                      ? "Expanded educational reach with Jagat Guru Nanak Dev PSOU and NIOS, delivering AI & Data Science diplomas, Nanny Care, and flexible vocational courses."
+                      : "Expanded educational reach with Jagat Guru Nanak Dev PSOU, delivering AI & Data Science diplomas, Office Automation, and flexible open university degrees."}
                   </p>
                 </div>
                 <div className="mt-4 pt-3 border-t border-black/5 text-[11px] font-mono text-emerald-700 font-medium">

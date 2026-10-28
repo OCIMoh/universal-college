@@ -3,13 +3,17 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { SHOW_ITI } from "@/data/courses";
+import { SHOW_ITI, SHOW_NIOS } from "@/data/courses";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const STATS = [
   { number: "2014", label: "Founded", sub: "Dashmesh Charitable Trust" },
-  { number: SHOW_ITI ? "15+" : "25+", label: "Programmes", sub: SHOW_ITI ? "Degree · ITI · Open · Skill" : "Degree · Open · Skill" },
+  {
+    number: SHOW_ITI ? "30+" : (SHOW_NIOS ? "25+" : "20+"),
+    label: "Programmes",
+    sub: SHOW_ITI ? "Degree · ITI · Open · Skill" : (SHOW_NIOS ? "Degree · Open · Skill" : "Degree · Open Univ")
+  },
   { number: "100%", label: "SC Scholarship", sub: "PMSS Fee Waiver", accent: true },
   { number: "64+", label: "Faculty & Staff", sub: "Teaching & Administrative" },
   { number: "16", label: "Campus Facilities", sub: "Labs · Library · Stadium" },

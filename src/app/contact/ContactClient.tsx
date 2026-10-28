@@ -22,6 +22,7 @@ import {
   Globe,
   Award,
 } from "@/components/common/Icons";
+import { SHOW_ITI, SHOW_NIOS } from "@/data/courses";
 
 const DEPARTMENT_HELPLINES = [
   {
@@ -30,7 +31,7 @@ const DEPARTMENT_HELPLINES = [
     phone: "+91-98886-78516",
     email: "universalpatran@gmail.com",
     hours: "9:00 AM – 4:30 PM (Mon–Sat)",
-    scope: "MRSPTU degrees, PSOU programs, NIOS skill courses & admission counseling.",
+    scope: `MRSPTU degrees, PSOU programs${SHOW_NIOS ? ", NIOS skill courses" : ""}${SHOW_ITI ? ", ITI trades" : ""} & admission counseling.`,
   },
   {
     title: "Directorate & Executive Office",
@@ -421,8 +422,8 @@ export default function ContactClient() {
                     <option value="PGDCA (MRSPTU)">PGDCA — Post Graduate Diploma in Computer Apps</option>
                     <option value="Nursing Assistant Certificate (MRSPTU)">Nursing Assistant Certificate (MRSPTU)</option>
                     <option value="PSOU Open Degree / Diploma">PSOU Open Degree / Diploma Program</option>
-                    <option value="NIOS Vocational Certification">NIOS Vocational Certification</option>
-                    <option value="ITI Trade Course">ITI Trade Program (Electrician / Welder / Plumber)</option>
+                    {SHOW_NIOS && <option value="NIOS Vocational Certification">NIOS Vocational Certification</option>}
+                    {SHOW_ITI && <option value="ITI Trade Course">ITI Trade Program (Electrician / Welder / Plumber)</option>}
                     <option value="Other / Not Decided">Other / Not Yet Decided</option>
                   </select>
                 </div>

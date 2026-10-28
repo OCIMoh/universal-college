@@ -1,4 +1,4 @@
-import { SHOW_ITI } from "./courses";
+import { SHOW_ITI, SHOW_NIOS } from "./courses";
 
 export interface GoverningMember {
   id: string;
@@ -877,19 +877,23 @@ export const MANDATORY_DISCLOSURES: MandatoryDisclosureRecord[] = [
     ],
     downloadLabel: "PSOU Centre Notification Letter",
   },
-  {
-    category: "National Vocational & Skill Accreditation",
-    title: "NIOS Accredited Study Centre",
-    referenceNo: "NIOS/AI/PB/220185",
-    issuingBody: "National Institute of Open Schooling, Ministry of Education, Govt. of India",
-    validity: "Permanent Centre #220185",
-    highlights: [
-      "Accredited centre for skill vocational courses: Community Health, Nanny Care, Stenography.",
-      "Recognized for secondary & senior secondary bridge certifications.",
-      "Exam center facility for Patran and surrounding educational clusters.",
-    ],
-    downloadLabel: "NIOS Accreditation Certificate",
-  },
+  ...(SHOW_NIOS
+    ? [
+        {
+          category: "National Vocational & Skill Accreditation",
+          title: "NIOS Accredited Study Centre",
+          referenceNo: "NIOS/AI/PB/220185",
+          issuingBody: "National Institute of Open Schooling, Ministry of Education, Govt. of India",
+          validity: "Permanent Centre #220185",
+          highlights: [
+            "Accredited centre for skill vocational courses: Community Health, Nanny Care, Stenography.",
+            "Recognized for secondary & senior secondary bridge certifications.",
+            "Exam center facility for Patran and surrounding educational clusters.",
+          ],
+          downloadLabel: "NIOS Accreditation Certificate",
+        },
+      ]
+    : []),
   ...(SHOW_ITI
     ? [
         {
